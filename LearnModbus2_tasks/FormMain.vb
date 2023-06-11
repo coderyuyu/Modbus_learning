@@ -1,9 +1,13 @@
 ﻿Imports System.Threading
+Imports System.Windows.Forms.DataVisualization.Charting
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
 'Imports ClassModbus
 'Imports Opc.Hda
 Imports EasyModbus
+Imports LearnModbus2_tasks.FormChart
+Imports OfficeOpenXml.Drawing
+
 Public Class FormMain
     Dim configXML As XmlDocument
     Dim xmlPath As String
@@ -19,12 +23,15 @@ Public Class FormMain
     Dim cancel_token As CancellationToken
     Delegate Sub UpdateRegs_Invoker(slave1 As Array)
     Delegate Sub UpdateStatus_Invoker(text As String, which As String)
+    Delegate Sub DrawChart_Invoker()
+    Delegate Sub UpdateFan_Invoker(f12 As Integer, onoff As Boolean)
     '    Dim channels As New Dictionary(Of String, ModbusClient)
     Dim SYS As New cSYS
     Dim DATA0 As New cDATA0
     Dim DATA1 As cDATA1
     Dim LOGQ As New Dictionary(Of String, Queue(Of String))
     Dim logTypes As Array = {"data", "system", "debug"}
+    Dim chartData As New Dictionary(Of String, List(Of Decimal))
     ''' <summary>
     ''' 程式啟動時一定會被執行的Form1_Load事件, 所有初始設定可在此執行
     ''' </summary>
@@ -38,25 +45,31 @@ Public Class FormMain
         cs = New CancellationTokenSource
         cancel_token = cs.Token
         AddHandler fanSwitch1.ValueChanged, Sub()
-                                                Fan1.Value = fanSwitch1.Value
-                                                SETTINGS.Fan1On = fanSwitch1.Value
-                                                SYS.COMS("COM1").WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
+                                                UpdateUI(fanSwitch1.Value, "fanSwitch1")
+                                                'Fan1.Value = fanSwitch1.Value
+                                                'SETTINGS.Fan1On = fanSwitch1.Value
+                                                'SYS.COMS("COM1").WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
                                             End Sub
         AddHandler fanSwitch2.ValueChanged, Sub()
-                                                Fan2.Value = fanSwitch2.Value
-                                                SETTINGS.Fan2On = fanSwitch2.Value
-                                                SYS.COMS("COM2").WriteTag("f2onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
+                                                UpdateUI(fanSwitch2.Value, "fanSwitch2")
+                                                'Fan2.Value = fanSwitch2.Value
+                                                'SETTINGS.Fan2On = fanSwitch2.Value
+                                                'SYS.COMS("COM2").WriteTag("f2onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
                                             End Sub
 
 #If DEBUG Then
         ' 開發環境, 先寫入一組預設值到, 只有 DEBUG 時才會執行
         ' 
-        SYS.COMS("COM1").WriteTag("f1temp", {21.3 * 10})
+        t1.Value = 21.3
+        t2.Value = 11.9
+        SYS.COMS("COM1").WriteTag("f1temp", {t1.Value * 10})
         SYS.COMS("COM1").WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
-        SYS.COMS("COM2").WriteTag("f2temp", {24.5 * 10})
+        SYS.COMS("COM2").WriteTag("f2temp", {t2.Value * 10})
         SYS.COMS("COM2").WriteTag("f2onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
         fanSwitch1.Value = SETTINGS.Fan1On
         fanSwitch2.Value = SETTINGS.Fan2On
+
+
         'Fan1.Value = SETTINGS.Fan1On
         'Fan2.Value = SETTINGS.Fan2On
         With t1
@@ -80,8 +93,40 @@ Public Class FormMain
             .Band2EndValue = .Maximum
         End With
 #End If
+        ' Chart 初始設定
+        For Each chart In {Chart1, Chart2}
+            With chart
+                .ChartAreas.Clear()
+                .ChartAreas.Add("Default")
+                With chart.ChartAreas("Default")
+                    .AxisX.Title = "時間"
+                    .AxisX.Interval = 2
+                    .AxisX.IsMarginVisible = True
+                    .AxisX.MajorGrid.LineColor = Color.SkyBlue
+                    .AxisY.MajorGrid.LineColor = Color.SkyBlue
+                    .AxisY.Title = "溫度"
+                    .AxisY.Interval = 5
+                    .AxisY.Maximum = 30
+                    .AxisY.Minimum = 10
 
+                End With
 
+                .Legends.Clear()
+                .Legends.Add("Default")
+                .Legends("Default").Docking = Docking.Top
+
+                .Series.Clear()
+                .Series.Add("溫度")
+
+                With .Series(0)
+                    .BorderWidth = 2
+                    .Color = Color.Red
+                    .ChartType = DataVisualization.Charting.SeriesChartType.Line
+                End With
+            End With
+        Next
+        chartData.Add("fan1", New List(Of Decimal))
+        chartData.Add("fan2", New List(Of Decimal))
         ' 實例化 DATA1
         ' 宣告各個 event 要執行的項目
         DATA1 = New cDATA1()
@@ -165,7 +210,10 @@ Public Class FormMain
                     End If
                     ' 至此 com port 都開了
                     ' modClient 物件存在 channels dictionary 中
-
+                    'chartData("fan1").Clear()
+                    'chartData("fan2").Clear()
+                    chartData("fan1").Add(t1.Value)
+                    chartData("fan2").Add(t2.Value)
 
 
                     UpdateUI(text:=RS.UI.BUTTON_STOP_TEXT, which:=RS.UI.START_BUTTON) ' 保持良好習慣, 用delegate更新UI
@@ -186,9 +234,8 @@ Public Class FormMain
                                                 DoActionProcess()
                                                 Task.Delay(3000).Wait()
                                             End Sub)
-
                     TASK_LOG = Task.Run(Sub()
-                                            DoWriteLogProcess()
+                                            doWriteLogProcess()
                                             Task.Delay(3000).Wait()
                                         End Sub)
 
@@ -227,10 +274,15 @@ Public Class FormMain
                 Case "t2"
                     t2.Value = text
                 Case "fanSwitch1"
-                    fanSwitch1.Value = CBool(text)
-                    'Fan1.Value = fanSwitch1.Value
+                    ' fanSwitch1.Value = CBool(text)
+                    Fan1.Value = fanSwitch1.Value
+                    SETTINGS.Fan1On = fanSwitch1.Value
+                    SYS.COMS("COM1").WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
                 Case "fanSwitch2"
-                    fanSwitch2.Value = CBool(text)
+                    Fan2.Value = fanSwitch2.Value
+                    SETTINGS.Fan2On = fanSwitch2.Value
+                    SYS.COMS("COM2").WriteTag("f1onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
+                    ' fanSwitch2.Value = CBool(text)
                     'Fan2.Value = fanSwitch2.Value
             End Select
 
@@ -313,14 +365,20 @@ Public Class FormMain
         'Static count As Long = 0
         'Dim slave2 As Integer()
         Do
-
             Try
-                SyncLock DATA0
-                    DATA1.Update(DATA0)
-                End SyncLock
-                SyncLock LOGQ("data")
-                    LOGQ("data").Enqueue(DATA1.LogString())
-                End SyncLock
+                If DATA0.Fan1Degree <> 0 Then
+                    SyncLock DATA0
+                        DATA1.Update(DATA0)
+                    End SyncLock
+                    SyncLock LOGQ("data")
+                        LOGQ("data").Enqueue(DATA1.LogString())
+                    End SyncLock
+                    chartData("fan1").Add(DATA1.Fan1Degree)
+                    chartData("fan2").Add(DATA1.Fan2Degree)
+                    If chartData("fan1").Count > 50 Then chartData("fan1").RemoveAt(0)
+                    If chartData("fan2").Count > 50 Then chartData("fan2").RemoveAt(0)
+                    DrawChart()
+                End If
                 Task.Delay(1000).Wait()
             Catch ex As Exception
                 ConsoleLog(ex.ToString)
@@ -347,7 +405,7 @@ Public Class FormMain
                     LOGGER.WriteLog(logtype, list, True)
                 End Sub
                 )
-        Loop While Not cancel_token.IsCancellationRequested OrElse Not isAllLogQEmpty
+        Loop While Not cancel_token.IsCancellationRequested OrElse Not isAllLogQEmpty()
     End Sub
 
     Function isAllLogQEmpty() As Boolean
@@ -361,6 +419,21 @@ Public Class FormMain
         Return isAllEmpty
     End Function
 
+    Sub DrawChart()
+        If Chart1.InvokeRequired Then
+            Chart1.Invoke(New DrawChart_Invoker(AddressOf DrawChart))
+        Else
+            Chart1.Series(0).Points.Clear()
+            Chart2.Series(0).Points.Clear()
+            For Each i In chartData("fan1")
+                Chart1.Series(0).Points.AddXY("", i)
+            Next
+            For Each i In chartData("fan2")
+                Chart2.Series(0).Points.AddXY("", i)
+            Next
+        End If
+
+    End Sub
 
     ''' <summary>
     ''' 用於開發時沒有實體的模擬測試
@@ -400,10 +473,10 @@ Public Class FormMain
     End Sub
 
     Private Sub doFanSwitch1(sender As Object, e As EventArgs) Handles fanSwitch1.Click
-        fanSwitch1.Value = Not sender.value
+        fanSwitch1.Value = Not fanSwitch1.Value
     End Sub
     Private Sub doFanSwitch2(sender As Object, e As EventArgs) Handles fanSwitch2.Click
-        fanSwitch2.Value = Not sender.value
+        fanSwitch2.Value = Not fanSwitch2.Value
     End Sub
 
     Private Sub WriteOneSimulateData(MBC As ModbusClient,
@@ -425,9 +498,7 @@ Public Class FormMain
         MBC.Disconnect()
     End Sub
 
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
 
-    End Sub
 
     Private Sub ButtonLog_Click(sender As Object, e As EventArgs) Handles ButtonLog.Click
         FormFileBrowser.Show()
@@ -435,5 +506,9 @@ Public Class FormMain
 
     Private Sub ButtonTest_Click(sender As Object, e As EventArgs) Handles ButtonTest.Click
         FormChart.Show()
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
     End Sub
 End Class

@@ -32,11 +32,11 @@ Partial Class FormFileBrowser
         Me.file_list = New System.Windows.Forms.ListBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.FConsole1 = New WindowsForms.Console.FConsole()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ContextMenuStrip3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.FConsole1 = New WindowsForms.Console.FConsole()
         Me.TLP.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -150,21 +150,6 @@ Partial Class FormFileBrowser
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(563, 505)
         Me.TableLayoutPanel1.TabIndex = 4
         '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
-        '
-        'ContextMenuStrip2
-        '
-        Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(61, 4)
-        '
-        'ContextMenuStrip3
-        '
-        Me.ContextMenuStrip3.Name = "ContextMenuStrip3"
-        Me.ContextMenuStrip3.Size = New System.Drawing.Size(61, 4)
-        '
         'RichTextBox1
         '
         Me.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
@@ -189,6 +174,7 @@ Partial Class FormFileBrowser
         Me.FConsole1.MaxLength = 32767
         Me.FConsole1.MinimumSize = New System.Drawing.Size(10, 10)
         Me.FConsole1.Name = "FConsole1"
+        Me.FConsole1.ReadOnly = True
         Me.FConsole1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
         Me.FConsole1.SecureReadLine = True
         Me.FConsole1.Size = New System.Drawing.Size(557, 152)
@@ -196,6 +182,21 @@ Partial Class FormFileBrowser
         Me.FConsole1.TabIndex = 3
         Me.FConsole1.Text = ""
         Me.FConsole1.Title = ""
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        '
+        'ContextMenuStrip2
+        '
+        Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(61, 4)
+        '
+        'ContextMenuStrip3
+        '
+        Me.ContextMenuStrip3.Name = "ContextMenuStrip3"
+        Me.ContextMenuStrip3.Size = New System.Drawing.Size(61, 4)
         '
         'FormFileBrowser
         '

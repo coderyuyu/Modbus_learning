@@ -287,12 +287,7 @@ Module mPublic
                 .AddTag(New cTAG(tagName:="f2onoff", slaveid:=1, registerAddress:=2, dataLength:=1))
             End With
             COMS.Add(com.SerialPort, com)
-            ' 把所有 tag 集中到 TAGS, 單純方便整批讀寫
-            'For Each com In COMS.Values
-            '    For Each tag In com.Tags.Values
-            '        Me.TAGS.Add(tag.tagName, {com, tag})
-            '    Next
-            'Next
+
         End Sub
     End Class
     ''' <summary>

@@ -56,6 +56,7 @@ Partial Class FormX
         Me.TempController1 = New AdvancedHMIControls.TempController()
         Me.ThreeButtons1 = New AdvancedHMIControls.ThreeButtons()
         Me.Tank1 = New AdvancedHMIControls.Tank()
+        Me.Fan1 = New MfgControl.AdvancedHMI.Controls.Fan()
         CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AnalogVisibilityController1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CircularProgressBar1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -365,7 +366,7 @@ Partial Class FormX
         Me.Gauge1.BackColor = System.Drawing.Color.Transparent
         Me.Gauge1.ComComponent = Me.EthernetIPforCLXCom1
         Me.Gauge1.HighlightColor = System.Drawing.Color.Red
-        Me.Gauge1.Location = New System.Drawing.Point(316, 248)
+        Me.Gauge1.Location = New System.Drawing.Point(241, 294)
         Me.Gauge1.Maximum = 100
         Me.Gauge1.Minimum = 0
         Me.Gauge1.Name = "Gauge1"
@@ -382,6 +383,7 @@ Partial Class FormX
         'MessageDisplayByBit1
         '
         Me.MessageDisplayByBit1.AutoSize = True
+        Me.MessageDisplayByBit1.BackColor = System.Drawing.Color.Transparent
         Me.MessageDisplayByBit1.ComComponent = Me.EthernetIPforCLXCom1
         Me.MessageDisplayByBit1.DefaultMessage = "No Messages"
         Me.MessageDisplayByBit1.DisplayTime = 3000
@@ -503,11 +505,24 @@ Partial Class FormX
         Me.Tank1.Value = 22.0!
         Me.Tank1.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'Form1
+        'Fan1
+        '
+        Me.Fan1.Direction = False
+        Me.Fan1.Location = New System.Drawing.Point(371, 270)
+        Me.Fan1.Name = "Fan1"
+        Me.Fan1.OutputType = MfgControl.AdvancedHMI.Controls.OutputType.MomentarySet
+        Me.Fan1.Size = New System.Drawing.Size(99, 99)
+        Me.Fan1.TabIndex = 68
+        Me.Fan1.Text = "Fan1"
+        Me.Fan1.TextPosition = System.Drawing.StringAlignment.Near
+        Me.Fan1.Value = False
+        '
+        'FormX
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(550, 514)
+        Me.Controls.Add(Me.Fan1)
         Me.Controls.Add(Me.Tank1)
         Me.Controls.Add(Me.ThreeButtons1)
         Me.Controls.Add(Me.TempController1)
@@ -538,7 +553,7 @@ Partial Class FormX
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtPort)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "Form1"
+        Me.Name = "FormX"
         Me.Text = "22222"
         CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AnalogVisibilityController1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -582,4 +597,5 @@ Partial Class FormX
     Friend WithEvents TempController1 As AdvancedHMIControls.TempController
     Friend WithEvents ThreeButtons1 As AdvancedHMIControls.ThreeButtons
     Friend WithEvents Tank1 As AdvancedHMIControls.Tank
+    Friend WithEvents Fan1 As MfgControl.AdvancedHMI.Controls.Fan
 End Class

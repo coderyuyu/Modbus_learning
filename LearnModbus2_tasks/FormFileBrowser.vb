@@ -219,4 +219,7 @@ Public Class FormFileBrowser
         FConsole1.WriteLine(msg)
     End Sub
 
+    Private Sub TLP_Paint(sender As Object, e As PaintEventArgs) Handles TLP.Paint
+
+    End Sub
 End Class
