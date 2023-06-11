@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C891AB4-4028-4B17-83CD-5E7FB1BE979D}</ProjectGuid>
+    <ProjectGuid>{DEF010F2-ADB9-4D79-90D4-BDB7E1E625D1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Sample1.My.MyApplication</StartupObject>
-    <RootNamespace>Sample1</RootNamespace>
-    <AssemblyName>Sample1</AssemblyName>
+    <StartupObject>LearnModbus4_Settings.My.MyApplication</StartupObject>
+    <RootNamespace>LearnModbus4_Settings</RootNamespace>
+    <AssemblyName>LearnModbus4_Settings</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Sample1.xml</DocumentationFile>
+    <DocumentationFile>LearnModbus4_Settings.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Sample1.xml</DocumentationFile>
+    <DocumentationFile>LearnModbus4_Settings.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -53,9 +53,6 @@
     </Reference>
     <Reference Include="AdvancedHMIDrivers, Version=3.9.9.24, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\AdvancedHMIDrivers.dll</HintPath>
-    </Reference>
-    <Reference Include="EasyModbus, Version=5.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EasyModbusTCP.5.6.0\lib\net40\EasyModbus.dll</HintPath>
     </Reference>
     <Reference Include="MfgControl.AdvancedHMI.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\MfgControl.AdvancedHMI.Controls.dll</HintPath>
@@ -82,6 +79,9 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsForms.Console, Version=2.0.11.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsForms.Console.2.0.11.1-alpha\lib\net472\WindowsForms.Console.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -97,6 +97,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DialogSettings.Designer.vb">
+      <DependentUpon>DialogSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DialogSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,19 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormConsole.Designer.vb">
+      <DependentUpon>FormConsole.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormConsole.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTester.Designer.vb">
+      <DependentUpon>FormTester.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormTester.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mSerialPort.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -121,8 +140,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DialogSettings.resx">
+      <DependentUpon>DialogSettings.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConsole.resx">
+      <DependentUpon>FormConsole.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTester.resx">
+      <DependentUpon>FormTester.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -143,6 +171,17 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassModbus\ClassModbus.vbproj">
+      <Project>{70f52c7d-3db7-49bd-8a95-d6f1d4e4dbdd}</Project>
+      <Name>ClassModbus</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

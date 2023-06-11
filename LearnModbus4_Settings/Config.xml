@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<system name="開發測試">
+	<settings widths="250,120,100" font-size="18">
+		<parameter id="p01" name="力值設定" value="20.1" unit="Tons" mask="##.#" length=""></parameter>
+		<parameter id="p02" name="變頻器初始頻率" value="16" unit="Hz" mask="" length=""></parameter>
+		<parameter id="p03" name="開始紀錄前重寘頻率" value="18" unit="Hz" mask="" length=""></parameter>
+		<parameter id="p04" name="容許最低承載力值" value="10" unit="Tons" mask="" length=""></parameter>
+		<parameter id="p05" name="測試點應變頻率" value="4" unit="Hz" mask="" length=""></parameter>
+		<parameter id="p06" name="磁閥送電時間分配" value="50" unit="%" mask="" length=""></parameter>
+		<parameter id="p07" name="電磁閥不送電時間分配" value="50" unit="%" mask="" length=""></parameter>
+		<parameter id="p08" name="預定循環次數" value="2000000" unit="次" mask="" length=""></parameter>
+	</settings>
+	<channels>
+		<com port="1" baudrate="9600">
+			<slave id="1" name="變頻器">
+				<tag name="變頻器" address="3" length="1" type="wr"></tag>
+			</slave>
+		</com>
+		<com port="2" baudrate="9600">
+			<slave id="1" name="電池閥">
+				<tag name="電池閥A" address="4" length="1" type="wr"></tag>
+				<tag name="電池閥C" address="5" length="1" type="wr"></tag>
+			</slave>
+		</com>
+		<com port="3" baudrate="9600">
+			<slave id="1" name="">
+				<tag name="力值" address="6" length="1" type="r"></tag>
+			</slave>
+		</com>
+	</channels>
+</system>

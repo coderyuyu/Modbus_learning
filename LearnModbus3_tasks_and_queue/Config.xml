@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<system name="開發測試">
+	<settings >
+		<parameter id="p01" name="力值設定" value="20" unit="Tons" mask="" length=""></parameter>
+		<parameter id="p02" name="變頻器初始頻率" value="16" unit="Hz" mask="" length=""></parameter>
+		<parameter id="p03" name="開始紀錄前重寘頻率" value="18" unit="Hz" mask="" length=""></parameter>
+		<parameter id="p04" name="容許最低承載力值" value="10" unit="Tons" mask="" length=""></parameter>
+		<parameter id="p05" name="測試點應變頻率" value="4" unit="Hz" mask="" length=""></parameter>
+		<parameter id="p06" name="磁閥送電時間分配" value="50" unit="%" mask="" length=""></parameter>
+		<parameter id="p07" name="電磁閥不送電時間分配" value="50" unit="%" mask="" length=""></parameter>
+		<parameter id="p08" name="預定循環次數" value="2000000" unit="次" mask="" length=""></parameter>
+	</settings>
+	<channel>
+		<com port="1" baudrate="9600">
+			<slave id="1" name="">
+				<tag name="" address="" length=""></tag>
+			</slave>
+		</com>
+	</channel>
+</system>

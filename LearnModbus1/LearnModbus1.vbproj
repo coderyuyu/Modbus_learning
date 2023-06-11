@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C891AB4-4028-4B17-83CD-5E7FB1BE979D}</ProjectGuid>
+    <ProjectGuid>{5EE3E818-12FB-4D9F-A320-DCE1E48C9E54}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Sample1.My.MyApplication</StartupObject>
-    <RootNamespace>Sample1</RootNamespace>
-    <AssemblyName>Sample1</AssemblyName>
+    <StartupObject>LearnModbus1.My.MyApplication</StartupObject>
+    <RootNamespace>LearnModbus1</RootNamespace>
+    <AssemblyName>LearnModbus1</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Sample1.xml</DocumentationFile>
+    <DocumentationFile>LearnModbus1.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Sample1.xml</DocumentationFile>
+    <DocumentationFile>LearnModbus1.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -48,29 +48,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvancedHMIControls, Version=3.9.9.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\AdvancedHMIControls.dll</HintPath>
-    </Reference>
-    <Reference Include="AdvancedHMIDrivers, Version=3.9.9.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\AdvancedHMIDrivers.dll</HintPath>
-    </Reference>
     <Reference Include="EasyModbus, Version=5.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EasyModbusTCP.5.6.0\lib\net40\EasyModbus.dll</HintPath>
-    </Reference>
-    <Reference Include="MfgControl.AdvancedHMI.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\MfgControl.AdvancedHMI.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="MfgControl.AdvancedHMI.Drivers, Version=3.99.19.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\MfgControl.AdvancedHMI.Drivers.dll</HintPath>
-    </Reference>
-    <Reference Include="OpcComRcw, Version=2.0.105.1, Culture=neutral, PublicKeyToken=9a40e993cbface53, processorArchitecture=MSIL">
-      <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\OpcComRcw.dll</HintPath>
-    </Reference>
-    <Reference Include="OpcNetApi, Version=2.1.105.1, Culture=neutral, PublicKeyToken=9a40e993cbface53, processorArchitecture=MSIL">
-      <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\OpcNetApi.dll</HintPath>
-    </Reference>
-    <Reference Include="OpcNetApi.Com, Version=2.1.105.1, Culture=neutral, PublicKeyToken=9a40e993cbface53, processorArchitecture=MSIL">
-      <HintPath>..\packages\hima.lib.advancedhmi.3.9.9\lib\OpcNetApi.Com.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sample1", "Sample1\Sample1.vbproj", "{7C891AB4-4028-4B17-83CD-5E7FB1BE979D}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LearnModbus1", "LearnModbus1\LearnModbus1.vbproj", "{5EE3E818-12FB-4D9F-A320-DCE1E48C9E54}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LearnModbus2_tasks", "LearnModbus2_tasks\LearnModbus2_tasks.vbproj", "{6E2D6539-ABB5-4696-9035-0E34364CCF44}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LearnModbus3_tasks_and_queue", "LearnModbus3_tasks_and_queue\LearnModbus3_tasks_and_queue.vbproj", "{08440163-93DD-4B2B-A4F7-17CA8DF3E4D0}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LearnModbus4_Settings", "LearnModbus4_Settings\LearnModbus4_Settings.vbproj", "{DEF010F2-ADB9-4D79-90D4-BDB7E1E625D1}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ClassModbus", "ClassModbus\ClassModbus.vbproj", "{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7C891AB4-4028-4B17-83CD-5E7FB1BE979D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C891AB4-4028-4B17-83CD-5E7FB1BE979D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C891AB4-4028-4B17-83CD-5E7FB1BE979D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C891AB4-4028-4B17-83CD-5E7FB1BE979D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EE3E818-12FB-4D9F-A320-DCE1E48C9E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EE3E818-12FB-4D9F-A320-DCE1E48C9E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EE3E818-12FB-4D9F-A320-DCE1E48C9E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EE3E818-12FB-4D9F-A320-DCE1E48C9E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E2D6539-ABB5-4696-9035-0E34364CCF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E2D6539-ABB5-4696-9035-0E34364CCF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E2D6539-ABB5-4696-9035-0E34364CCF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E2D6539-ABB5-4696-9035-0E34364CCF44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08440163-93DD-4B2B-A4F7-17CA8DF3E4D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08440163-93DD-4B2B-A4F7-17CA8DF3E4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08440163-93DD-4B2B-A4F7-17CA8DF3E4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08440163-93DD-4B2B-A4F7-17CA8DF3E4D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEF010F2-ADB9-4D79-90D4-BDB7E1E625D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF010F2-ADB9-4D79-90D4-BDB7E1E625D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF010F2-ADB9-4D79-90D4-BDB7E1E625D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF010F2-ADB9-4D79-90D4-BDB7E1E625D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
