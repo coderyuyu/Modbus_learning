@@ -17,6 +17,9 @@ Public Class FormX
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cs = New CancellationTokenSource
         cancel_token = cs.Token
+
+
+
         'ButtonConnect.PerformClick()
     End Sub
 
