@@ -6,6 +6,8 @@ Imports System.Net
 Imports System.Windows.Forms.AxHost
 
 Module mPublic
+    Public Const CHANNEL1 = "COM3"
+    Public Const CHANNEL2 = "COM4"
     Class MSG
         Shared ReadOnly Property START_NG = "系統啟動失敗, 詳情請參閱Console"
         Shared ReadOnly Property START_OK = "系統啟動成功"
@@ -265,7 +267,7 @@ Module mPublic
             Dim com As cCOM
             For Each k In COMS.Keys
                 com = COMS(k)
-                com.Disconnect()
+                com.DisConnect()
             Next
         End Sub
         ''' <summary>
@@ -275,13 +277,13 @@ Module mPublic
         Private Sub loadConfig()
             COMS = New Dictionary(Of String, cCOM)
             Dim com As cCOM
-            com = New cCOM("COM1", Name:="第一組")
+            com = New cCOM(CHANNEL1, Name:="第一組")
             With com
                 .AddTag(New cTAG(tagName:="f1temp", slaveid:=1, registerAddress:=1, dataLength:=1))
                 .AddTag(New cTAG(tagName:="f1onoff", slaveid:=1, registerAddress:=2, dataLength:=1))
             End With
             COMS.Add(com.SerialPort, com)
-            com = New cCOM("COM2", Name:="第二組")
+            com = New cCOM(CHANNEL2, Name:="第二組")
             With com
                 .AddTag(New cTAG(tagName:="f2temp", slaveid:=1, registerAddress:=1, dataLength:=1))
                 .AddTag(New cTAG(tagName:="f2onoff", slaveid:=1, registerAddress:=2, dataLength:=1))
@@ -429,9 +431,9 @@ Module mPublic
 
         Private Shared Function PrepareLogFile(logtype As String) As String
             'Dim logPath As String = Path.Combine(Application.StartupPath, "logs") ' LOG預設存檔位置在程式下logs子目錄
-            Dim logFileName As String = Path.Combine(logPath, $"{logtype}_{Format(Now, "yyyy-MM-dd")}.log")
-            If Not Directory.Exists(logPath) Then
-                Directory.CreateDirectory(logPath)
+            Dim logFileName As String = Path.Combine(LogPath, $"{logtype}_{Format(Now, "yyyy-MM-dd")}.log")
+            If Not Directory.Exists(LogPath) Then
+                Directory.CreateDirectory(LogPath)
             End If
             If Not File.Exists(logFileName) Then
                 Using sw = File.CreateText(logFileName)

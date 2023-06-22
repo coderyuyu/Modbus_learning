@@ -227,7 +227,7 @@ Partial Class FormX
         Me.txtPort.Name = "txtPort"
         Me.txtPort.Size = New System.Drawing.Size(100, 22)
         Me.txtPort.TabIndex = 39
-        Me.txtPort.Text = "COM1"
+        Me.txtPort.Text = CHANNEL1
         '
         'Label1
         '

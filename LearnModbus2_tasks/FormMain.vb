@@ -48,13 +48,13 @@ Public Class FormMain
                                                 UpdateUI(fanSwitch1.Value, "fanSwitch1")
                                                 'Fan1.Value = fanSwitch1.Value
                                                 'SETTINGS.Fan1On = fanSwitch1.Value
-                                                'SYS.COMS("COM1").WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
+                                                'SYS.COMS(CHANNEL1).WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
                                             End Sub
         AddHandler fanSwitch2.ValueChanged, Sub()
                                                 UpdateUI(fanSwitch2.Value, "fanSwitch2")
                                                 'Fan2.Value = fanSwitch2.Value
                                                 'SETTINGS.Fan2On = fanSwitch2.Value
-                                                'SYS.COMS("COM2").WriteTag("f2onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
+                                                'SYS.COMS(CHANNEL2).WriteTag("f2onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
                                             End Sub
 
 #If DEBUG Then
@@ -62,10 +62,10 @@ Public Class FormMain
         ' 
         t1.Value = 21.3
         t2.Value = 11.9
-        SYS.COMS("COM1").WriteTag("f1temp", {t1.Value * 10})
-        SYS.COMS("COM1").WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
-        SYS.COMS("COM2").WriteTag("f2temp", {t2.Value * 10})
-        SYS.COMS("COM2").WriteTag("f2onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
+        SYS.COMS(CHANNEL1).WriteTag("f1temp", {t1.Value * 10})
+        SYS.COMS(CHANNEL1).WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
+        SYS.COMS(CHANNEL2).WriteTag("f2temp", {t2.Value * 10})
+        SYS.COMS(CHANNEL2).WriteTag("f2onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
         fanSwitch1.Value = SETTINGS.Fan1On
         fanSwitch2.Value = SETTINGS.Fan2On
 
@@ -277,11 +277,11 @@ Public Class FormMain
                     ' fanSwitch1.Value = CBool(text)
                     Fan1.Value = fanSwitch1.Value
                     SETTINGS.Fan1On = fanSwitch1.Value
-                    SYS.COMS("COM1").WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
+                    SYS.COMS(CHANNEL1).WriteTag("f1onoff", {IIf(SETTINGS.Fan1On, 1, 0)})
                 Case "fanSwitch2"
                     Fan2.Value = fanSwitch2.Value
                     SETTINGS.Fan2On = fanSwitch2.Value
-                    SYS.COMS("COM2").WriteTag("f1onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
+                    SYS.COMS(CHANNEL1).WriteTag("f1onoff", {IIf(SETTINGS.Fan2On, 1, 0)})
                     ' fanSwitch2.Value = CBool(text)
                     'Fan2.Value = fanSwitch2.Value
             End Select
@@ -316,8 +316,8 @@ Public Class FormMain
                 Dim T1 = Task.Run(Sub()
                                       Dim values, values2
                                       Try
-                                          values = SYS.COMS("COM1").ReadTag("f1temp")
-                                          values2 = SYS.COMS("COM1").ReadTag("f1onoff")
+                                          values = SYS.COMS(CHANNEL1).ReadTag("f1temp")
+                                          values2 = SYS.COMS(CHANNEL1).ReadTag("f1onoff")
                                           SyncLock DATA0
                                               DATA0.Fan1Degree = values(0)
                                               DATA0.Fan1On = IIf(values2(0) = 1, True, False)
@@ -331,8 +331,8 @@ Public Class FormMain
                 Dim T2 = Task.Run(Sub()
                                       Dim values, values2
                                       Try
-                                          values = SYS.COMS("COM2").ReadTag("f2temp")
-                                          values2 = SYS.COMS("COM2").ReadTag("f2onoff")
+                                          values = SYS.COMS(CHANNEL2).ReadTag("f2temp")
+                                          values2 = SYS.COMS(CHANNEL2).ReadTag("f2onoff")
                                           SyncLock DATA0
                                               DATA0.Fan2Degree = values(0)
                                               DATA0.Fan2On = IIf(values2(0) = 1, True, False)
@@ -460,10 +460,10 @@ Public Class FormMain
                     f2temp += 0.3
                 End If
                 If f1temp > 0 And f1temp < 100 Then
-                    SYS.COMS("COM1").WriteTag("f1temp", {f1temp * 10})
+                    SYS.COMS(CHANNEL1).WriteTag("f1temp", {f1temp * 10})
                 End If
                 If f2temp > 0 And f2temp < 100 Then
-                    SYS.COMS("COM2").WriteTag("f2temp", {f2temp * 10})
+                    SYS.COMS(CHANNEL2).WriteTag("f2temp", {f2temp * 10})
                 End If
             Catch ex As Exception
                 Debug.Print(ex.ToString)
@@ -487,7 +487,7 @@ Public Class FormMain
 
     Private Sub WriteOneSimulateData(tempture1, fan1OnOff, tempture2, fan2OnOff)
         Dim MBC As New ModbusClient
-        With SYS.COMS("COM1")
+        With SYS.COMS(CHANNEL1)
             MBC.SerialPort = .SerialPort
             MBC.Baudrate = .Baudrate
             MBC.Parity = .Parity
