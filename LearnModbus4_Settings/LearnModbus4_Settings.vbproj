@@ -97,12 +97,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DialogSettings.Designer.vb">
-      <DependentUpon>DialogSettings.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DialogSettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -110,19 +104,12 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormConsole.Designer.vb">
-      <DependentUpon>FormConsole.vb</DependentUpon>
+    <Compile Include="FormSettings.Designer.vb">
+      <DependentUpon>FormSettings.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormConsole.vb">
+    <Compile Include="FormSettings.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormTester.Designer.vb">
-      <DependentUpon>FormTester.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormTester.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="mSerialPort.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -140,17 +127,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DialogSettings.resx">
-      <DependentUpon>DialogSettings.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormConsole.resx">
-      <DependentUpon>FormConsole.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTester.resx">
-      <DependentUpon>FormTester.vb</DependentUpon>
+    <EmbeddedResource Include="FormSettings.resx">
+      <DependentUpon>FormSettings.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -171,11 +152,6 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Config.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassModbus\ClassModbus.vbproj">

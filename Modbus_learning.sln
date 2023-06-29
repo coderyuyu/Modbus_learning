@@ -13,6 +13,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LearnModbus4_Settings", "Le
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ClassModbus", "ClassModbus\ClassModbus.vbproj", "{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}"
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +40,7 @@ Global
 		{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70F52C7D-3DB7-49BD-8A95-D6F1D4E4DBDD}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -289,7 +289,6 @@ Module mPublic
                 .AddTag(New cTAG(tagName:="f2onoff", slaveid:=1, registerAddress:=2, dataLength:=1))
             End With
             COMS.Add(com.SerialPort, com)
-
         End Sub
     End Class
     ''' <summary>
