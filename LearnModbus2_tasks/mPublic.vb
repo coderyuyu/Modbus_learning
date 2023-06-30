@@ -4,6 +4,7 @@ Imports System.IO.Ports
 Imports EasyModbus
 Imports System.Net
 Imports System.Windows.Forms.AxHost
+Imports OfficeOpenXml.ExcelErrorValue
 
 Module mPublic
     Public Const CHANNEL1 = "COM3"
@@ -290,7 +291,35 @@ Module mPublic
             End With
             COMS.Add(com.SerialPort, com)
         End Sub
+
+
+        Private Sub loadConfig2()
+            COMS = New Dictionary(Of String, cCOM)
+            Dim com As cCOM
+            com = New cCOM(CHANNEL1, Name:="COM3")
+            With com
+                .AddDIO(New cDIO(DioName:="DO", slaveid:=&HF00, dataLength:=1))
+                ' 在 cCOM 用 WriteString("#0F00" & "00" & Chr$(13)) '全關指令(DO)
+                ' 在 cCOM 用 WriteString("#0F00" & "02" & Chr$(13)) 'A點衝擊(DO)
+                ' 在 cCOM 用 WriteString("#0F00" & "04" & Chr$(13)) 'C點衝擊(DO)
+            End With
+            COMS.Add(com.SerialPort, com)
+
+            com = New cCOM(CHANNEL2, Name:="COM4")
+            With com
+                .AddTAG(New cTAG(tagName:="InverterOnOff", slaveid:=4, registerAddress:=&H2000, dataLength:=2))
+                .AddTAG(New cTAG(tagName:="Frequency", slaveid:=4, registerAddress:=&H2001, dataLength:=2))
+                .AddTAG(New cTAG(tagName:="Pressure", slaveid:=1, registerAddress:=&H26, dataLength:=2))
+                .AddDIO(New cDIO(DioName:="DI", slaveid:=&HF06, dataLength:=2))
+                ' 在 cCOM 用 WriteString("$0F6" & Chr$(13))
+            End With
+            COMS.Add(com.SerialPort, com)
+        End Sub
     End Class
+
+
+
+
     ''' <summary>
     ''' 定義COM port及其下的 slave, address (tag)
     ''' </summary>
@@ -301,6 +330,7 @@ Module mPublic
         Property StopBits As StopBits = IO.Ports.StopBits.One
         Property Name As String = ""
         Property Tags As New Dictionary(Of String, cTAG)
+        Property DIOs As New Dictionary(Of String, cDIO)
         Property mbc As New ModbusClient
         Sub New(SerialPort As String,
                 Optional Baudrate As Integer = 9600,
@@ -314,24 +344,19 @@ Module mPublic
                 .Name = Name
             End With
         End Sub
-        Sub AddTag(tag As cTAG)
+        Sub AddTAG(tag As cTAG)
             If Not Tags.ContainsKey(tag.tagName) Then
                 Tags.Add(tag.tagName, tag)
             End If
         End Sub
-        ''' <summary>
-        ''' 在 COM port 下增加一個TAG
-        ''' </summary>
-        ''' <param name="tagName">取一個方便記憶的文字</param>
-        ''' <param name="slaveid"></param>
-        ''' <param name="registerAddress"></param>
-        ''' <param name="dataLength"></param>
-        Sub AddTag(tagName As String, slaveid As Integer, registerAddress As Integer, dataLength As Integer)
-            Dim tag As cTAG = New cTAG(tagName, slaveid, registerAddress, dataLength)
-            If Not Tags.ContainsKey(tagName) Then
-                Tags.Add(tagName, tag)
+
+        Sub AddDIO(DIO As cDIO)
+            If Not DIOs.ContainsKey(DIO.DioName) Then
+                DIOs.Add(DIO.DioName, DIO)
             End If
         End Sub
+
+
         ''' <summary>
         ''' 建立 modbus client 連線
         ''' </summary>
@@ -386,6 +411,42 @@ Module mPublic
             End If
             Return values
         End Function
+
+        Function DI(dioName)
+            Dim DIO As cDIO
+            Dim returnStr As String = ""
+            If Not mbc.Connected Then
+                Me.Connect()
+            End If
+            If Me.DIOs.ContainsKey(dioName) Then
+                DIO = DIOs(dioName)
+                SyncLock DIOs
+                    With DIO
+                        ' todo: write string 
+                    End With
+                End SyncLock
+            End If
+            Return returnStr
+        End Function
+
+        Function [DO](dioName As String, value As String)
+            Dim DIO As cDIO
+            Dim returnStr As String = ""
+            If Not mbc.Connected Then
+                Me.Connect()
+            End If
+            If Me.DIOs.ContainsKey(dioName) Then
+                DIO = DIOs(dioName)
+                SyncLock DIOs
+                    With DIO
+                        ' todo: write string 
+                    End With
+                End SyncLock
+            End If
+            Return returnStr
+        End Function
+
+
     End Class
 
     Public Class cTAG
@@ -400,6 +461,22 @@ Module mPublic
             Me.dataLength = dataLength
         End Sub
     End Class
+
+    Public Class cDIO
+        Property DioName As String
+        Property slaveid As Integer
+        Property dataLength As Integer
+        Public Sub New(DioName As String, slaveid As Integer, dataLength As Integer)
+            Me.DioName = DioName
+            Me.slaveid = slaveid
+            Me.dataLength = dataLength
+        End Sub
+
+        Sub test()
+            Dim abc As Integer = &HF012
+        End Sub
+    End Class
+
 
     ''' <summary>
     ''' 通用LOG元件
