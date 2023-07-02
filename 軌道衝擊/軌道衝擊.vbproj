@@ -119,9 +119,7 @@
     <Compile Include="Classes\cCOM.vb" />
     <Compile Include="Classes\cDATA0.vb" />
     <Compile Include="Classes\cDATA1.vb" />
-    <Compile Include="Classes\cDIO.vb" />
     <Compile Include="Classes\cSYS.vb" />
-    <Compile Include="Classes\cTAG.vb" />
     <Compile Include="FormMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +156,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Supports\LOGGER.vb" />
+    <Compile Include="Test\mTest.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormMain.resx">

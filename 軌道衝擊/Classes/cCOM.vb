@@ -7,9 +7,8 @@ Public Class cCOM
     Property Parity As Parity = IO.Ports.Parity.None
     Property StopBits As StopBits = IO.Ports.StopBits.One
     Property Name As String = ""
-    Property Tags As New Dictionary(Of String, cTAG)
-    Property DIOs As New Dictionary(Of String, cDIO)
     Property mbc As New ModbusClient
+    Property comport As New SerialPort
     Sub New(SerialPort As String,
                 Optional Baudrate As Integer = 9600,
                 Optional Parity As Parity = Parity.None,
@@ -22,24 +21,13 @@ Public Class cCOM
             .Name = Name
         End With
     End Sub
-    Sub AddTAG(tag As cTAG)
-        If Not Tags.ContainsKey(tag.tagName) Then
-            Tags.Add(tag.tagName, tag)
-        End If
-    End Sub
-
-    Sub AddDIO(DIO As cDIO)
-        If Not DIOs.ContainsKey(DIO.DioName) Then
-            DIOs.Add(DIO.DioName, DIO)
-        End If
-    End Sub
-
 
     ''' <summary>
     ''' 建立 modbus client 連線
     ''' </summary>
-    Sub Connect()
-        If Not mbc.Connected Then
+    Sub ConnectBus(Optional isForceReConnect As Boolean = False)
+        If Not mbc.Connected Or isForceReConnect Then
+            DisConnect() ' 預防 comport 已開
             With mbc
                 .SerialPort = Me.SerialPort
                 .Baudrate = Me.Baudrate
@@ -47,81 +35,118 @@ Public Class cCOM
                 .StopBits = Me.StopBits
                 .Connect()
             End With
+        Else
+            ' mbc 已開
         End If
-    End Sub
 
+    End Sub
+    ''' <summary>
+    ''' 開啟 com port
+    ''' </summary>
+    Sub ConnectPort(Optional isForceReConnect As Boolean = False)
+        If Not comport.IsOpen Or isForceReConnect Then
+            DisConnect() ' 預防 modbus 已開
+            With comport
+                .PortName = Me.SerialPort
+                .BaudRate = Me.Baudrate
+                .Parity = Me.Parity
+                .StopBits = Me.StopBits
+                .Open()
+            End With
+        Else
+            ' com port 已開
+        End If
+
+    End Sub
+    ''' <summary>
+    ''' 關掉 bus 及 com port
+    ''' </summary>
     Sub DisConnect()
         If mbc.Connected Then
             mbc.Disconnect()
+        ElseIf comport.IsOpen Then
+            comport.Close()
+            comport.Dispose()
         End If
     End Sub
 
-    Sub WriteTag(tagname As String, values As Integer())
-        Dim tag As cTAG
+
+
+    ''' <summary>
+    ''' write modbus
+    ''' </summary>
+    ''' <param name="slaveid"></param>
+    ''' <param name="registerAddress"></param>
+    ''' <param name="values"></param>
+    Sub WriteTag(slaveid As Integer, registerAddress As Integer, values As Integer())
         If Not mbc.Connected Then
-            Me.Connect()
+            Me.ConnectBus()
         End If
-        If Me.Tags.ContainsKey(tagname) Then
-            tag = Tags(tagname)
-            SyncLock mbc
-                With tag
-                    mbc.UnitIdentifier = .slaveid
-                    mbc.WriteMultipleRegisters(.registerAddress, values)
-                End With
-            End SyncLock
-        End If
+        SyncLock mbc
+            mbc.UnitIdentifier = slaveid
+            mbc.WriteMultipleRegisters(registerAddress, values)
+        End SyncLock
     End Sub
-
-    Function ReadTag(tagname) As Integer()
-        Dim tag As cTAG
+    ''' <summary>
+    ''' read modbus
+    ''' </summary>
+    ''' <param name="slaveid"></param>
+    ''' <param name="registerAddress"></param>
+    ''' <param name="dataLength"></param>
+    ''' <returns></returns>
+    Function ReadTag(slaveid As Integer, registerAddress As Integer, dataLength As Integer) As Integer()
         Dim values = Nothing
         If Not mbc.Connected Then
-            Me.Connect()
+            Me.ConnectBus()
         End If
-        If Me.Tags.ContainsKey(tagname) Then
-            SyncLock mbc
-                tag = Tags(tagname)
-                With tag
-                    mbc.UnitIdentifier = .slaveid
-                    values = mbc.ReadHoldingRegisters(.registerAddress, tag.dataLength)
-                End With
-            End SyncLock
-        End If
+        SyncLock mbc
+            mbc.UnitIdentifier = slaveid
+            values = mbc.ReadHoldingRegisters(registerAddress, dataLength)
+        End SyncLock
         Return values
     End Function
 
-    Function DI(dioName)
-        Dim DIO As cDIO
+    ''' <summary>
+    ''' 寫 string to com port (di/do)
+    ''' </summary>
+    ''' <param name="cmd"></param>
+    ''' <returns></returns>
+    Function WriteString(cmd As String, Optional timeoutms As Integer = 1000) As String
+
         Dim returnStr As String = ""
-        If Not mbc.Connected Then
-            Me.Connect()
+        If Not comport.IsOpen Then
+            Me.ConnectPort()
         End If
-        If Me.DIOs.ContainsKey(dioName) Then
-            DIO = DIOs(dioName)
-            SyncLock DIOs
-                With DIO
-                    ' todo: write string 
-                End With
-            End SyncLock
-        End If
+
+        SyncLock comport
+            returnStr = doWriteString(cmd, timeoutms)
+        End SyncLock
+
         Return returnStr
     End Function
 
-    Function [DO](dioName As String, value As String)
-        Dim DIO As cDIO
-        Dim returnStr As String = ""
-        If Not mbc.Connected Then
-            Me.Connect()
+
+    Private Function doWriteString(cmd As String, timeoutms As Integer) As String
+
+        Dim receivedData As String = ""
+        If Not cmd.EndsWith(vbCr) Then
+            cmd &= vbCr
         End If
-        If Me.DIOs.ContainsKey(dioName) Then
-            DIO = DIOs(dioName)
-            SyncLock DIOs
-                With DIO
-                    ' todo: write string 
-                End With
-            End SyncLock
-        End If
-        Return returnStr
+
+        With comport
+            .WriteTimeout = timeoutms
+            .ReadTimeout = timeoutms
+            Try
+                .Write(cmd) ' 因為 AA 有 vbCr, 覺得用Write即可, 不用WriteLine
+                receivedData = .ReadExisting
+            Catch ex As Exception
+                Debug.Print(ex.ToString)
+
+            End Try
+        End With
+
+        Return receivedData
     End Function
+
 
 End Class

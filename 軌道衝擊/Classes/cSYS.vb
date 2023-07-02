@@ -1,52 +1,81 @@
-﻿Public Class cSYS
+﻿Imports System.IO.Ports
+' COM3----------------------------------
+'DO指令傳送與接收
+'全關指令(DO) ： "#0F00" & "00" & Chr$(13)
+'A點衝擊(DO) ： "#0F00" & "02" & Chr$(13)
+'C點衝擊(DO) ： "#0F00" & "04" & Chr$(13)
+'DO送出後回應， 正常為!(dataOutput) 00(cr) 異常為?0F(cr)
+'DO回應：(cr)可判斷資料結束字元，”?”可判斷傳送失敗
+
+' COM4----------------------------------
+'變頻器， 主要指令都是寫入
+'   位址：4
+'   變頻器開關寫入之參數位置高位元&H20、低位元&H00， 寫入值2(ON)、1(OFF)。
+'   頻率設定寫入之參數位置高位元&H20、低位元&H01
+'   需求頻率乘100換算為長整數， 再轉16位元字串， 再拆高位元與低位元， 或許高位元根本用不著；EasyModbus可能不需這麼麻煩。
+'主缸力值表頭一個， 主要指令都是讀取
+'   位址：1
+'   讀取之參數位置低位元&H26， 連續讀兩個位置， 再換算物理量
+'Adam4052  DI指令： "$0F6" & Chr$(13)
+'   DI送出後回應， 正常為： !(dataInput) 00(cr) 異常為：? 0F(cr)
+'   DI回應：(cr)可判斷資料結束字元，”?”可判斷傳送失敗
+'   dataInput為16位元字串資料， 需自行轉換2位元， 藉以判斷每一個DI是0或1。
+Public Class cSYS
     Property COMS As Dictionary(Of String, cCOM)
     Property TAGS As Dictionary(Of String, Array)
+    Property CH1 As cCOM
+    Property CH2 As cCOM
     Sub New()
-        loadConfig()
+        CH1 = New cCOM("COM3")
+        CH2 = New cCOM("COM4")
     End Sub
 
-    Sub ConnectAll()
-        Dim com As cCOM
-        For Each k In COMS.Keys
-            com = COMS(k)
-            com.Connect()
-        Next
-    End Sub
 
-    Sub DisConnectAll()
-        Dim com As cCOM
-        For Each k In COMS.Keys
-            com = COMS(k)
-            com.DisConnect()
-        Next
-    End Sub
-    ''' <summary>
-    ''' 客戶監控組態 com ports 及 tags
-    ''' 注意tagname不要重覆
-    ''' </summary>
+    Function 全關指令()
+        Dim response = CH1.WriteString("#0F0000")
+        Return response
+    End Function
+    Function A點衝擊()
+        Dim response = CH1.WriteString("#0F0002")
+        Return response
+    End Function
+
+    Function C點衝擊()
+        Dim response = CH1.WriteString("#0F0004")
+        Return response
+    End Function
+
+    Function Adam4052_DI()
+        Dim response = CH1.WriteString("$0F6")
+        Return response
+    End Function
+
+
+    Function 變頻器開()
+        Dim values As Integer() = {2}
+        Try
+            CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Function 變頻器關()
+        Dim values As Integer() = {1}
+        Try
+            CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Function 主缸力值()
+        Dim values = CH2.ReadTag(1, &H26, 2)
+        Return values
+    End Function
 
 
 
-    Private Sub loadConfig()
-        COMS = New Dictionary(Of String, cCOM)
-        Dim com As cCOM
-        com = New cCOM(CH1, Name:="COM3")
-        With com
-            .AddDIO(New cDIO(DioName:="DO", slaveid:=&HF00, dataLength:=1))
-            ' 在 cCOM 用 WriteString("#0F00" & "00" & Chr$(13)) '全關指令(DO)
-            ' 在 cCOM 用 WriteString("#0F00" & "02" & Chr$(13)) 'A點衝擊(DO)
-            ' 在 cCOM 用 WriteString("#0F00" & "04" & Chr$(13)) 'C點衝擊(DO)
-        End With
-        COMS.Add(com.SerialPort, com)
-
-        com = New cCOM(CH2, Name:="COM4")
-        With com
-            .AddTAG(New cTAG(tagName:="InverterOnOff", slaveid:=4, registerAddress:=&H2000, dataLength:=2))
-            .AddTAG(New cTAG(tagName:="Frequency", slaveid:=4, registerAddress:=&H2001, dataLength:=2))
-            .AddTAG(New cTAG(tagName:="Pressure", slaveid:=1, registerAddress:=&H26, dataLength:=2))
-            .AddDIO(New cDIO(DioName:="DI", slaveid:=&HF06, dataLength:=2))
-            ' 在 cCOM 用 WriteString("$0F6" & Chr$(13))
-        End With
-        COMS.Add(com.SerialPort, com)
-    End Sub
 End Class
