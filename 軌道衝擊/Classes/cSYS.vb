@@ -35,6 +35,7 @@ Public Class cSYS
         Dim response = CH1.WriteString("#0F0000")
         Return response
     End Function
+
     Function A點衝擊()
         Dim response = CH1.WriteString("#0F0002")
         Return response
@@ -50,7 +51,6 @@ Public Class cSYS
         Return response
     End Function
 
-
     Function 變頻器開()
         Dim values As Integer() = {2}
         Try
@@ -64,7 +64,7 @@ Public Class cSYS
     Function 變頻器關()
         Dim values As Integer() = {1}
         Try
-            CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
+            CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
             Return True
         Catch ex As Exception
             Return False
