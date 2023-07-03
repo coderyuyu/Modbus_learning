@@ -8,8 +8,6 @@
         ConsoleLog("program starts")
     End Sub
 
-
-
     Sub ConsoleLog(log As String)
         LOGGER.WriteLog("console", log, True)
     End Sub
