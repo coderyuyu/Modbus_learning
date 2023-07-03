@@ -1,4 +1,6 @@
 ﻿Imports System.IO.Ports
+Imports System.Threading
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports EasyModbus
 
 Public Class cCOM
@@ -66,7 +68,6 @@ Public Class cCOM
             mbc.Disconnect()
         ElseIf comport.IsOpen Then
             comport.Close()
-            comport.Dispose()
         End If
     End Sub
 
@@ -118,35 +119,61 @@ Public Class cCOM
             Me.ConnectPort()
         End If
 
-        SyncLock comport
-            returnStr = doWriteString(cmd, timeoutms)
-        End SyncLock
-
+        Try
+            returnStr = DoWriteString(cmd, timeoutms)
+        Catch ex As Exception
+            ' TODO: writestring 發生錯誤的處理...
+        End Try
         Return returnStr
     End Function
 
 
-    Private Function doWriteString(cmd As String, timeoutms As Integer) As String
-
+    Private Function DoWriteString(cmd As String, timeoutms As Integer) As String
+        Dim N As Integer = 0
         Dim receivedData As String = ""
+        Dim stw As New Stopwatch
         If Not cmd.EndsWith(vbCr) Then
             cmd &= vbCr
         End If
-
-        With comport
-            .WriteTimeout = timeoutms
-            .ReadTimeout = timeoutms
-            Try
-                .Write(cmd) ' 因為 AA 有 vbCr, 覺得用Write即可, 不用WriteLine
-                receivedData = .ReadExisting
-            Catch ex As Exception
-                Debug.Print(ex.ToString)
-
-            End Try
-        End With
-
+        Task.Delay(100).Wait()
+        SyncLock comport ' 防止多工環境下 com port 同時被存取
+            With comport
+                '先清空BUFFER
+                ClearBuffer()
+                Try
+                    stw.Restart()
+                    .Write(cmd) ' 因為 cmd 有 vbCr, 覺得用Write即可, 不用WriteLine
+                    Do Until N > 0
+                        receivedData &= .ReadExisting
+                        N = InStr(receivedData, vbCr)
+                        If stw.Elapsed.Milliseconds > timeoutms Then ' 防止一直讀不到或太久
+                            Throw New Exception($"{comport.PortName} do write string timeout")
+                        End If
+                    Loop
+                    stw.Stop()
+                Catch ex As Exception
+                    Throw New Exception($"{comport.PortName} do write string {ex.Message}")
+                End Try
+            End With
+        End SyncLock
         Return receivedData
     End Function
+
+    Private Sub ClearBuffer()
+        Try
+            With comport
+                '先清空BUFFER
+                If .BytesToRead > 0 Then
+                    Dim buffer(.BytesToRead - 1) As Byte
+                    .Read(buffer, 0, buffer.Length)
+                End If
+            End With
+        Catch ex As Exception
+            ' 預防當掉 例: com port 故障
+        End Try
+    End Sub
+
+
 
 
 End Class
