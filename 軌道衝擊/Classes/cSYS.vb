@@ -87,7 +87,9 @@ Public Class cSYS
         If values2 = Nothing Then
             values2 = CH2.ReadTag(1, &H3, 1)(0) ' 小數
         End If
-        Dim result As Decimal = CDec((values(0) * 255 + values(1)) / 10 ^ values2)
+        'Dim result As Decimal = CDec((values(0) * 255 + values(1)) / 10 ^ values2)
+        '現在使用EasyModbus直接回傳十進位的值。
+        Dim result As Decimal = CDec((values(0) * 16 ^ 2 + values(1)) / 10 ^ values2)
         Return result
     End Function
     'Function 主缸力值小數點位置()
