@@ -71,11 +71,29 @@ Public Class cSYS
         End Try
     End Function
 
-    Function 主缸力值()
-        Dim values = CH2.ReadTag(1, &H26, 2)
-        Return values
+    Function 變頻器頻率(value As Integer)
+        Dim values As Integer() = {value * 100}
+        Try
+            CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
+    Function 主缸力值() As Decimal
+        Static values2 As Integer = Nothing
+        Dim values = CH2.ReadTag(1, &H26, 2) ' 整數
+        If values2 = Nothing Then
+            values2 = CH2.ReadTag(1, &H3, 1)(0) ' 小數
+        End If
+        Dim result As Decimal = CDec((values(0) * 255 + values(1)) / 10 ^ values2)
+        Return result
+    End Function
+    'Function 主缸力值小數點位置()
+    '    Dim values = CH2.ReadTag(1, &H3, 1)
+    '    Return values
+    'End Function
 
 
 End Class
