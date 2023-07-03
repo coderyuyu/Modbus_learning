@@ -26,10 +26,10 @@ Partial Class FormMain
         Me.Layout = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel_Messages = New System.Windows.Forms.Panel()
         Me.Panel_buttons = New System.Windows.Forms.Panel()
+        Me.ButtonLogs = New System.Windows.Forms.Button()
+        Me.ButtonSettings = New System.Windows.Forms.Button()
         Me.Panel_Extras = New System.Windows.Forms.Panel()
         Me.Panel_Main = New System.Windows.Forms.Panel()
-        Me.ButtonSettings = New System.Windows.Forms.Button()
-        Me.ButtonLogs = New System.Windows.Forms.Button()
         Me.Layout.SuspendLayout()
         Me.Panel_buttons.SuspendLayout()
         Me.SuspendLayout()
@@ -75,6 +75,24 @@ Partial Class FormMain
         Me.Panel_buttons.Size = New System.Drawing.Size(929, 59)
         Me.Panel_buttons.TabIndex = 1
         '
+        'ButtonLogs
+        '
+        Me.ButtonLogs.Location = New System.Drawing.Point(724, 12)
+        Me.ButtonLogs.Name = "ButtonLogs"
+        Me.ButtonLogs.Size = New System.Drawing.Size(75, 35)
+        Me.ButtonLogs.TabIndex = 1
+        Me.ButtonLogs.Text = "資料瀏覽"
+        Me.ButtonLogs.UseVisualStyleBackColor = True
+        '
+        'ButtonSettings
+        '
+        Me.ButtonSettings.Location = New System.Drawing.Point(9, 12)
+        Me.ButtonSettings.Name = "ButtonSettings"
+        Me.ButtonSettings.Size = New System.Drawing.Size(75, 35)
+        Me.ButtonSettings.TabIndex = 0
+        Me.ButtonSettings.Text = "參數設定"
+        Me.ButtonSettings.UseVisualStyleBackColor = True
+        '
         'Panel_Extras
         '
         Me.Panel_Extras.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -91,24 +109,6 @@ Partial Class FormMain
         Me.Panel_Main.Name = "Panel_Main"
         Me.Panel_Main.Size = New System.Drawing.Size(718, 470)
         Me.Panel_Main.TabIndex = 3
-        '
-        'ButtonSettings
-        '
-        Me.ButtonSettings.Location = New System.Drawing.Point(9, 12)
-        Me.ButtonSettings.Name = "ButtonSettings"
-        Me.ButtonSettings.Size = New System.Drawing.Size(75, 35)
-        Me.ButtonSettings.TabIndex = 0
-        Me.ButtonSettings.Text = "參數設定"
-        Me.ButtonSettings.UseVisualStyleBackColor = True
-        '
-        'ButtonLogs
-        '
-        Me.ButtonLogs.Location = New System.Drawing.Point(724, 12)
-        Me.ButtonLogs.Name = "ButtonLogs"
-        Me.ButtonLogs.Size = New System.Drawing.Size(75, 35)
-        Me.ButtonLogs.TabIndex = 1
-        Me.ButtonLogs.Text = "資料瀏覽"
-        Me.ButtonLogs.UseVisualStyleBackColor = True
         '
         'FormMain
         '
