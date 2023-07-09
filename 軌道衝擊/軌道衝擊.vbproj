@@ -127,6 +127,12 @@
       <DependentUpon>FormMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormConsole.Designer.vb">
+      <DependentUpon>FormConsole.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormConsole.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FormFileBrowser.Designer.vb">
       <DependentUpon>FormFileBrowser.vb</DependentUpon>
     </Compile>
@@ -167,6 +173,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormConsole.resx">
+      <DependentUpon>FormConsole.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFileBrowser.resx">
       <DependentUpon>FormFileBrowser.vb</DependentUpon>

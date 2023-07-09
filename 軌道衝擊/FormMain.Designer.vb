@@ -26,10 +26,16 @@ Partial Class FormMain
         Me.Layout = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel_Messages = New System.Windows.Forms.Panel()
         Me.Panel_buttons = New System.Windows.Forms.Panel()
+        Me.isEMU = New System.Windows.Forms.CheckBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.ButtonTest = New System.Windows.Forms.Button()
         Me.ButtonLogs = New System.Windows.Forms.Button()
         Me.ButtonSettings = New System.Windows.Forms.Button()
         Me.Panel_Extras = New System.Windows.Forms.Panel()
         Me.Panel_Main = New System.Windows.Forms.Panel()
+        Me.ButtonStart = New System.Windows.Forms.Button()
+        Me.ButtonStart2 = New System.Windows.Forms.Button()
+        Me.ButtonStartRecord = New System.Windows.Forms.Button()
         Me.Layout.SuspendLayout()
         Me.Panel_buttons.SuspendLayout()
         Me.SuspendLayout()
@@ -67,6 +73,12 @@ Partial Class FormMain
         '
         Me.Panel_buttons.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Layout.SetColumnSpan(Me.Panel_buttons, 2)
+        Me.Panel_buttons.Controls.Add(Me.ButtonStartRecord)
+        Me.Panel_buttons.Controls.Add(Me.ButtonStart2)
+        Me.Panel_buttons.Controls.Add(Me.ButtonStart)
+        Me.Panel_buttons.Controls.Add(Me.isEMU)
+        Me.Panel_buttons.Controls.Add(Me.Button1)
+        Me.Panel_buttons.Controls.Add(Me.ButtonTest)
         Me.Panel_buttons.Controls.Add(Me.ButtonLogs)
         Me.Panel_buttons.Controls.Add(Me.ButtonSettings)
         Me.Panel_buttons.Dock = System.Windows.Forms.DockStyle.Fill
@@ -75,9 +87,37 @@ Partial Class FormMain
         Me.Panel_buttons.Size = New System.Drawing.Size(929, 59)
         Me.Panel_buttons.TabIndex = 1
         '
+        'isEMU
+        '
+        Me.isEMU.AutoSize = True
+        Me.isEMU.Location = New System.Drawing.Point(825, 22)
+        Me.isEMU.Name = "isEMU"
+        Me.isEMU.Size = New System.Drawing.Size(48, 16)
+        Me.isEMU.TabIndex = 4
+        Me.isEMU.Text = "模擬"
+        Me.isEMU.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(421, 12)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 35)
+        Me.Button1.TabIndex = 3
+        Me.Button1.Text = "系統訊息"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'ButtonTest
+        '
+        Me.ButtonTest.Location = New System.Drawing.Point(583, 12)
+        Me.ButtonTest.Name = "ButtonTest"
+        Me.ButtonTest.Size = New System.Drawing.Size(75, 35)
+        Me.ButtonTest.TabIndex = 2
+        Me.ButtonTest.Text = "測試"
+        Me.ButtonTest.UseVisualStyleBackColor = True
+        '
         'ButtonLogs
         '
-        Me.ButtonLogs.Location = New System.Drawing.Point(724, 12)
+        Me.ButtonLogs.Location = New System.Drawing.Point(502, 12)
         Me.ButtonLogs.Name = "ButtonLogs"
         Me.ButtonLogs.Size = New System.Drawing.Size(75, 35)
         Me.ButtonLogs.TabIndex = 1
@@ -110,6 +150,33 @@ Partial Class FormMain
         Me.Panel_Main.Size = New System.Drawing.Size(718, 470)
         Me.Panel_Main.TabIndex = 3
         '
+        'ButtonStart
+        '
+        Me.ButtonStart.Location = New System.Drawing.Point(90, 12)
+        Me.ButtonStart.Name = "ButtonStart"
+        Me.ButtonStart.Size = New System.Drawing.Size(75, 35)
+        Me.ButtonStart.TabIndex = 5
+        Me.ButtonStart.Text = "啟動油壓"
+        Me.ButtonStart.UseVisualStyleBackColor = True
+        '
+        'ButtonStart2
+        '
+        Me.ButtonStart2.Location = New System.Drawing.Point(171, 12)
+        Me.ButtonStart2.Name = "ButtonStart2"
+        Me.ButtonStart2.Size = New System.Drawing.Size(75, 35)
+        Me.ButtonStart2.TabIndex = 6
+        Me.ButtonStart2.Text = "雙點衝擊"
+        Me.ButtonStart2.UseVisualStyleBackColor = True
+        '
+        'ButtonStartRecord
+        '
+        Me.ButtonStartRecord.Location = New System.Drawing.Point(252, 12)
+        Me.ButtonStartRecord.Name = "ButtonStartRecord"
+        Me.ButtonStartRecord.Size = New System.Drawing.Size(75, 35)
+        Me.ButtonStartRecord.TabIndex = 7
+        Me.ButtonStartRecord.Text = "開啟記錄"
+        Me.ButtonStartRecord.UseVisualStyleBackColor = True
+        '
         'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -121,6 +188,7 @@ Partial Class FormMain
         Me.Text = "軌道衝擊"
         Me.Layout.ResumeLayout(False)
         Me.Panel_buttons.ResumeLayout(False)
+        Me.Panel_buttons.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -132,4 +200,10 @@ Partial Class FormMain
     Friend WithEvents Panel_Main As Panel
     Friend WithEvents ButtonSettings As Button
     Friend WithEvents ButtonLogs As Button
+    Friend WithEvents ButtonTest As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents isEMU As CheckBox
+    Friend WithEvents ButtonStartRecord As Button
+    Friend WithEvents ButtonStart2 As Button
+    Friend WithEvents ButtonStart As Button
 End Class

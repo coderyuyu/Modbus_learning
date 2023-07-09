@@ -35,7 +35,7 @@ Partial Class FormSettings
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.paraMaxTons = New System.Windows.Forms.TextBox()
+        Me.paraMinTons = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -171,13 +171,13 @@ Partial Class FormSettings
         Me.Label9.TabIndex = 9
         Me.Label9.Text = "開始紀錄前重置頻率"
         '
-        'paraMaxTons
+        'paraMinTons
         '
-        Me.paraMaxTons.Location = New System.Drawing.Point(157, 116)
-        Me.paraMaxTons.Name = "paraMaxTons"
-        Me.paraMaxTons.Size = New System.Drawing.Size(79, 22)
-        Me.paraMaxTons.TabIndex = 16
-        Me.paraMaxTons.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.paraMinTons.Location = New System.Drawing.Point(157, 116)
+        Me.paraMinTons.Name = "paraMinTons"
+        Me.paraMinTons.Size = New System.Drawing.Size(79, 22)
+        Me.paraMinTons.TabIndex = 16
+        Me.paraMinTons.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label10
         '
@@ -452,7 +452,7 @@ Partial Class FormSettings
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label15)
-        Me.Controls.Add(Me.paraMaxTons)
+        Me.Controls.Add(Me.paraMinTons)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label12)
@@ -489,7 +489,7 @@ Partial Class FormSettings
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents paraMaxTons As TextBox
+    Friend WithEvents paraMinTons As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label

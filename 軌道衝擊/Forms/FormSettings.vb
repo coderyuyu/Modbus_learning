@@ -16,7 +16,7 @@ Public Class FormSettings
         AddHandler Me.paraDis100.KeyPress, AddressOf TextboxKeypressCheck
         AddHandler Me.paraEn100.KeyPress, AddressOf TextboxKeypressCheck
         AddHandler Me.paraInitFQ.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraMaxTons.KeyPress, AddressOf TextboxKeypressCheck
+        AddHandler Me.paraMinTons.KeyPress, AddressOf TextboxKeypressCheck
         AddHandler Me.paraRecordFQ.KeyPress, AddressOf TextboxKeypressCheck
         AddHandler Me.paraTargetTons.KeyPress, AddressOf TextboxKeypressCheck
         AddHandler Me.paraAccumulate.KeyPress, AddressOf TextboxKeypressCheck
@@ -88,6 +88,9 @@ Public Class FormSettings
     ''' <returns></returns>
     Private Function GetParaValue(name As String)
         Dim e As XmlElement
+        If settings Is Nothing Then
+            LoadSettings()
+        End If
         If settings.GetElementsByTagName(name).Count <> 0 Then
             e = settings.GetElementsByTagName(name)(0)
             Return e.InnerText
@@ -157,33 +160,34 @@ Public Class FormSettings
     '=======================================
     '以下function方使程式取得系統參數
     '使用方法 formSettings.參數名稱
-    Function Cycles()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 預定循環次數() '預定循環次數
+        Return GetParaValue("paraCycles")
     End Function
-    Function Dis100()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 電磁閥不送電時間分配() '
+        Return GetParaValue("paraDis100")
     End Function
-    Function En100()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 電磁閥送電時間分配() '
+        Return GetParaValue("paraEn100")
     End Function
-    Function ACFQ()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 測試點應變頻率() '
+        Return GetParaValue("paraACFQ")
     End Function
-    Function MaxTons()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 容許最低承載力值() '
+        Return GetParaValue("paraMinTons")
     End Function
-    Function RecordFQ()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 開始紀錄前重置頻率() '
+        Return GetParaValue("paraRecordFQ")
     End Function
-    Function InitFQ()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 變頻器初始頻率() '
+        Return GetParaValue("paraInitFQ")
     End Function
-    Function TargetTons()
-        Return GetParaValue("para" & System.Reflection.MethodInfo.GetCurrentMethod().Name)
+    Function 力值設定() '
+        Return GetParaValue("paraTargetTons")
     End Function
 
     Private Function GetParaValue(name)
         LoadSettingsXML()
         Return GetParaValue(name)
+        'System.Reflection.MethodInfo.GetCurrentMethod().Name
     End Function
 End Class

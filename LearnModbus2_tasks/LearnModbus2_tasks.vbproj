@@ -194,12 +194,15 @@
   <ItemGroup>
     <EmbeddedResource Include="DialogSettings.resx">
       <DependentUpon>DialogSettings.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormChart.resx">
       <DependentUpon>FormChart.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConsole.resx">
       <DependentUpon>FormConsole.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.vb</DependentUpon>
@@ -209,6 +212,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormFileBrowser.resx">
       <DependentUpon>FormFileBrowser.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

@@ -1,4 +1,5 @@
 ﻿Imports System.IO.Ports
+Imports OfficeOpenXml.ExcelErrorValue
 ' COM3----------------------------------
 'DO指令傳送與接收
 '全關指令(DO) ： "#0F00" & "00" & Chr$(13)
@@ -21,81 +22,175 @@
 '   DI回應：(cr)可判斷資料結束字元，”?”可判斷傳送失敗
 '   dataInput為16位元字串資料， 需自行轉換2位元， 藉以判斷每一個DI是0或1。
 Public Class cSYS
+    Dim state As Integer = 1 '1=Normal 2=Emulate
     Property COMS As Dictionary(Of String, cCOM)
     Property TAGS As Dictionary(Of String, Array)
     Property CH1 As cCOM
     Property CH2 As cCOM
+    Dim emulateTimer As System.Threading.Timer
+    '''
     Sub New()
         CH1 = New cCOM("COM3")
         CH2 = New cCOM("COM4")
+        設定小數位(2)
+    End Sub
+
+    Sub SetEmulate(onoff As Boolean)
+        If onoff = True Then
+            state = 2
+        Else
+            state = 1
+        End If
+
+        'emulateTimer = New System.Threading.Timer(Sub()
+        '                                              doEmulate()
+        '                                          End Sub, Nothing, 5000, 1000)
     End Sub
 
 
-    Function 全關指令()
-        Dim response = CH1.WriteString("#0F0000")
-        Return response
+    Sub doEmulate()
+
+        Dim 容許誤差範圍 = (FormSettings.力值設定 / 100) * 0.75
+        Dim 目前主缸力值 = 主缸力值()
+        If Math.Abs(FormSettings.力值設定 - 主缸力值()) < 容許誤差範圍 Then
+            ' do nothing
+        Else
+            If 主缸力值() > FormSettings.力值設定 Then
+                設定變頻器頻率(變頻器頻率() - 變頻器頻率() * 1%)
+            ElseIf 主缸力值() < FormSettings.力值設定 Then
+                設定變頻器頻率(變頻器頻率() + 變頻器頻率() * 1%)
+            End If
+        End If
+
+        ' 模擬主缸力值變化
+        Select Case 變頻器狀態()
+            Case "ON"
+                SYS.寫入主缸力值(SYS.主缸力值 + 0.5)
+            Case "OFF"
+                SYS.寫入主缸力值(SYS.主缸力值 - 0.5)
+            Case Else
+
+        End Select
+
+
+
+    End Sub
+
+
+    ' 無濇用虛擬com port模擬writestring, 因此模擬時一律回 true
+
+
+    Function 全關指令(Optional CMD As String = "#0F0000", Optional ByRef responseString As String = Nothing)
+        If isEmulate() Then Return True
+        responseString = CH1.WriteString(CMD)
+        Return responseString.Contains(vbCr)
     End Function
 
-    Function A點衝擊()
-        Dim response = CH1.WriteString("#0F0002")
-        Return response
+    Function A點衝擊(Optional CMD As String = "#0F0002", Optional ByRef responseString As String = Nothing)
+        If isEmulate() Then Return True
+        responseString = CH1.WriteString(CMD)
+        Return responseString.Contains(vbCr)
     End Function
 
-    Function C點衝擊()
-        Dim response = CH1.WriteString("#0F0004")
-        Return response
+    Function C點衝擊(Optional CMD As String = "#0F0004", Optional ByRef responseString As String = Nothing)
+        If isEmulate() Then Return True
+        responseString = CH1.WriteString(CMD)
+        Return responseString.Contains(vbCr)
+    End Function
+    Function Adam4052_DI(Optional CMD As String = "$0F6", Optional ByRef responseString As String = Nothing)
+        If isEmulate() Then Return True
+        responseString = CH1.WriteString(CMD)
+        Return responseString.Contains(vbCr)
     End Function
 
-    Function Adam4052_DI()
-        Dim response = CH1.WriteString("$0F6")
-        Return response
-    End Function
-
-    Function 變頻器開()
+    Sub 開啟變頻器()
         Dim values As Integer() = {2}
-        Try
-            CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
-            Return True
-        Catch ex As Exception
-            Return False
-        End Try
-    End Function
+        CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
+    End Sub
 
-    Function 變頻器關()
+    Sub 關閉變頻器()
         Dim values As Integer() = {1}
-        Try
-            CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
-            Return True
-        Catch ex As Exception
-            Return False
-        End Try
+        CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
+    End Sub
+
+    Function 變頻器狀態()
+        Dim v = CH2.ReadTag(slaveid:=4, registerAddress:=&H2000, 1)
+        Select Case v(0)
+            Case 2
+                Return "ON"
+            Case 1
+                Return "OFF"
+            Case Else
+                Return "?"
+        End Select
+
     End Function
 
-    Function 變頻器頻率(value As Integer)
+    Sub 設定變頻器頻率(value As Integer)
         Dim values As Integer() = {value * 100}
-        Try
-            CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
-            Return True
-        Catch ex As Exception
-            Return False
-        End Try
+        CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
+    End Sub
+
+    Function 變頻器頻率()
+        Dim v As Integer = CH2.ReadTag(slaveid:=4, registerAddress:=&H2001, 1)(0)
+        Return v / 100
     End Function
+
 
     Function 主缸力值() As Decimal
         Static values2 As Integer = Nothing
         Dim values = CH2.ReadTag(1, &H26, 2) ' 整數
-        If values2 = Nothing Then
-            values2 = CH2.ReadTag(1, &H3, 1)(0) ' 小數
+        If values(0) < 0 Then
+            values(0) = 0 - values(0)
         End If
-        'Dim result As Decimal = CDec((values(0) * 255 + values(1)) / 10 ^ values2)
-        '現在使用EasyModbus直接回傳十進位的值。
-        Dim result As Decimal = CDec((values(0) * 16 ^ 2 + values(1)) / 10 ^ values2)
+        If values2 = Nothing Then
+            values2 = 讀取小數位()
+        End If
+        Dim value = values(0) * 16 ^ 2 + values(1)
+        Dim result As Decimal = CDec(value / 10 ^ values2)
         Return result
     End Function
-    'Function 主缸力值小數點位置()
-    '    Dim values = CH2.ReadTag(1, &H3, 1)
-    '    Return values
-    'End Function
 
+    ' ex. 20.8
+    ' 小數位2位
+    ' 
+    Sub 寫入主缸力值(value As Decimal) ' 模擬用
+        ' 小數位
+        Static values2 As Integer = 0
+        If values2 = Nothing Then
+            values2 = 讀取小數位()
+        End If
+        value = value * 10 ^ values2
+        '=Convert.ToString(254, 16)  
+        '轉成 16進位
+        Dim hx As String = CInt(value).ToString("X4")
+        Debug.Print(hx)
+
+
+        Dim v1 As Integer
+        Dim v2 As Integer
+        v1 = Convert.ToInt32(hx.Substring(0, 2), 16)
+        v2 = Convert.ToInt32(hx.Substring(2, 2), 16)
+
+        Debug.Print($"write {v1} {v2}")
+        CH2.WriteTag(1, &H26, {v1, v2})
+        'Dim result As Decimal = CDec((values(0) * 255 + values(1)) / 10 ^ values2)
+        '現在使用EasyModbus直接回傳十進位的值。
+
+
+    End Sub
+
+
+    Sub 設定小數位(d As Integer)
+        Dim values = {d} ' 整數
+        CH2.WriteTag(1, &H3, values)
+    End Sub
+
+    Function 讀取小數位() As Integer
+        Return CH2.ReadTag(1, &H3, 1)(0)
+    End Function
+    Function isEmulate() As Boolean
+        Return state = 2
+    End Function
 
 End Class

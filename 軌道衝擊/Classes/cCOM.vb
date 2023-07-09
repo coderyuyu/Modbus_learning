@@ -97,14 +97,17 @@ Public Class cCOM
     ''' <returns></returns>
     Function ReadTag(slaveid As Integer, registerAddress As Integer, dataLength As Integer) As Integer()
         Dim values = Nothing
+
         If Not mbc.Connected Then
-            Me.ConnectBus()
-        End If
+                Me.ConnectBus()
+            End If
         SyncLock mbc
             mbc.UnitIdentifier = slaveid
             values = mbc.ReadHoldingRegisters(registerAddress, dataLength)
+
         End SyncLock
         Return values
+
     End Function
 
     ''' <summary>
@@ -115,16 +118,13 @@ Public Class cCOM
     Function WriteString(cmd As String, Optional timeoutms As Integer = 1000) As String
 
         Dim returnStr As String = ""
+
         If Not comport.IsOpen Then
             Me.ConnectPort()
         End If
-
-        Try
-            returnStr = DoWriteString(cmd, timeoutms)
-        Catch ex As Exception
-            ' TODO: writestring 發生錯誤的處理...
-        End Try
+        returnStr = DoWriteString(cmd, timeoutms)
         Return returnStr
+
     End Function
 
 
@@ -138,39 +138,32 @@ Public Class cCOM
         Task.Delay(100).Wait()
         SyncLock comport ' 防止多工環境下 com port 同時被存取
             With comport
-                '先清空BUFFER
-                ClearBuffer()
-                Try
-                    stw.Restart()
-                    .Write(cmd) ' 因為 cmd 有 vbCr, 覺得用Write即可, 不用WriteLine
-                    Do Until N > 0
-                        receivedData &= .ReadExisting
-                        N = InStr(receivedData, vbCr)
-                        If stw.Elapsed.Milliseconds > timeoutms Then ' 防止一直讀不到或太久
-                            Throw New Exception($"{comport.PortName} do write string timeout")
-                        End If
-                    Loop
-                    stw.Stop()
-                Catch ex As Exception
-                    Throw New Exception($"{comport.PortName} do write string {ex.Message}")
-                End Try
+
+                ClearBuffer() '先清空BUFFER
+                stw.Restart()
+                .Write(cmd) ' 因為 cmd 有 vbCr, 覺得用Write即可, 不用WriteLine
+                Do Until N > 0
+                    receivedData &= .ReadExisting
+                    N = InStr(receivedData, vbCr)
+                    If stw.Elapsed.Milliseconds > timeoutms Then ' 防止一直讀不到或太久
+                        Throw New Exception($"{comport.PortName} do write string timeout")
+                    End If
+                Loop
+                stw.Stop()
+
             End With
         End SyncLock
         Return receivedData
     End Function
 
     Private Sub ClearBuffer()
-        Try
-            With comport
-                '先清空BUFFER
-                If .BytesToRead > 0 Then
-                    Dim buffer(.BytesToRead - 1) As Byte
-                    .Read(buffer, 0, buffer.Length)
-                End If
-            End With
-        Catch ex As Exception
-            ' 預防當掉 例: com port 故障
-        End Try
+        With comport
+            '先清空BUFFER
+            If .BytesToRead > 0 Then
+                Dim buffer(.BytesToRead - 1) As Byte
+                .Read(buffer, 0, buffer.Length)
+            End If
+        End With
     End Sub
 
 
