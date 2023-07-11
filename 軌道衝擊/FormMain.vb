@@ -142,7 +142,7 @@ Public Class FormMain
                 ButtonSettings.Enabled = False '參數設定
                 ButtonStart.Enabled = True ' 油壓啟動/關閉
                 ButtonStart2.Enabled = False ' 雙點衝擊
-                ButtonStartRecord.Enabled = True ' 開始記錄
+                ButtonStartRecord.Enabled = False ' 開始記錄
                 ButtonConsole.Enabled = True ' 系統訊息
                 ButtonLogs.Enabled = True ' 記錄瀏覽
                 ButtonTest.Enabled = False ' 測試
@@ -190,6 +190,10 @@ Public Class FormMain
         Catch ex As Exception
             ConsoleLog(ex.ToString)
         End Try
+
+    End Sub
+
+    Private Sub Panel_Main_Paint(sender As Object, e As PaintEventArgs) Handles Panel_Main.Paint
 
     End Sub
 End Class
