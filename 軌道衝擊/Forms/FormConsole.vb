@@ -1,4 +1,6 @@
-﻿Public Class FormConsole
+﻿Imports System.ComponentModel
+
+Public Class FormConsole
 
     Sub WriteLog(log As String, Optional color As Color = Nothing)
         If color = Nothing Then
@@ -7,9 +9,11 @@
         FConsole1.WriteLine(log, color)
     End Sub
 
-    Private Sub FConsole1_TextChanged(sender As Object, e As EventArgs) Handles FConsole1.TextChanged
-
+    Private Sub FormConsole_Closing(sender As Object, e As CancelEventArgs) Handles Me.FormClosing
+        Me.Hide()
+        e.Cancel = True
     End Sub
+
 
     ''' <summary>
     ''' https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
@@ -29,4 +33,6 @@
         End If
         Return Color.FromArgb(d, d, d)
     End Function
+
+
 End Class

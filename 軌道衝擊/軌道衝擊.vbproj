@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A983D8D5-F72B-4656-BF3D-6BED60C07016}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>軌道衝擊.My.MyApplication</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>軌道衝擊</RootNamespace>
     <AssemblyName>軌道衝擊</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -156,6 +156,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -168,6 +169,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Supports\LOGGER.vb" />
+    <Compile Include="Tasks\mTasks.vb" />
     <Compile Include="Test\mTest.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +207,33 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\A0.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\A1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\A2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\A0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\A1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\A2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -1,13 +1,20 @@
-﻿Public Class FormTest
+﻿Imports MfgControl.AdvancedHMI.Controls
+
+Public Class FormTest
     Private Sub FormTest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AddHandler Me.Feq.KeyPress, AddressOf TextboxKeypressCheck
         AddHandler Me.mTons.KeyPress, AddressOf TextboxKeypressCheck
         AddHandler Me.decpos.KeyPress, AddressOf TextboxKeypressCheck
+        AddHandler Me.cbA1.CheckedChanged, AddressOf cbACCheck
+        AddHandler Me.cbA2.CheckedChanged, AddressOf cbACCheck
+        AddHandler Me.cbC1.CheckedChanged, AddressOf cbACCheck
+        AddHandler Me.cbC2.CheckedChanged, AddressOf cbACCheck
         decpos.Text = SYS.讀取小數位
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
+            TestLog("全關指令")
             TestLog(SYS.全關指令)
 
         Catch ex As Exception
@@ -16,6 +23,7 @@
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Try
+            TestLog("A點衝擊")
             TestLog(SYS.A點衝擊)
 
         Catch ex As Exception
@@ -24,6 +32,7 @@
     End Sub
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Try
+            TestLog("C點衝擊")
             TestLog(SYS.C點衝擊)
 
         Catch ex As Exception
@@ -118,35 +127,37 @@
         Return s & " : " & s2
     End Function
 
-    Private Sub 初始化(sender As Object, e As EventArgs) Handles Button9.Click
-        Try
-            SYS.全關指令()
-            SYS.設定變頻器頻率(0)
-        Catch ex As Exception
-            TestLog("初始化" & ex.ToString)
-        End Try
+    'Private Sub 初始化(sender As Object, e As EventArgs) Handles Button9.Click
+    '    Try
+    '        SYS.全關指令()
+    '        SYS.設定變頻器頻率(0)
+    '    Catch ex As Exception
+    '        TestLog("初始化" & ex.ToString)
+    '    End Try
+    'End Sub
+
+    'Private Sub 開啟油壓(sender As Object, e As EventArgs) Handles Button10.Click
+    '    Try
+    '        SYS.開啟變頻器()
+    '        SYS.設定變頻器頻率(FSET.變頻器初始頻率)
+    '    Catch ex As Exception
+    '        TestLog("開啟油壓" & ex.ToString)
+    '    End Try
+
+    'End Sub
+
+    'Private Sub 關閉油壓(sender As Object, e As EventArgs) Handles Button11.Click
+    '    Try
+    '        SYS.關閉變頻器()
+    '        SYS.設定變頻器頻率(0)
+    '    Catch ex As Exception
+    '        TestLog("關閉油壓" & ex.ToString)
+    '    End Try
+    'End Sub
+
+    Private Sub cbACCheck()
+        lblcmd.Text = SYS.電磁閥測試指令碼(cbA1.Checked, cbA2.Checked, cbC1.Checked, cbC2.Checked)
     End Sub
-
-    Private Sub 開啟油壓(sender As Object, e As EventArgs) Handles Button10.Click
-        Try
-            SYS.開啟變頻器()
-            SYS.設定變頻器頻率(FormSettings.變頻器初始頻率)
-        Catch ex As Exception
-            TestLog("開啟油壓" & ex.ToString)
-        End Try
-
-    End Sub
-
-    Private Sub 關閉油壓(sender As Object, e As EventArgs) Handles Button11.Click
-        Try
-            SYS.關閉變頻器()
-            SYS.設定變頻器頻率(0)
-        Catch ex As Exception
-            TestLog("關閉油壓" & ex.ToString)
-        End Try
-    End Sub
-
-
 
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
         Try
@@ -164,5 +175,18 @@
         Catch ex As Exception
             TestLog(ex.ToString)
         End Try
+    End Sub
+
+    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        Try
+            cbACCheck() ' 重算一次
+            Dim DOData As String = "#0F00" & lblcmd.Text
+            TestLog("手動電磁閥測試")
+            TestLog(SYS.手動電磁閥測試(DOData))
+
+        Catch ex As Exception
+            TestLog(ex.ToString)
+        End Try
+
     End Sub
 End Class

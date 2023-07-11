@@ -22,12 +22,19 @@ Imports OfficeOpenXml.ExcelErrorValue
 '   DI回應：(cr)可判斷資料結束字元，”?”可判斷傳送失敗
 '   dataInput為16位元字串資料， 需自行轉換2位元， 藉以判斷每一個DI是0或1。
 Public Class cSYS
-    Dim state As Integer = 1 '1=Normal 2=Emulate
-    Property COMS As Dictionary(Of String, cCOM)
-    Property TAGS As Dictionary(Of String, Array)
+    Dim emuState As Integer = 1 '1=Normal 2=Emulate
+
+    'Property COMS As Dictionary(Of String, cCOM)
+    'Property TAGS As Dictionary(Of String, Array)
     Property CH1 As cCOM
     Property CH2 As cCOM
-    Dim emulateTimer As System.Threading.Timer
+    Property ev As Decimal ' 變頻器增減值 (模擬用)
+
+    Property status As Integer = SystemStatus.初值化
+
+
+
+    'Dim emulateTimer As System.Threading.Timer
     '''
     Sub New()
         CH1 = New cCOM("COM3")
@@ -37,44 +44,14 @@ Public Class cSYS
 
     Sub SetEmulate(onoff As Boolean)
         If onoff = True Then
-            state = 2
+            emuState = 2
         Else
-            state = 1
+            emuState = 1
         End If
-
-        'emulateTimer = New System.Threading.Timer(Sub()
-        '                                              doEmulate()
-        '                                          End Sub, Nothing, 5000, 1000)
     End Sub
 
 
-    Sub doEmulate()
 
-        Dim 容許誤差範圍 = (FormSettings.力值設定 / 100) * 0.75
-        Dim 目前主缸力值 = 主缸力值()
-        If Math.Abs(FormSettings.力值設定 - 主缸力值()) < 容許誤差範圍 Then
-            ' do nothing
-        Else
-            If 主缸力值() > FormSettings.力值設定 Then
-                設定變頻器頻率(變頻器頻率() - 變頻器頻率() * 1%)
-            ElseIf 主缸力值() < FormSettings.力值設定 Then
-                設定變頻器頻率(變頻器頻率() + 變頻器頻率() * 1%)
-            End If
-        End If
-
-        ' 模擬主缸力值變化
-        Select Case 變頻器狀態()
-            Case "ON"
-                SYS.寫入主缸力值(SYS.主缸力值 + 0.5)
-            Case "OFF"
-                SYS.寫入主缸力值(SYS.主缸力值 - 0.5)
-            Case Else
-
-        End Select
-
-
-
-    End Sub
 
 
     ' 無濇用虛擬com port模擬writestring, 因此模擬時一律回 true
@@ -97,10 +74,20 @@ Public Class cSYS
         responseString = CH1.WriteString(CMD)
         Return responseString.Contains(vbCr)
     End Function
-    Function Adam4052_DI(Optional CMD As String = "$0F6", Optional ByRef responseString As String = Nothing)
-        If isEmulate() Then Return True
+    Function 緊急按鈕(Optional CMD As String = "$0F6", Optional ByRef responseString As String = Nothing)
+        If isEmulate() Then Return False ' 模擬狀態下一律回 false
         responseString = CH1.WriteString(CMD)
-        Return responseString.Contains(vbCr)
+        Dim v As String = ""
+        Dim ar() As Char = responseString.ToCharArray()
+        Dim result As Boolean
+        For Each ch As Char In ar
+            If Char.IsDigit(ch) Then
+                v &= ch
+            End If
+        Next
+        ' 如果 v <> 0 表示緊急按鈕 按下
+        result = Not CInt(v) = 0
+        Return result
     End Function
 
     Sub 開啟變頻器()
@@ -126,7 +113,7 @@ Public Class cSYS
 
     End Function
 
-    Sub 設定變頻器頻率(value As Integer)
+    Sub 設定變頻器頻率(value As Decimal)
         Dim values As Integer() = {value * 100}
         CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
     End Sub
@@ -134,6 +121,13 @@ Public Class cSYS
     Function 變頻器頻率()
         Dim v As Integer = CH2.ReadTag(slaveid:=4, registerAddress:=&H2001, 1)(0)
         Return v / 100
+
+    End Function
+
+    Function 手動電磁閥測試(CMD As String, Optional ByRef responseString As String = Nothing)
+        If isEmulate() Then Return True
+        responseString = CH2.WriteString(CMD)
+        Return responseString.Contains(vbCr)
     End Function
 
 
@@ -150,6 +144,55 @@ Public Class cSYS
         Dim result As Decimal = CDec(value / 10 ^ values2)
         Return result
     End Function
+
+
+
+    Function 電磁閥測試指令碼(a1 As Boolean, a2 As Boolean, c1 As Boolean, c2 As Boolean)
+        Dim RoBit(7) As Byte
+        Dim I As Integer, SSS As String
+        Dim OutputVal As Integer
+        If a1 Then 'A點
+            RoBit(3) = 1
+        Else
+            RoBit(3) = 0
+        End If
+        If c1 Then 'C點
+            RoBit(4) = 1
+        Else
+            RoBit(4) = 0
+        End If
+        If a2 Then 'A動
+            RoBit(1) = 1
+        Else
+            RoBit(1) = 0
+        End If
+        If c2 Then 'C動
+            RoBit(2) = 1
+        Else
+            RoBit(2) = 0
+        End If
+        OutputVal = 0
+        For I = 0 To 7
+            OutputVal += RoBit(I) * 2 ^ I
+        Next I
+        SSS = Hex(OutputVal)
+        If Len(SSS) < 2 Then SSS = "0" & SSS
+        Return SSS
+    End Function
+
+    'Private Function RelayOutput() As String
+    '    Dim I As Integer, SSS As String
+    '    Dim OutputVal As Byte
+    '    OutputVal = 0
+    '    For I = 0 To 7
+    '        OutputVal = OutputVal + RoBit(I) * 2 ^ I
+    '    Next I
+    '    SSS = Hex(OutputVal)
+    '    If Len(SSS) < 2 Then SSS = "0" & SSS
+    '    RelayOutput = SSS
+    'End Function
+
+
 
     ' ex. 20.8
     ' 小數位2位
@@ -180,6 +223,24 @@ Public Class cSYS
 
     End Sub
 
+    Sub 停機()
+        Try
+            SYS.設定變頻器頻率(0)
+        Catch ex As Exception
+            ConsoleLog(ex.ToString)
+        End Try
+        ' call {讀取 error code,hex,ERR_CODE}
+        Try
+            SYS.關閉變頻器()
+        Catch ex As Exception
+            ConsoleLog(ex.ToString)
+        End Try
+        Try
+            SYS.全關指令()
+        Catch ex As Exception
+            ConsoleLog(ex.ToString)
+        End Try
+    End Sub
 
     Sub 設定小數位(d As Integer)
         Dim values = {d} ' 整數
@@ -190,7 +251,7 @@ Public Class cSYS
         Return CH2.ReadTag(1, &H3, 1)(0)
     End Function
     Function isEmulate() As Boolean
-        Return state = 2
+        Return emuState = 2
     End Function
 
 End Class

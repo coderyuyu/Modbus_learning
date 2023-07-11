@@ -159,7 +159,7 @@ Public Class FormSettings
     End Sub
     '=======================================
     '以下function方使程式取得系統參數
-    '使用方法 formSettings.參數名稱
+    '使用方法 FSET.參數名稱
     Function 預定循環次數() '預定循環次數
         Return GetParaValue("paraCycles")
     End Function
@@ -184,10 +184,21 @@ Public Class FormSettings
     Function 力值設定() '
         Return GetParaValue("paraTargetTons")
     End Function
+    Function 累計次數() '
+        Return GetParaValue("paraAccumulate")
+    End Function
+
+    Sub 更新累計次數(value)
+        paraAccumulate.Text = value
+        Me.SaveConfig()
+    End Sub
 
     Private Function GetParaValue(name)
         LoadSettingsXML()
         Return GetParaValue(name)
         'System.Reflection.MethodInfo.GetCurrentMethod().Name
     End Function
+
+
+
 End Class

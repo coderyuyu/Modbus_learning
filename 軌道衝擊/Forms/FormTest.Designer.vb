@@ -25,10 +25,14 @@ Partial Class FormTest
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FConsole1 = New WindowsForms.Console.FConsole()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button11 = New System.Windows.Forms.Button()
-        Me.Button10 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Button14 = New System.Windows.Forms.Button()
+        Me.lblcmd = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cbC2 = New System.Windows.Forms.CheckBox()
+        Me.cbC1 = New System.Windows.Forms.CheckBox()
+        Me.cbA2 = New System.Windows.Forms.CheckBox()
+        Me.cbA1 = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.decpos = New System.Windows.Forms.TextBox()
         Me.Button13 = New System.Windows.Forms.Button()
@@ -45,7 +49,7 @@ Partial Class FormTest
         Me.Button8 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -89,7 +93,7 @@ Partial Class FormTest
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.GroupBox2)
+        Me.Panel1.Controls.Add(Me.GroupBox3)
         Me.Panel1.Controls.Add(Me.GroupBox1)
         Me.Panel1.Controls.Add(Me.Button8)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -98,44 +102,88 @@ Partial Class FormTest
         Me.Panel1.Size = New System.Drawing.Size(194, 562)
         Me.Panel1.TabIndex = 1
         '
-        'GroupBox2
+        'GroupBox3
         '
-        Me.GroupBox2.Controls.Add(Me.Button11)
-        Me.GroupBox2.Controls.Add(Me.Button10)
-        Me.GroupBox2.Controls.Add(Me.Button9)
-        Me.GroupBox2.Location = New System.Drawing.Point(9, 239)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(174, 147)
-        Me.GroupBox2.TabIndex = 10
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "整合測試"
+        Me.GroupBox3.Controls.Add(Me.Button14)
+        Me.GroupBox3.Controls.Add(Me.lblcmd)
+        Me.GroupBox3.Controls.Add(Me.Label1)
+        Me.GroupBox3.Controls.Add(Me.cbC2)
+        Me.GroupBox3.Controls.Add(Me.cbC1)
+        Me.GroupBox3.Controls.Add(Me.cbA2)
+        Me.GroupBox3.Controls.Add(Me.cbA1)
+        Me.GroupBox3.Location = New System.Drawing.Point(8, 227)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(175, 100)
+        Me.GroupBox3.TabIndex = 11
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "手動電磁閥開關"
         '
-        'Button11
+        'Button14
         '
-        Me.Button11.Location = New System.Drawing.Point(6, 77)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(154, 22)
-        Me.Button11.TabIndex = 2
-        Me.Button11.Text = "關閉油壓"
-        Me.Button11.UseVisualStyleBackColor = True
+        Me.Button14.Location = New System.Drawing.Point(111, 67)
+        Me.Button14.Name = "Button14"
+        Me.Button14.Size = New System.Drawing.Size(58, 25)
+        Me.Button14.TabIndex = 6
+        Me.Button14.Text = "執行"
+        Me.Button14.UseVisualStyleBackColor = True
         '
-        'Button10
+        'lblcmd
         '
-        Me.Button10.Location = New System.Drawing.Point(6, 49)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(154, 22)
-        Me.Button10.TabIndex = 1
-        Me.Button10.Text = "開啟油壓"
-        Me.Button10.UseVisualStyleBackColor = True
+        Me.lblcmd.AutoSize = True
+        Me.lblcmd.Location = New System.Drawing.Point(53, 73)
+        Me.lblcmd.Name = "lblcmd"
+        Me.lblcmd.Size = New System.Drawing.Size(8, 12)
+        Me.lblcmd.TabIndex = 5
+        Me.lblcmd.Text = "."
         '
-        'Button9
+        'Label1
         '
-        Me.Button9.Location = New System.Drawing.Point(6, 21)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(154, 22)
-        Me.Button9.TabIndex = 0
-        Me.Button9.Text = "程式初始化"
-        Me.Button9.UseVisualStyleBackColor = True
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 73)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(41, 12)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "指令碼"
+        '
+        'cbC2
+        '
+        Me.cbC2.AutoSize = True
+        Me.cbC2.Location = New System.Drawing.Point(57, 43)
+        Me.cbC2.Name = "cbC2"
+        Me.cbC2.Size = New System.Drawing.Size(44, 16)
+        Me.cbC2.TabIndex = 3
+        Me.cbC2.Text = "C動"
+        Me.cbC2.UseVisualStyleBackColor = True
+        '
+        'cbC1
+        '
+        Me.cbC1.AutoSize = True
+        Me.cbC1.Location = New System.Drawing.Point(57, 21)
+        Me.cbC1.Name = "cbC1"
+        Me.cbC1.Size = New System.Drawing.Size(44, 16)
+        Me.cbC1.TabIndex = 2
+        Me.cbC1.Text = "C點"
+        Me.cbC1.UseVisualStyleBackColor = True
+        '
+        'cbA2
+        '
+        Me.cbA2.AutoSize = True
+        Me.cbA2.Location = New System.Drawing.Point(7, 43)
+        Me.cbA2.Name = "cbA2"
+        Me.cbA2.Size = New System.Drawing.Size(44, 16)
+        Me.cbA2.TabIndex = 1
+        Me.cbA2.Text = "A動"
+        Me.cbA2.UseVisualStyleBackColor = True
+        '
+        'cbA1
+        '
+        Me.cbA1.AutoSize = True
+        Me.cbA1.Location = New System.Drawing.Point(7, 21)
+        Me.cbA1.Name = "cbA1"
+        Me.cbA1.Size = New System.Drawing.Size(44, 16)
+        Me.cbA1.TabIndex = 0
+        Me.cbA1.Text = "A點"
+        Me.cbA1.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -173,7 +221,7 @@ Partial Class FormTest
         Me.Button13.Name = "Button13"
         Me.Button13.Size = New System.Drawing.Size(103, 25)
         Me.Button13.TabIndex = 10
-        Me.Button13.Text = "寫入小數位"
+        Me.Button13.Text = "設定小數位"
         Me.Button13.UseVisualStyleBackColor = True
         '
         'mTons
@@ -268,7 +316,7 @@ Partial Class FormTest
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(108, 412)
+        Me.Button8.Location = New System.Drawing.Point(108, 530)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(75, 23)
         Me.Button8.TabIndex = 8
@@ -285,7 +333,8 @@ Partial Class FormTest
         Me.Text = "測試"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
@@ -305,12 +354,16 @@ Partial Class FormTest
     Friend WithEvents Button5 As Button
     Friend WithEvents Button8 As Button
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents Button11 As Button
-    Friend WithEvents Button10 As Button
-    Friend WithEvents Button9 As Button
     Friend WithEvents mTons As TextBox
     Friend WithEvents Button12 As Button
     Friend WithEvents decpos As TextBox
     Friend WithEvents Button13 As Button
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents cbC2 As CheckBox
+    Friend WithEvents cbC1 As CheckBox
+    Friend WithEvents cbA2 As CheckBox
+    Friend WithEvents cbA1 As CheckBox
+    Friend WithEvents Button14 As Button
+    Friend WithEvents lblcmd As Label
+    Friend WithEvents Label1 As Label
 End Class

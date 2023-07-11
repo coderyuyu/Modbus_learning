@@ -4,5 +4,5 @@
 ''' 每個以時間+值配對
 ''' </summary>
 Public Class cDATA0
-
+    Property 主缸力值
 End Class

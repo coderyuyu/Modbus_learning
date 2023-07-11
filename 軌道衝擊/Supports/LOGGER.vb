@@ -7,6 +7,8 @@ Public Class LOGGER
         logtype = logtype.ToLower
         If Not logHeader.ContainsKey(logtype) Then
             logHeader.Add(logtype, header)
+        Else
+            logHeader(logtype) = header
         End If
     End Sub
 
