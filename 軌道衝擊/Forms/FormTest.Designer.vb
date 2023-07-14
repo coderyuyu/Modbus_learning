@@ -47,6 +47,8 @@ Partial Class FormTest
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Button9 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -111,7 +113,7 @@ Partial Class FormTest
         Me.GroupBox3.Controls.Add(Me.cbC1)
         Me.GroupBox3.Controls.Add(Me.cbA2)
         Me.GroupBox3.Controls.Add(Me.cbA1)
-        Me.GroupBox3.Location = New System.Drawing.Point(8, 227)
+        Me.GroupBox3.Location = New System.Drawing.Point(8, 270)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(175, 100)
         Me.GroupBox3.TabIndex = 11
@@ -187,6 +189,8 @@ Partial Class FormTest
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button9)
+        Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.decpos)
         Me.GroupBox1.Controls.Add(Me.Button13)
         Me.GroupBox1.Controls.Add(Me.mTons)
@@ -201,7 +205,7 @@ Partial Class FormTest
         Me.GroupBox1.Controls.Add(Me.Button5)
         Me.GroupBox1.Location = New System.Drawing.Point(9, 9)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(174, 212)
+        Me.GroupBox1.Size = New System.Drawing.Size(174, 255)
         Me.GroupBox1.TabIndex = 9
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "單元測試"
@@ -226,7 +230,7 @@ Partial Class FormTest
         '
         'mTons
         '
-        Me.mTons.Location = New System.Drawing.Point(112, 148)
+        Me.mTons.Location = New System.Drawing.Point(112, 227)
         Me.mTons.Name = "mTons"
         Me.mTons.Size = New System.Drawing.Size(56, 22)
         Me.mTons.TabIndex = 9
@@ -235,7 +239,7 @@ Partial Class FormTest
         '
         'Button12
         '
-        Me.Button12.Location = New System.Drawing.Point(6, 145)
+        Me.Button12.Location = New System.Drawing.Point(6, 224)
         Me.Button12.Name = "Button12"
         Me.Button12.Size = New System.Drawing.Size(103, 25)
         Me.Button12.TabIndex = 8
@@ -262,7 +266,7 @@ Partial Class FormTest
         '
         'Feq
         '
-        Me.Feq.Location = New System.Drawing.Point(112, 117)
+        Me.Feq.Location = New System.Drawing.Point(112, 147)
         Me.Feq.Name = "Feq"
         Me.Feq.Size = New System.Drawing.Size(56, 22)
         Me.Feq.TabIndex = 7
@@ -280,7 +284,7 @@ Partial Class FormTest
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(6, 114)
+        Me.Button7.Location = New System.Drawing.Point(7, 144)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(103, 25)
         Me.Button7.TabIndex = 6
@@ -322,6 +326,25 @@ Partial Class FormTest
         Me.Button8.TabIndex = 8
         Me.Button8.Text = "清除"
         Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("PMingLiU", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label2.Location = New System.Drawing.Point(8, 212)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(49, 11)
+        Me.Label2.TabIndex = 12
+        Me.Label2.Text = "僅供模擬"
+        '
+        'Button9
+        '
+        Me.Button9.Location = New System.Drawing.Point(7, 114)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(161, 25)
+        Me.Button9.TabIndex = 13
+        Me.Button9.Text = "緊急按鈕狀態"
+        Me.Button9.UseVisualStyleBackColor = True
         '
         'FormTest
         '
@@ -366,4 +389,6 @@ Partial Class FormTest
     Friend WithEvents Button14 As Button
     Friend WithEvents lblcmd As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents Button9 As Button
+    Friend WithEvents Label2 As Label
 End Class

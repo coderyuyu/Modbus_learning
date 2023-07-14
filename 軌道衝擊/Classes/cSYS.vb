@@ -30,7 +30,7 @@ Public Class cSYS
     Property CH2 As cCOM
     Property ev As Decimal ' 變頻器增減值 (模擬用)
 
-    Property status As Integer = SystemStatus.初值化
+
 
 
 
@@ -39,7 +39,6 @@ Public Class cSYS
     Sub New()
         CH1 = New cCOM("COM3")
         CH2 = New cCOM("COM4")
-        設定小數位(2)
     End Sub
 
     Sub SetEmulate(onoff As Boolean)
@@ -50,8 +49,16 @@ Public Class cSYS
         End If
     End Sub
 
-
-
+    ''' <summary>
+    ''' 連線檢查 
+    ''' </summary>
+    Sub 連線檢查()
+        ' 程式啟動前的檢查, 可以更精細一些
+        CH1.ConnectPort()
+        CH2.ConnectPort()
+        CH1.DisConnect()
+        CH2.DisConnect()
+    End Sub
 
 
     ' 無濇用虛擬com port模擬writestring, 因此模擬時一律回 true
@@ -74,7 +81,7 @@ Public Class cSYS
         responseString = CH1.WriteString(CMD)
         Return responseString.Contains(vbCr)
     End Function
-    Function 緊急按鈕(Optional CMD As String = "$0F6", Optional ByRef responseString As String = Nothing)
+    Function 緊急按鈕狀態(Optional CMD As String = "$0F6", Optional ByRef responseString As String = Nothing)
         If isEmulate() Then Return False ' 模擬狀態下一律回 false
         responseString = CH1.WriteString(CMD)
         Dim v As String = ""
@@ -130,23 +137,6 @@ Public Class cSYS
         Return responseString.Contains(vbCr)
     End Function
 
-
-    Function 主缸力值() As Decimal
-        Static values2 As Integer = Nothing
-        Dim values = CH2.ReadTag(1, &H26, 2) ' 整數
-        If values(0) < 0 Then
-            values(0) = 0 - values(0)
-        End If
-        If values2 = Nothing Then
-            values2 = 讀取小數位()
-        End If
-        Dim value = values(0) * 16 ^ 2 + values(1)
-        Dim result As Decimal = CDec(value / 10 ^ values2)
-        Return result
-    End Function
-
-
-
     Function 電磁閥測試指令碼(a1 As Boolean, a2 As Boolean, c1 As Boolean, c2 As Boolean)
         Dim RoBit(7) As Byte
         Dim I As Integer, SSS As String
@@ -179,6 +169,24 @@ Public Class cSYS
         If Len(SSS) < 2 Then SSS = "0" & SSS
         Return SSS
     End Function
+
+    Function 主缸力值() As Decimal
+        Static values2 As Integer = Nothing
+        Dim values = CH2.ReadTag(1, &H26, 2) ' 整數
+        If values(0) < 0 Then
+            values(0) = 0 - values(0)
+        End If
+        If values2 = Nothing Then
+            values2 = 讀取小數位()
+        End If
+        Dim value = values(0) * 16 ^ 2 + values(1)
+        Dim result As Decimal = CDec(value / 10 ^ values2)
+        Return result
+    End Function
+
+
+
+
 
     'Private Function RelayOutput() As String
     '    Dim I As Integer, SSS As String
@@ -223,6 +231,7 @@ Public Class cSYS
 
     End Sub
 
+    ''' <summary>集中停機所需步驟</summary>
     Sub 停機()
         Try
             SYS.設定變頻器頻率(0)

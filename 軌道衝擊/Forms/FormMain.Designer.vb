@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMain))
@@ -40,15 +40,17 @@ Partial Class FormMain
         Me.Panel_Main = New System.Windows.Forms.Panel()
         Me.counter = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.C = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
-        Me.A = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
         Me.CylinderTons = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.EthernetIPforCLXCom1 = New AdvancedHMIDrivers.EthernetIPforCLXCom(Me.components)
+        Me.C = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
+        Me.A = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Layout.SuspendLayout()
         Me.Panel_buttons.SuspendLayout()
         Me.Panel_Main.SuspendLayout()
         CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Layout
@@ -149,10 +151,12 @@ Partial Class FormMain
         'isEMU
         '
         Me.isEMU.AutoSize = True
-        Me.isEMU.Location = New System.Drawing.Point(1100, 31)
+        Me.isEMU.Enabled = False
+        Me.isEMU.Font = New System.Drawing.Font("Microsoft JhengHei", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.isEMU.Location = New System.Drawing.Point(1051, 24)
         Me.isEMU.Margin = New System.Windows.Forms.Padding(4)
         Me.isEMU.Name = "isEMU"
-        Me.isEMU.Size = New System.Drawing.Size(53, 21)
+        Me.isEMU.Size = New System.Drawing.Size(80, 34)
         Me.isEMU.TabIndex = 4
         Me.isEMU.Text = "模擬"
         Me.isEMU.UseVisualStyleBackColor = True
@@ -213,12 +217,7 @@ Partial Class FormMain
         '
         'Panel_Main
         '
-        Me.Panel_Main.Controls.Add(Me.counter)
-        Me.Panel_Main.Controls.Add(Me.Label3)
-        Me.Panel_Main.Controls.Add(Me.C)
-        Me.Panel_Main.Controls.Add(Me.A)
-        Me.Panel_Main.Controls.Add(Me.CylinderTons)
-        Me.Panel_Main.Controls.Add(Me.Label1)
+        Me.Panel_Main.Controls.Add(Me.Panel1)
         Me.Panel_Main.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel_Main.Location = New System.Drawing.Point(4, 4)
         Me.Panel_Main.Margin = New System.Windows.Forms.Padding(4)
@@ -228,11 +227,11 @@ Partial Class FormMain
         '
         'counter
         '
-        Me.counter.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.counter.Location = New System.Drawing.Point(386, 406)
+        Me.counter.Font = New System.Drawing.Font("Microsoft JhengHei", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.counter.Location = New System.Drawing.Point(104, 333)
         Me.counter.Margin = New System.Windows.Forms.Padding(4)
         Me.counter.Name = "counter"
-        Me.counter.Size = New System.Drawing.Size(189, 71)
+        Me.counter.Size = New System.Drawing.Size(189, 46)
         Me.counter.TabIndex = 7
         Me.counter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -240,61 +239,19 @@ Partial Class FormMain
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.Label3.Location = New System.Drawing.Point(375, 341)
+        Me.Label3.Location = New System.Drawing.Point(93, 266)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(219, 61)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "累計次數"
-        '
-        'C
-        '
-        Me.C.Flash1 = False
-        Me.C.Font2 = New System.Drawing.Font("Arial", 10.0!)
-        Me.C.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.C.GraphicAllOff = CType(resources.GetObject("C.GraphicAllOff"), System.Drawing.Bitmap)
-        Me.C.GraphicSelect1 = CType(resources.GetObject("C.GraphicSelect1"), System.Drawing.Bitmap)
-        Me.C.GraphicSelect2 = CType(resources.GetObject("C.GraphicSelect2"), System.Drawing.Bitmap)
-        Me.C.Location = New System.Drawing.Point(488, 229)
-        Me.C.Margin = New System.Windows.Forms.Padding(0)
-        Me.C.Name = "C"
-        Me.C.NumericFormat = Nothing
-        Me.C.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
-        Me.C.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
-        Me.C.Size = New System.Drawing.Size(87, 89)
-        Me.C.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.C.TabIndex = 5
-        Me.C.Text2 = ""
-        Me.C.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.C.ValueSelect1 = True
-        Me.C.ValueSelect2 = False
-        '
-        'A
-        '
-        Me.A.Flash1 = False
-        Me.A.Font2 = New System.Drawing.Font("Arial", 10.0!)
-        Me.A.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.A.GraphicAllOff = CType(resources.GetObject("A.GraphicAllOff"), System.Drawing.Bitmap)
-        Me.A.GraphicSelect1 = CType(resources.GetObject("A.GraphicSelect1"), System.Drawing.Bitmap)
-        Me.A.GraphicSelect2 = CType(resources.GetObject("A.GraphicSelect2"), System.Drawing.Bitmap)
-        Me.A.Location = New System.Drawing.Point(386, 229)
-        Me.A.Margin = New System.Windows.Forms.Padding(0)
-        Me.A.Name = "A"
-        Me.A.NumericFormat = Nothing
-        Me.A.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
-        Me.A.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
-        Me.A.Size = New System.Drawing.Size(87, 89)
-        Me.A.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.A.TabIndex = 4
-        Me.A.Text2 = ""
-        Me.A.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.A.ValueSelect1 = True
-        Me.A.ValueSelect2 = False
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'CylinderTons
         '
+        Me.CylinderTons.Enabled = False
         Me.CylinderTons.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.CylinderTons.Location = New System.Drawing.Point(386, 151)
+        Me.CylinderTons.Location = New System.Drawing.Point(104, 79)
         Me.CylinderTons.Margin = New System.Windows.Forms.Padding(4)
         Me.CylinderTons.Name = "CylinderTons"
         Me.CylinderTons.Size = New System.Drawing.Size(189, 71)
@@ -305,7 +262,7 @@ Partial Class FormMain
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.Label1.Location = New System.Drawing.Point(375, 86)
+        Me.Label1.Location = New System.Drawing.Point(93, 10)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(219, 61)
@@ -326,6 +283,65 @@ Partial Class FormMain
         Me.EthernetIPforCLXCom1.RoutePath = Nothing
         Me.EthernetIPforCLXCom1.Timeout = 4000
         '
+        'C
+        '
+        Me.C.Flash1 = False
+        Me.C.Font2 = New System.Drawing.Font("Arial", 10.0!)
+        Me.C.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.C.GraphicAllOff = Global.軌道衝擊.My.Resources.Resources.C0
+        Me.C.GraphicSelect1 = Global.軌道衝擊.My.Resources.Resources.C1
+        Me.C.GraphicSelect2 = Global.軌道衝擊.My.Resources.Resources.C2
+        Me.C.Location = New System.Drawing.Point(206, 164)
+        Me.C.Margin = New System.Windows.Forms.Padding(0)
+        Me.C.Name = "C"
+        Me.C.NumericFormat = Nothing
+        Me.C.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
+        Me.C.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
+        Me.C.Size = New System.Drawing.Size(87, 89)
+        Me.C.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.C.TabIndex = 5
+        Me.C.Text2 = ""
+        Me.C.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.C.ValueSelect1 = False
+        Me.C.ValueSelect2 = False
+        '
+        'A
+        '
+        Me.A.Flash1 = False
+        Me.A.Font2 = New System.Drawing.Font("Arial", 10.0!)
+        Me.A.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.A.GraphicAllOff = Global.軌道衝擊.My.Resources.Resources.A0
+        Me.A.GraphicSelect1 = Global.軌道衝擊.My.Resources.Resources.A1
+        Me.A.GraphicSelect2 = Global.軌道衝擊.My.Resources.Resources.A2
+        Me.A.Location = New System.Drawing.Point(104, 164)
+        Me.A.Margin = New System.Windows.Forms.Padding(0)
+        Me.A.Name = "A"
+        Me.A.NumericFormat = Nothing
+        Me.A.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
+        Me.A.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
+        Me.A.Size = New System.Drawing.Size(87, 89)
+        Me.A.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.A.TabIndex = 4
+        Me.A.Text2 = ""
+        Me.A.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.A.ValueSelect1 = False
+        Me.A.ValueSelect2 = False
+        '
+        'Panel1
+        '
+        Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Panel1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel1.Controls.Add(Me.counter)
+        Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Controls.Add(Me.C)
+        Me.Panel1.Controls.Add(Me.CylinderTons)
+        Me.Panel1.Controls.Add(Me.A)
+        Me.Panel1.Location = New System.Drawing.Point(298, 130)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(391, 423)
+        Me.Panel1.TabIndex = 0
+        '
         'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
@@ -341,8 +357,9 @@ Partial Class FormMain
         Me.Panel_buttons.ResumeLayout(False)
         Me.Panel_buttons.PerformLayout()
         Me.Panel_Main.ResumeLayout(False)
-        Me.Panel_Main.PerformLayout()
         CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -368,4 +385,5 @@ Partial Class FormMain
     Friend WithEvents ButtonEnd As Button
     Friend WithEvents counter As TextBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents Panel1 As Panel
 End Class

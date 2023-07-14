@@ -69,280 +69,344 @@ Partial Class FormSettings
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(98, 34)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label1.Location = New System.Drawing.Point(131, 48)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(53, 12)
+        Me.Label1.Size = New System.Drawing.Size(73, 20)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "力值設定"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(242, 34)
+        Me.Label2.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label2.Location = New System.Drawing.Point(323, 48)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(17, 12)
+        Me.Label2.Size = New System.Drawing.Size(25, 20)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "噸"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(265, 34)
+        Me.Label3.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label3.Location = New System.Drawing.Point(353, 48)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(89, 12)
+        Me.Label3.Size = New System.Drawing.Size(121, 20)
         Me.Label3.TabIndex = 3
         Me.Label3.Text = "正式試驗目標值"
         '
         'paraTargetTons
         '
-        Me.paraTargetTons.Location = New System.Drawing.Point(157, 29)
+        Me.paraTargetTons.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraTargetTons.Location = New System.Drawing.Point(209, 41)
+        Me.paraTargetTons.Margin = New System.Windows.Forms.Padding(4)
         Me.paraTargetTons.Name = "paraTargetTons"
-        Me.paraTargetTons.Size = New System.Drawing.Size(79, 22)
+        Me.paraTargetTons.Size = New System.Drawing.Size(104, 29)
         Me.paraTargetTons.TabIndex = 4
         Me.paraTargetTons.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'paraInitFQ
         '
-        Me.paraInitFQ.Location = New System.Drawing.Point(157, 58)
+        Me.paraInitFQ.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraInitFQ.Location = New System.Drawing.Point(209, 82)
+        Me.paraInitFQ.Margin = New System.Windows.Forms.Padding(4)
         Me.paraInitFQ.Name = "paraInitFQ"
-        Me.paraInitFQ.Size = New System.Drawing.Size(79, 22)
+        Me.paraInitFQ.Size = New System.Drawing.Size(104, 29)
         Me.paraInitFQ.TabIndex = 8
         Me.paraInitFQ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(265, 63)
+        Me.Label4.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label4.Location = New System.Drawing.Point(353, 89)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(125, 12)
+        Me.Label4.Size = New System.Drawing.Size(169, 20)
         Me.Label4.TabIndex = 7
         Me.Label4.Text = "啟動油壓後送出之頻率"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(242, 63)
+        Me.Label5.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label5.Location = New System.Drawing.Point(323, 89)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(18, 12)
+        Me.Label5.Size = New System.Drawing.Size(29, 20)
         Me.Label5.TabIndex = 6
         Me.Label5.Text = "Hz"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(62, 63)
+        Me.Label6.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label6.Location = New System.Drawing.Point(83, 89)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(89, 12)
+        Me.Label6.Size = New System.Drawing.Size(121, 20)
         Me.Label6.TabIndex = 5
         Me.Label6.Text = "變頻器初始頻率"
         '
         'paraRecordFQ
         '
-        Me.paraRecordFQ.Location = New System.Drawing.Point(157, 87)
+        Me.paraRecordFQ.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraRecordFQ.Location = New System.Drawing.Point(209, 123)
+        Me.paraRecordFQ.Margin = New System.Windows.Forms.Padding(4)
         Me.paraRecordFQ.Name = "paraRecordFQ"
-        Me.paraRecordFQ.Size = New System.Drawing.Size(79, 22)
+        Me.paraRecordFQ.Size = New System.Drawing.Size(104, 29)
         Me.paraRecordFQ.TabIndex = 12
         Me.paraRecordFQ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(265, 92)
+        Me.Label7.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label7.Location = New System.Drawing.Point(353, 130)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(125, 12)
+        Me.Label7.Size = New System.Drawing.Size(169, 20)
         Me.Label7.TabIndex = 11
         Me.Label7.Text = "開始紀錄時的參考頻率"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(242, 92)
+        Me.Label8.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label8.Location = New System.Drawing.Point(323, 130)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(18, 12)
+        Me.Label8.Size = New System.Drawing.Size(29, 20)
         Me.Label8.TabIndex = 10
         Me.Label8.Text = "Hz"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(38, 92)
+        Me.Label9.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label9.Location = New System.Drawing.Point(51, 130)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(113, 12)
+        Me.Label9.Size = New System.Drawing.Size(153, 20)
         Me.Label9.TabIndex = 9
         Me.Label9.Text = "開始紀錄前重置頻率"
         '
         'paraMinTons
         '
-        Me.paraMinTons.Location = New System.Drawing.Point(157, 116)
+        Me.paraMinTons.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraMinTons.Location = New System.Drawing.Point(209, 164)
+        Me.paraMinTons.Margin = New System.Windows.Forms.Padding(4)
         Me.paraMinTons.Name = "paraMinTons"
-        Me.paraMinTons.Size = New System.Drawing.Size(79, 22)
+        Me.paraMinTons.Size = New System.Drawing.Size(104, 29)
         Me.paraMinTons.TabIndex = 16
         Me.paraMinTons.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(265, 121)
+        Me.Label10.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label10.Location = New System.Drawing.Point(353, 171)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(125, 12)
+        Me.Label10.Size = New System.Drawing.Size(169, 20)
         Me.Label10.TabIndex = 15
         Me.Label10.Text = "主缸承載力最低容許值"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(242, 121)
+        Me.Label11.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label11.Location = New System.Drawing.Point(323, 171)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(17, 12)
+        Me.Label11.Size = New System.Drawing.Size(25, 20)
         Me.Label11.TabIndex = 14
         Me.Label11.Text = "噸"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(50, 121)
+        Me.Label12.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label12.Location = New System.Drawing.Point(67, 171)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(101, 12)
+        Me.Label12.Size = New System.Drawing.Size(137, 20)
         Me.Label12.TabIndex = 13
         Me.Label12.Text = "容許最低承載力值"
         '
         'paraACFQ
         '
-        Me.paraACFQ.Location = New System.Drawing.Point(157, 145)
+        Me.paraACFQ.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraACFQ.Location = New System.Drawing.Point(209, 205)
+        Me.paraACFQ.Margin = New System.Windows.Forms.Padding(4)
         Me.paraACFQ.Name = "paraACFQ"
-        Me.paraACFQ.Size = New System.Drawing.Size(79, 22)
+        Me.paraACFQ.Size = New System.Drawing.Size(104, 29)
         Me.paraACFQ.TabIndex = 20
         Me.paraACFQ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(265, 150)
+        Me.Label13.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label13.Location = New System.Drawing.Point(353, 212)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(93, 12)
+        Me.Label13.Size = New System.Drawing.Size(127, 20)
         Me.Label13.TabIndex = 19
         Me.Label13.Text = "A、C點衝擊頻率"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(242, 150)
+        Me.Label14.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label14.Location = New System.Drawing.Point(323, 212)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(18, 12)
+        Me.Label14.Size = New System.Drawing.Size(29, 20)
         Me.Label14.TabIndex = 18
         Me.Label14.Text = "Hz"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(62, 150)
+        Me.Label15.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label15.Location = New System.Drawing.Point(83, 212)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(89, 12)
+        Me.Label15.Size = New System.Drawing.Size(121, 20)
         Me.Label15.TabIndex = 17
         Me.Label15.Text = "測試點應變頻率"
         '
         'paraDis100
         '
-        Me.paraDis100.Location = New System.Drawing.Point(157, 203)
+        Me.paraDis100.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraDis100.Location = New System.Drawing.Point(209, 288)
+        Me.paraDis100.Margin = New System.Windows.Forms.Padding(4)
         Me.paraDis100.Name = "paraDis100"
-        Me.paraDis100.Size = New System.Drawing.Size(79, 22)
+        Me.paraDis100.Size = New System.Drawing.Size(104, 29)
         Me.paraDis100.TabIndex = 28
         Me.paraDis100.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(265, 208)
+        Me.Label16.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label16.Location = New System.Drawing.Point(353, 295)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(125, 12)
+        Me.Label16.Size = New System.Drawing.Size(169, 20)
         Me.Label16.TabIndex = 27
         Me.Label16.Text = "不送電佔用時間百分比"
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(242, 208)
+        Me.Label17.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label17.Location = New System.Drawing.Point(323, 295)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(14, 12)
+        Me.Label17.Size = New System.Drawing.Size(23, 20)
         Me.Label17.TabIndex = 26
         Me.Label17.Text = "%"
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(26, 208)
+        Me.Label18.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label18.Location = New System.Drawing.Point(35, 295)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(125, 12)
+        Me.Label18.Size = New System.Drawing.Size(169, 20)
         Me.Label18.TabIndex = 25
         Me.Label18.Text = "電磁閥不送電時間分配"
         '
         'paraEn100
         '
-        Me.paraEn100.Location = New System.Drawing.Point(157, 174)
+        Me.paraEn100.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraEn100.Location = New System.Drawing.Point(209, 246)
+        Me.paraEn100.Margin = New System.Windows.Forms.Padding(4)
         Me.paraEn100.Name = "paraEn100"
-        Me.paraEn100.Size = New System.Drawing.Size(79, 22)
+        Me.paraEn100.Size = New System.Drawing.Size(104, 29)
         Me.paraEn100.TabIndex = 24
         Me.paraEn100.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(265, 179)
+        Me.Label19.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label19.Location = New System.Drawing.Point(353, 254)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(113, 12)
+        Me.Label19.Size = New System.Drawing.Size(153, 20)
         Me.Label19.TabIndex = 23
         Me.Label19.Text = "送電佔用時間百分比"
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(242, 179)
+        Me.Label20.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label20.Location = New System.Drawing.Point(323, 254)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(14, 12)
+        Me.Label20.Size = New System.Drawing.Size(23, 20)
         Me.Label20.TabIndex = 22
         Me.Label20.Text = "%"
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(38, 179)
+        Me.Label21.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label21.Location = New System.Drawing.Point(51, 254)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(113, 12)
+        Me.Label21.Size = New System.Drawing.Size(153, 20)
         Me.Label21.TabIndex = 21
         Me.Label21.Text = "電磁閥送電時間分配"
         '
         'paraCycles
         '
-        Me.paraCycles.Location = New System.Drawing.Point(157, 232)
+        Me.paraCycles.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraCycles.Location = New System.Drawing.Point(209, 329)
+        Me.paraCycles.Margin = New System.Windows.Forms.Padding(4)
         Me.paraCycles.Name = "paraCycles"
-        Me.paraCycles.Size = New System.Drawing.Size(79, 22)
+        Me.paraCycles.Size = New System.Drawing.Size(104, 29)
         Me.paraCycles.TabIndex = 32
         Me.paraCycles.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(265, 237)
+        Me.Label22.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label22.Location = New System.Drawing.Point(353, 336)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(77, 12)
+        Me.Label22.Size = New System.Drawing.Size(105, 20)
         Me.Label22.TabIndex = 31
         Me.Label22.Text = "預定衝擊次數"
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(242, 237)
+        Me.Label23.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label23.Location = New System.Drawing.Point(323, 336)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(17, 12)
+        Me.Label23.Size = New System.Drawing.Size(25, 20)
         Me.Label23.TabIndex = 30
         Me.Label23.Text = "次"
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(74, 237)
+        Me.Label24.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label24.Location = New System.Drawing.Point(99, 336)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(77, 12)
+        Me.Label24.Size = New System.Drawing.Size(105, 20)
         Me.Label24.TabIndex = 29
         Me.Label24.Text = "預定循環次數"
         '
@@ -354,20 +418,22 @@ Partial Class FormSettings
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(244, 311)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(325, 441)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(176, 41)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(235, 58)
         Me.TableLayoutPanel1.TabIndex = 33
         '
         'OK_Button
         '
         Me.OK_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.OK_Button.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.OK_Button.Location = New System.Drawing.Point(10, 5)
+        Me.OK_Button.Location = New System.Drawing.Point(14, 7)
+        Me.OK_Button.Margin = New System.Windows.Forms.Padding(4)
         Me.OK_Button.Name = "OK_Button"
-        Me.OK_Button.Size = New System.Drawing.Size(67, 31)
+        Me.OK_Button.Size = New System.Drawing.Size(89, 44)
         Me.OK_Button.TabIndex = 0
         Me.OK_Button.Text = "設定"
         '
@@ -376,60 +442,70 @@ Partial Class FormSettings
         Me.Cancel_Button.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Cancel_Button.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.Cancel_Button.Location = New System.Drawing.Point(98, 5)
+        Me.Cancel_Button.Location = New System.Drawing.Point(131, 7)
+        Me.Cancel_Button.Margin = New System.Windows.Forms.Padding(4)
         Me.Cancel_Button.Name = "Cancel_Button"
-        Me.Cancel_Button.Size = New System.Drawing.Size(67, 31)
+        Me.Cancel_Button.Size = New System.Drawing.Size(89, 44)
         Me.Cancel_Button.TabIndex = 1
         Me.Cancel_Button.Text = "取消"
         '
         'paraAccumulate
         '
-        Me.paraAccumulate.Location = New System.Drawing.Point(157, 275)
+        Me.paraAccumulate.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.paraAccumulate.Location = New System.Drawing.Point(209, 390)
+        Me.paraAccumulate.Margin = New System.Windows.Forms.Padding(4)
         Me.paraAccumulate.Name = "paraAccumulate"
-        Me.paraAccumulate.Size = New System.Drawing.Size(79, 22)
+        Me.paraAccumulate.Size = New System.Drawing.Size(104, 29)
         Me.paraAccumulate.TabIndex = 37
         Me.paraAccumulate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(265, 280)
+        Me.Label25.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label25.Location = New System.Drawing.Point(353, 397)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(53, 12)
+        Me.Label25.Size = New System.Drawing.Size(73, 20)
         Me.Label25.TabIndex = 36
         Me.Label25.Text = "累計次數"
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(242, 280)
+        Me.Label26.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label26.Location = New System.Drawing.Point(323, 397)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(17, 12)
+        Me.Label26.Size = New System.Drawing.Size(25, 20)
         Me.Label26.TabIndex = 35
         Me.Label26.Text = "次"
         '
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(74, 280)
+        Me.Label27.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label27.Location = New System.Drawing.Point(99, 397)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(77, 12)
+        Me.Label27.Size = New System.Drawing.Size(105, 20)
         Me.Label27.TabIndex = 34
         Me.Label27.Text = "目前累計次數"
         '
         'Label28
         '
         Me.Label28.BackColor = System.Drawing.SystemColors.AppWorkspace
-        Me.Label28.Location = New System.Drawing.Point(20, 263)
+        Me.Label28.Location = New System.Drawing.Point(27, 373)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(406, 2)
+        Me.Label28.Size = New System.Drawing.Size(541, 3)
         Me.Label28.TabIndex = 38
         '
         'FormSettings
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(438, 364)
+        Me.ClientSize = New System.Drawing.Size(584, 516)
         Me.Controls.Add(Me.Label28)
         Me.Controls.Add(Me.paraAccumulate)
         Me.Controls.Add(Me.Label25)
@@ -468,7 +544,9 @@ Partial Class FormSettings
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
+        Me.Font = New System.Drawing.Font("Microsoft JhengHei", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormSettings"
         Me.Text = "參數設定"
         Me.TableLayoutPanel1.ResumeLayout(False)

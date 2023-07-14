@@ -35,7 +35,11 @@ Public Class FormMain
     End Sub
 
     Private Sub ButtonTest_Click(sender As Object, e As EventArgs) Handles ButtonTest.Click
-        FormTest.Show()
+        With FormTest
+            .StartPosition = FormStartPosition.Manual
+            .Location = New Point(Me.Left + 10, Me.Top + 10)
+            .ShowDialog()
+        End With
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ButtonConsole.Click
@@ -71,7 +75,7 @@ Public Class FormMain
                     SYS.設定變頻器頻率(FSET.變頻器初始頻率)
                     ConsoleLog($"設定變頻器頻率={FSET.變頻器初始頻率}")
                     If SYS.isEmulate Then
-                        SYS.寫入主缸力值(15)
+                        SYS.寫入主缸力值(15) '若模擬, 則主缸力值預設為15
                     End If
                     ButtonStart.Text = "關閉油壓"
                     StartTasks()
@@ -173,25 +177,34 @@ Public Class FormMain
     End Sub
 
     Private Sub FormMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        MsgBox("請用[結束]按鈕")
-        e.Cancel = True
-    End Sub
-
-    Private Sub ButtonEnd_Click(sender As Object, e As EventArgs) Handles ButtonEnd.Click
         Try
-            If MsgBox("結束系統?", vbOKCancel) = vbOK Then
-                StopTasks()
-                SetButtons(buttonState.初值化)
-                FSET.更新累計次數(counter.Text)
-                SYS.停機()
-                End
+            If RunningTasksCount() <> 0 Then
+                ShowMsgBox("系統運作中, 請先關閉油壓", "好")
+                e.Cancel = True
+            Else
+                If ShowMsgBox("結束系統?", "是,否") = 1 Then
+                    StopTasks()
+                    FSET.更新累計次數(counter.Text)
+                    SYS.停機()
+                Else
+                    e.Cancel = True
+                End If
             End If
-
         Catch ex As Exception
             ConsoleLog(ex.ToString)
         End Try
-
     End Sub
+
+    Private Sub ButtonEnd_Click(sender As Object, e As EventArgs) Handles ButtonEnd.Click
+        If RunningTasksCount() <> 0 Then
+            ShowMsgBox("系統運作中, 請先關閉油壓", "好")
+        Else
+            Me.Close()
+        End If
+    End Sub
+
+
+
 
     Private Sub Panel_Main_Paint(sender As Object, e As PaintEventArgs) Handles Panel_Main.Paint
 

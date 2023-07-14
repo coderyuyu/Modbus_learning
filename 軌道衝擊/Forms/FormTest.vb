@@ -108,7 +108,7 @@ Public Class FormTest
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
         Try
             SYS.設定變頻器頻率(Feq.Text)
-            TestLog($"設定變頻器頻率={Feq.Text}")
+            TestLog($"設定變頻器頻率={Feq.Text} OK")
         Catch ex As Exception
             TestLog(ex.ToString)
         End Try
@@ -162,7 +162,7 @@ Public Class FormTest
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
         Try
             SYS.寫入主缸力值(mTons.Text)
-            TestLog($"寫入主缸力值 {mTons.Text}")
+            TestLog($"寫入主缸力值 {mTons.Text} OK")
         Catch ex As Exception
             TestLog(ex.ToString)
         End Try
@@ -171,7 +171,7 @@ Public Class FormTest
     Private Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
         Try
             SYS.設定小數位(decpos.Text)
-            TestLog($"設定小數位 {decpos.Text}")
+            TestLog($"設定小數位 {decpos.Text} OK")
         Catch ex As Exception
             TestLog(ex.ToString)
         End Try
@@ -188,5 +188,13 @@ Public Class FormTest
             TestLog(ex.ToString)
         End Try
 
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        Try
+            TestLog($"緊急按鈕狀態 {SYS.緊急按鈕狀態}")
+        Catch ex As Exception
+            TestLog(ex.ToString)
+        End Try
     End Sub
 End Class

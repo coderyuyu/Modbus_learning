@@ -2,12 +2,11 @@
 Module mTasks
     Dim cs As CancellationTokenSource
     Dim ctoken As CancellationToken
-    Const INTERVAL As Integer = 1000
     Dim taskCount As Integer = 0
     Dim DATA0 As cDATA0
     Dim DATA1 As cDATA1
     Delegate Sub UpdateUI_Invoker(ctrl As Control, value As Object)
-    Delegate Sub UpdateAC_Invoker(status As Integer)
+    Delegate Sub UpdateAC_Invoker(AC As String)
 
 
 
@@ -19,22 +18,25 @@ Module mTasks
         AddHandler DATA1.變頻器頻率變更, Sub(original As Decimal, ev As Decimal)
                                       SYS.ev = ev ' StartEmuTask 需要用到
                                       SYS.設定變頻器頻率(original + ev)
-                                      'UpdateUI(FMAIN.vfd, original + ev)
                                   End Sub
         cs = New CancellationTokenSource
         ctoken = cs.Token
         taskCount = 0
         StartReadTask(1000)
         StartProcessTask(3000)
-
         If SYS.isEmulate Then
             StartEmuTask(1000)
         End If
     End Sub
 
     Sub StopTasks()
-        cs.Cancel()
-        ConsoleLog("Tasks end")
+        If cs IsNot Nothing Then
+            cs.Cancel()
+            ConsoleLog("Tasks end")
+        End If
+        Do While taskCount <> 0
+            Task.Delay(1000).Wait()
+        Loop
     End Sub
 
     Function RunningTasksCount()
@@ -47,9 +49,11 @@ Module mTasks
     ''' </summary>
     ''' <param name="interval"></param>
     Sub StartReadTask(interval As Integer)
+        Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
         Task.Run(Sub()
                      Dim stw As New Stopwatch
                      taskCount += 1
+                     ConsoleLog($"{methodName} start")
                      Do
                          Try
                              stw.Restart()
@@ -62,12 +66,13 @@ Module mTasks
                              stw.Stop()
                              If interval > stw.Elapsed.Milliseconds Then Task.Delay(interval - stw.Elapsed.Milliseconds).Wait()
                          Catch ex As Exception
-                             ConsoleLog(System.Reflection.MethodInfo.GetCurrentMethod().Name & ex.Message)
+                             ConsoleLog(methodName & ex.Message)
                              ConsoleLog(ex.ToString)
                          End Try
                      Loop While Not ctoken.IsCancellationRequested
                  End Sub).ContinueWith(Sub()
                                            taskCount -= 1
+                                           ConsoleLog($"{methodName} end")
                                        End Sub)
     End Sub
     ''' <summary>
@@ -77,9 +82,11 @@ Module mTasks
     ''' </summary>
     ''' <param name="interval"></param>
     Sub StartProcessTask(interval As Integer)
+        Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
         Task.Run(Sub()
                      Dim stw As New Stopwatch
                      taskCount += 1
+                     ConsoleLog($"{methodName} start")
                      Do
                          Try
                              stw.Restart()
@@ -98,6 +105,7 @@ Module mTasks
                      Loop While Not ctoken.IsCancellationRequested
                  End Sub).ContinueWith(Sub()
                                            taskCount -= 1
+                                           ConsoleLog($"{methodName} end")
                                        End Sub)
     End Sub
     ''' <summary>
@@ -105,26 +113,28 @@ Module mTasks
     ''' </summary>
     ''' <param name="interval"></param>
     Sub StartACTask(interval As Integer)
+        Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
         Dim isCheckEmergent As Boolean = True ' true=do check  false=do AC 
         Dim isAorC As Boolean = True ' true=A false=C
         Dim count As Integer = FSET.累計次數
         Task.Run(Sub()
                      Dim stw As New Stopwatch
                      taskCount += 1
+                     ConsoleLog($"{methodName} start")
                      Do
                          Try
                              stw.Restart()
                              If isCheckEmergent Then
-                                 If SYS.緊急按鈕() = True Then
+                                 If SYS.緊急按鈕狀態() = True Then
                                      StopTasks()
                                  End If
                              Else
                                  If isAorC Then
                                      SYS.A點衝擊()
-                                     UpdateAC(SystemStatus.A點衝擊)
+                                     UpdateAC("A")
                                  Else
                                      SYS.C點衝擊()
-                                     UpdateAC(SystemStatus.C點衝擊)
+                                     UpdateAC("C")
                                      If FMAIN.isRecord Then
                                          count += 1
                                          If count Mod 100 Then
@@ -133,7 +143,7 @@ Module mTasks
                                          UpdateUI(FMAIN.counter, count)
                                      End If
                                  End If
-                                     isAorC = Not isAorC
+                                 isAorC = Not isAorC
                              End If
                              isCheckEmergent = Not isCheckEmergent
                              stw.Stop()
@@ -143,10 +153,10 @@ Module mTasks
                              ConsoleLog(ex.ToString)
                          End Try
                      Loop While Not ctoken.IsCancellationRequested
-                 End Sub).ContinueWith(
-                 Sub()
-                     taskCount -= 1
-                 End Sub)
+                 End Sub).ContinueWith(Sub()
+                                           taskCount -= 1
+                                           ConsoleLog($"{methodName} end")
+                                       End Sub)
     End Sub
 
 
@@ -156,9 +166,11 @@ Module mTasks
     ''' </summary>
     ''' <param name="interval"></param>
     Sub StartEmuTask(interval As Integer)
+        Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
         Task.Run(Sub()
                      Dim stw As New Stopwatch
                      taskCount += 1
+                     ConsoleLog($"{methodName} start")
                      Do
                          Try
                              stw.Restart()
@@ -185,6 +197,7 @@ Module mTasks
                      Loop While Not ctoken.IsCancellationRequested
                  End Sub).ContinueWith(Sub()
                                            taskCount -= 1
+                                           ConsoleLog($"{methodName} end")
                                        End Sub)
     End Sub
 
@@ -206,19 +219,19 @@ Module mTasks
     End Sub
 
 
-    Sub UpdateAC(state As Integer)
+    Sub UpdateAC(AC As String)
         If FMAIN.A.InvokeRequired Then
-            FMAIN.A.Invoke(New UpdateAC_Invoker(AddressOf UpdateAC), state)
+            FMAIN.A.Invoke(New UpdateAC_Invoker(AddressOf UpdateAC), AC)
         Else
-            Select Case state
-                Case SystemStatus.A點衝擊
+            Select Case AC
+                Case "A"
                     FMAIN.A.ValueSelect2 = True
                     FMAIN.A.ValueSelect1 = False
 
                     FMAIN.C.ValueSelect1 = True
                     FMAIN.C.ValueSelect2 = False
 
-                Case SystemStatus.C點衝擊
+                Case "C"
                     FMAIN.C.ValueSelect2 = True
                     FMAIN.C.ValueSelect1 = False
 

@@ -120,11 +120,17 @@
     <Compile Include="Classes\cDATA0.vb" />
     <Compile Include="Classes\cDATA1.vb" />
     <Compile Include="Classes\cSYS.vb" />
-    <Compile Include="FormMain.vb">
+    <Compile Include="Forms\FormMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.vb">
+    <Compile Include="Forms\FormMain.Designer.vb">
       <DependentUpon>FormMain.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DialogMsg.Designer.vb">
+      <DependentUpon>DialogMsg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DialogMsg.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormConsole.Designer.vb">
@@ -151,7 +157,7 @@
     <Compile Include="Forms\FormTest.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="mThisApp.vb" />
+    <Compile Include="Main\mThisApp.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -169,12 +175,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Supports\LOGGER.vb" />
-    <Compile Include="Tasks\mTasks.vb" />
-    <Compile Include="Test\mTest.vb" />
+    <Compile Include="Main\mTasks.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DialogMsg.resx">
+      <DependentUpon>DialogMsg.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormConsole.resx">
       <DependentUpon>FormConsole.vb</DependentUpon>
@@ -209,31 +217,28 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\A0.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\A1.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\A2.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\A0.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\A1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\A2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\C0.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\C1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\C2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\A0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

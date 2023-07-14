@@ -1,9 +1,12 @@
 ﻿Imports System.Xml
 Imports System.IO
+Imports System.Collections.Specialized
 
 Public Class FormSettings
 
     Dim settings As XmlDocument
+    Dim parms As New OrderedDictionary
+
     ''' <summary>
     ''' 在form上建立的control, 若依下列命名原則, 可自動存成 config.xml
     ''' name 以 para 為命名起始
@@ -32,19 +35,25 @@ Public Class FormSettings
     End Function
 
     Private Sub LoadSettings()
+
         LoadSettingsXML()
 
         For Each ctrl As Control In Me.Controls
             If ctrl.Name.StartsWith("para") Then
-                Debug.Print(ctrl.Name)
+                'Debug.Print(ctrl.Name)
+
                 If settings.GetElementsByTagName(ctrl.Name).Count <> 0 Then
 
                     Select Case TypeName(ctrl)
                         Case "TextBox"
                             ctrl.Text = GetParaValue(ctrl.Name)
-                            'Case "CheckBox"
-                            'Case "RadioBox"
-                            'Case "ListBox"
+                            parms(ctrl.Name) = ctrl.Text
+                        Case "CheckBox"
+                            ' TODO:
+                        Case "RadioBox"
+                            ' TODO:
+                        Case "ListBox"
+                            ' TODO:
                         Case Else
                     End Select
                 End If
@@ -57,7 +66,20 @@ Public Class FormSettings
         LoadSettingsXML()
         For Each ctrl As Control In Me.Controls
             If ctrl.Name.StartsWith("para") Then
-                SetParaValue(ctrl.Name, ctrl.Text)
+                Select Case TypeName(ctrl)
+                    Case "TextBox"
+                        'Debug.Print(ctrl.Name)
+                        SetParaValue(ctrl.Name, ctrl.Text)
+                        parms(ctrl.Name) = ctrl.Text
+                    Case "CheckBox"
+                        ' TODO:
+                    Case "RadioBox"
+                        ' TODO:
+                    Case "ListBox"
+                        ' TODO:
+                    Case Else
+                End Select
+
             End If
         Next
         settings.Save(SettingsPath)
@@ -161,35 +183,36 @@ Public Class FormSettings
     '以下function方使程式取得系統參數
     '使用方法 FSET.參數名稱
     Function 預定循環次數() '預定循環次數
-        Return GetParaValue("paraCycles")
+        Return GetPara("paraCycles") ' GetParaValue("paraCycles")
     End Function
     Function 電磁閥不送電時間分配() '
-        Return GetParaValue("paraDis100")
+        Return parms("paraDis100") ' GetParaValue("paraDis100")
     End Function
     Function 電磁閥送電時間分配() '
-        Return GetParaValue("paraEn100")
+        Return GetPara("paraEn100") ' GetParaValue("paraEn100")
     End Function
     Function 測試點應變頻率() '
-        Return GetParaValue("paraACFQ")
+        Return GetPara("paraACFQ") ' GetParaValue("paraACFQ")
     End Function
     Function 容許最低承載力值() '
-        Return GetParaValue("paraMinTons")
+        Return GetPara("paraMinTons") ' GetParaValue("paraMinTons")
     End Function
     Function 開始紀錄前重置頻率() '
-        Return GetParaValue("paraRecordFQ")
+        Return GetPara("paraRecordFQ") ' GetParaValue("paraRecordFQ")
     End Function
     Function 變頻器初始頻率() '
-        Return GetParaValue("paraInitFQ")
+        Return GetPara("paraInitFQ") ' GetParaValue("paraInitFQ")
     End Function
     Function 力值設定() '
-        Return GetParaValue("paraTargetTons")
+        Return GetPara("paraTargetTons") ' GetParaValue("paraTargetTons")
     End Function
     Function 累計次數() '
-        Return GetParaValue("paraAccumulate")
+        Return GetPara("paraAccumulate") ' GetParaValue("paraAccumulate")
     End Function
 
     Sub 更新累計次數(value)
         paraAccumulate.Text = value
+        parms("paraAccumulate") = value
         Me.SaveConfig()
     End Sub
 
@@ -199,6 +222,14 @@ Public Class FormSettings
         'System.Reflection.MethodInfo.GetCurrentMethod().Name
     End Function
 
+    Private Function GetPara(Name)
+        If Not parms.Contains(Name) Then
+            LoadSettings()
+        End If
+        Return parms(Name)
+    End Function
 
+    Private Sub paraTargetTons_TextChanged(sender As Object, e As EventArgs) Handles paraTargetTons.TextChanged
 
+    End Sub
 End Class
