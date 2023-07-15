@@ -3,6 +3,7 @@
 Public Class LOGGER
     Shared locker As New Object
     Shared logHeader As New Dictionary(Of String, String)
+    Public Shared UseDateSubFolder As Boolean = False
     Shared Sub AddLogHeader(logtype As String, header As String)
         logtype = logtype.ToLower
         If Not logHeader.ContainsKey(logtype) Then
@@ -40,9 +41,15 @@ Public Class LOGGER
         End If
         Return logFileName
     End Function
-
-    Shared Function LogPath() As String
+    Shared Function LogRoot() As String
         Return Path.Combine(Application.StartupPath, "logs")
+    End Function
+    Shared Function LogPath() As String
+        If UseDateSubFolder Then
+            Return Path.Combine(LogRoot(), Format(Now, "yyyyMMdd"))
+        Else
+            Return LogRoot()
+        End If
     End Function
     Private Shared Sub DoWriteLog(list As List(Of String), logfileName As String, isAddDateTime As Boolean)
         Using sw As New StreamWriter(File.Open(logfileName, FileMode.Append))

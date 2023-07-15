@@ -21,6 +21,8 @@
         Try
             'Application.SetCompatibleTextRenderingDefault(False)
             'Application.EnableVisualStyles()
+            LOGGER.AddLogHeader("data", cDATA1.LogHeaders)
+            LOGGER.UseDateSubFolder = True
             FMAIN = New FormMain ' 主廠窗
             FCONSOLE = New FormConsole ' 訊息視窗
             FSET = New FormSettings ' 參數設定視窗
@@ -28,6 +30,7 @@
             SYS = New cSYS
             SYS.連線檢查() ' 啟動前設備檢查
             SYS.設定小數位(2) ' 啟動前必要的基礎設定
+
             If ShowMsgBox("是否啟用模擬?", "是,否") = 1 Then
                 SYS.SetEmulate(True) ' 初始設為模擬
                 FMAIN.isEMU.Visible = True
@@ -59,7 +62,9 @@
     End Sub
 
     Sub DataLog(log As String)
-        LOGGER.WriteLog("data", log, True)
+        Task.Run(Sub()
+                     LOGGER.WriteLog("data", log, True)
+                 End Sub)
     End Sub
 
 

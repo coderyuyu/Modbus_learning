@@ -42,7 +42,7 @@ Public Class cDATA1
     ''' 提供Data log 的header
     ''' </summary>
     ''' <returns></returns>
-    Function LogHeaders()
+    Shared Function LogHeaders()
         Return "時間,變頻器頻率,主缸力值"
     End Function
 

@@ -22,6 +22,7 @@ Partial Class FormConsole
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormConsole))
         Me.FConsole1 = New WindowsForms.Console.FConsole()
         Me.SuspendLayout()
         '
@@ -54,6 +55,7 @@ Partial Class FormConsole
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(520, 665)
         Me.Controls.Add(Me.FConsole1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormConsole"
         Me.Text = "Console"
         Me.ResumeLayout(False)

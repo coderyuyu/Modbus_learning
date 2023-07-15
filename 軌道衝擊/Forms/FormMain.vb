@@ -85,7 +85,7 @@ Public Class FormMain
                 End Try
             Case "關閉油壓"
                 ButtonStart.Text = "啟動油壓"
-                StopTasks()
+                StopTasks() ' Stop by "關閉油壓"
                 SetButtons(buttonState.初值化)
         End Select
 
@@ -95,6 +95,7 @@ Public Class FormMain
 
     Private Sub ButtonStartRecord_Click(sender As Object, e As EventArgs) Handles ButtonStartRecord.Click
         SYS.設定變頻器頻率(FSET.開始紀錄前重置頻率)
+        SYS.開始記錄 = True
         SetButtons(buttonState.開始記錄)
     End Sub
 
@@ -168,9 +169,7 @@ Public Class FormMain
         Next
     End Sub
 
-    Function isRecord() As Boolean
-        Return counter.BackColor = Color.LightGreen
-    End Function
+
 
     Sub UpdateCounter(value)
         counter.Text = value
@@ -183,7 +182,7 @@ Public Class FormMain
                 e.Cancel = True
             Else
                 If ShowMsgBox("結束系統?", "是,否") = 1 Then
-                    StopTasks()
+                    StopTasks() ' Stop by 結束系統
                     FSET.更新累計次數(counter.Text)
                     SYS.停機()
                 Else

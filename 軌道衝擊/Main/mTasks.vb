@@ -14,7 +14,7 @@ Module mTasks
         ConsoleLog("Tasks start")
         DATA0 = New cDATA0
         DATA1 = New cDATA1
-        LOGGER.AddLogHeader("data", DATA1.LogHeaders)
+
         AddHandler DATA1.變頻器頻率變更, Sub(original As Decimal, ev As Decimal)
                                       SYS.ev = ev ' StartEmuTask 需要用到
                                       SYS.設定變頻器頻率(original + ev)
@@ -31,6 +31,7 @@ Module mTasks
 
     Sub StopTasks()
         If cs IsNot Nothing Then
+            SYS.開始記錄 = False
             cs.Cancel()
             ConsoleLog("Tasks end")
         End If
@@ -50,12 +51,14 @@ Module mTasks
     ''' <param name="interval"></param>
     Sub StartReadTask(interval As Integer)
         Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
+        Dim loopWait As Integer
+        Dim excaptionTime As Date = Nothing
         Task.Run(Sub()
                      Dim stw As New Stopwatch
                      taskCount += 1
                      ConsoleLog($"{methodName} start")
                      Do
-                         Try
+                         Try ' 這個 try catch 很重要, 避免在背景執行中當掉
                              stw.Restart()
                              SyncLock DATA0
                                  With DATA0
@@ -64,14 +67,33 @@ Module mTasks
                              End SyncLock
                              UpdateUI(FMAIN.CylinderTons, DATA0.主缸力值)
                              stw.Stop()
-                             If interval > stw.Elapsed.Milliseconds Then Task.Delay(interval - stw.Elapsed.Milliseconds).Wait()
+                             ' 按照 interval 計算需要延遲的 ms, 需要時利用 task.delay 延遲
+                             loopWait = interval - stw.Elapsed.Milliseconds
+                             If loopWait > 0 Then Task.Delay(loopWait).Wait()
+                             excaptionTime = Nothing
                          Catch ex As Exception
+                             ' 當掉時的處理
                              ConsoleLog(methodName & ex.Message)
                              ConsoleLog(ex.ToString)
+                             If excaptionTime = Nothing Then
+                                 excaptionTime = Now
+                             Else
+                                 ' 這個機制僅放在 ReadTask
+                                 If Now.Subtract(excaptionTime).TotalMilliseconds > SYS.異常持續上限 Then
+                                     StopTasks() ' Stop by exception timeout, 會執行 cs.cancel, loop 會結束
+                                     Try
+                                         SYS.停機()
+                                     Catch ex2 As Exception
+                                         ' 防止停機也失敗
+                                     End Try
+                                 End If
+                             End If
+
+
                          End Try
-                     Loop While Not ctoken.IsCancellationRequested
+                     Loop While Not ctoken.IsCancellationRequested ' 直到取消
                  End Sub).ContinueWith(Sub()
-                                           taskCount -= 1
+                                           taskCount -= 1 ' taskCount 用來記錄有幾個背景task在跑
                                            ConsoleLog($"{methodName} end")
                                        End Sub)
     End Sub
@@ -83,6 +105,7 @@ Module mTasks
     ''' <param name="interval"></param>
     Sub StartProcessTask(interval As Integer)
         Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
+        Dim loopWait As Integer
         Task.Run(Sub()
                      Dim stw As New Stopwatch
                      taskCount += 1
@@ -97,7 +120,8 @@ Module mTasks
                              End SyncLock
                              DataLog(DATA1.LogString)
                              stw.Stop()
-                             If interval > stw.Elapsed.Milliseconds Then Task.Delay(interval - stw.Elapsed.Milliseconds).Wait()
+                             loopWait = interval - stw.Elapsed.Milliseconds
+                             If loopWait > 0 Then Task.Delay(loopWait).Wait()
                          Catch ex As Exception
                              ConsoleLog(System.Reflection.MethodInfo.GetCurrentMethod().Name & ex.Message)
                              ConsoleLog(ex.ToString)
@@ -114,6 +138,7 @@ Module mTasks
     ''' <param name="interval"></param>
     Sub StartACTask(interval As Integer)
         Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
+        Dim loopWait As Integer
         Dim isCheckEmergent As Boolean = True ' true=do check  false=do AC 
         Dim isAorC As Boolean = True ' true=A false=C
         Dim count As Integer = FSET.累計次數
@@ -126,7 +151,8 @@ Module mTasks
                              stw.Restart()
                              If isCheckEmergent Then
                                  If SYS.緊急按鈕狀態() = True Then
-                                     StopTasks()
+                                     StopTasks() ' Stop by StopTasks
+                                     SYS.停機()
                                  End If
                              Else
                                  If isAorC Then
@@ -135,7 +161,7 @@ Module mTasks
                                  Else
                                      SYS.C點衝擊()
                                      UpdateAC("C")
-                                     If FMAIN.isRecord Then
+                                     If SYS.開始記錄 Then
                                          count += 1
                                          If count Mod 100 Then
                                              FSET.更新累計次數(count) ' 每100次存檔
@@ -147,7 +173,8 @@ Module mTasks
                              End If
                              isCheckEmergent = Not isCheckEmergent
                              stw.Stop()
-                             If interval > stw.Elapsed.Milliseconds Then Task.Delay(interval - stw.Elapsed.Milliseconds).Wait()
+                             loopWait = interval - stw.Elapsed.Milliseconds
+                             If loopWait > 0 Then Task.Delay(loopWait).Wait()
                          Catch ex As Exception
                              ConsoleLog(System.Reflection.MethodInfo.GetCurrentMethod().Name & ex.Message)
                              ConsoleLog(ex.ToString)
@@ -167,6 +194,7 @@ Module mTasks
     ''' <param name="interval"></param>
     Sub StartEmuTask(interval As Integer)
         Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name ' 取得這個 sub 或 function name
+        Dim loopWait As Integer
         Task.Run(Sub()
                      Dim stw As New Stopwatch
                      taskCount += 1
@@ -189,7 +217,8 @@ Module mTasks
 
                              End Select
                              stw.Stop()
-                             If interval > stw.Elapsed.Milliseconds Then Task.Delay(interval - stw.Elapsed.Milliseconds).Wait()
+                             loopWait = interval - stw.Elapsed.Milliseconds
+                             If loopWait > 0 Then Task.Delay(loopWait).Wait()
                          Catch ex As Exception
                              ConsoleLog(System.Reflection.MethodInfo.GetCurrentMethod().Name & ex.Message)
                              ConsoleLog(ex.ToString)

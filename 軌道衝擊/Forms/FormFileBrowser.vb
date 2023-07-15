@@ -30,8 +30,7 @@ Public Class FormFileBrowser
         cmenu = New ContextMenu
         With cmenu
             Dim item As MenuItem
-            'For Each m In {"全選清單", "全選謄本", "謄本檢索補登", "匯出Excel檔"}
-            For Each m In {"匯出Excel檔", "重新解析"}
+            For Each m In {"匯出Excel檔"}
                 item = New MenuItem
                 item.Text = m
                 .MenuItems.Add(m, AddressOf cmenu_item_click)
@@ -212,14 +211,12 @@ Public Class FormFileBrowser
     End Sub
 
     Private Function logRootPath()
-        Return LOGGER.LogPath
+        Return LOGGER.LogRoot
     End Function
 
     Sub consoleLog(msg As String)
         FConsole1.WriteLine(msg)
     End Sub
 
-    Private Sub TLP_Paint(sender As Object, e As PaintEventArgs) Handles TLP.Paint
 
-    End Sub
 End Class
