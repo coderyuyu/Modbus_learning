@@ -21,8 +21,10 @@ Public Class FormFileBrowser
 
     Private Sub frmFileBrowser_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim init_Path = Path.Combine(Application.StartupPath, "logs") ', ROOTPATH, APPPATH)
+
         Me.top_path.Text = init_Path
         'Path.GetDirectoryName(init_Path)
+        file_tree_view.Nodes.Clear()
         Dim node As TreeNode = file_tree_view.Nodes.Add(Mid(init_Path, InStrRev(init_Path, "\") + 1))
         node.Tag = ItemType.Root
         'If Directory.GetDirectories(init_Path, "*", SearchOption.TopDirectoryOnly).Length > 0 Then
@@ -150,7 +152,12 @@ Public Class FormFileBrowser
                 Dim exportFilename As String
                 For Each item In file_list.SelectedItems
                     'file_selected = Path.Combine(Me.top_path.Text, file_tree_view.SelectedNode.Text, item)
-                    file_selected = Path.Combine(Me.top_path.Text, item)
+                    If file_tree_view.SelectedNode.Index = 0 Then
+                        file_selected = Path.Combine(Me.top_path.Text, item)
+                    Else
+                        file_selected = Path.Combine(Me.top_path.Text, file_tree_view.SelectedNode.Text, item)
+
+                    End If
                     fi = New FileInfo(file_selected)
                     files.Add(fi)
                 Next
@@ -173,9 +180,12 @@ Public Class FormFileBrowser
                                 sheetdata.Add(ar)
                             Next
                             ws.Cells(1, 1).LoadFromArrays(sheetdata)
+
                         End With
+
                     Next
-                    exportFilename = Path.Combine(Path.GetTempPath, "export_" & Format(Now, "yyyyMMdd_hhmmss") & ".xlsx")
+                    exportFilename = Path.Combine(export_path(), "export_" & Format(Now, "yyyyMMdd_hhmmss") & ".xlsx")
+                    EXP.SaveAs(exportFilename)
                     consoleLog("匯出至 " & exportFilename)
                 End Using
 
@@ -214,9 +224,18 @@ Public Class FormFileBrowser
         Return LOGGER.LogRoot
     End Function
 
+    Private Function export_path()
+        Dim exp_path = Path.Combine(Application.StartupPath, "export")
+        If Not Directory.Exists(exp_path) Then
+            Directory.CreateDirectory(exp_path)
+        End If
+        Return exp_path
+    End Function
     Sub consoleLog(msg As String)
-        FConsole1.WriteLine(msg)
+        FConsole1.WriteLine(msg, Color.Black)
     End Sub
 
-
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Process.Start(export_path)
+    End Sub
 End Class

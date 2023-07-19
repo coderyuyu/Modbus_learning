@@ -1,8 +1,8 @@
 ﻿Module mThisApp
-    Public Const CH1 = "COM3" ' channel #1
-    Public Const CH2 = "COM4" ' channel #2
+    'Public Const CH1 = "COM3" ' channel #1
+    'Public Const CH2 = "COM4" ' channel #2
     Public SYS As cSYS
-
+    Public LogQ As New Queue(Of cLogObject)
     Public FCONSOLE As FormConsole
     Public FMAIN As FormMain
     Public FSET As FormSettings
@@ -29,15 +29,22 @@
             FFBROWSER = New FormFileBrowser ' 記錄瀏覽器
             SYS = New cSYS
             SYS.連線檢查() ' 啟動前設備檢查
-            SYS.設定小數位(2) ' 啟動前必要的基礎設定
+
 
             If ShowMsgBox("是否啟用模擬?", "是,否") = 1 Then
                 SYS.SetEmulate(True) ' 初始設為模擬
+                SYS.CH2.ConnectBus()
+                SYS.設定小數位(2) ' 啟動前必要的基礎設定
                 FMAIN.isEMU.Visible = True
             Else
                 SYS.SetEmulate(False)
                 FMAIN.isEMU.Visible = False
             End If
+            ConsoleLog("全關指令")
+            SYS.全關指令()
+            ConsoleLog("設定變頻器頻率=0")
+            SYS.設定變頻器頻率(0)
+            ConsoleLog("開啟變頻器")
             ' 如果是全螢幕, 視窗最大化, 則加下兩行
             'FMAIN.FormBorderStyle = FormBorderStyle.None
             'FMAIN.WindowState = FormWindowState.Maximized
@@ -49,7 +56,11 @@
 
 
     Sub ConsoleLog(log As String)
-        LOGGER.WriteLog("console", log, True) ' 寫到磁碟機
+        SyncLock LogQ
+            LogQ.Enqueue(New cLogObject("console", log))
+        End SyncLock
+
+        'LOGGER.WriteLog("console", log, True) ' 寫到磁碟機
         ConsoleLog2(log) ' 寫到 formConsole 
     End Sub
 
@@ -62,16 +73,23 @@
     End Sub
 
     Sub DataLog(log As String)
-        Task.Run(Sub()
-                     LOGGER.WriteLog("data", log, True)
-                 End Sub)
+        SyncLock LogQ
+            LogQ.Enqueue(New cLogObject("data", log))
+        End SyncLock
+
+
+        'Task.Run(Sub()
+        '             LOGGER.WriteLog("data", log, True)
+        '         End Sub)
     End Sub
 
 
 
-    Function ShowMsgBox(msg As String, Optional buttonTexts As String = "好") As DialogResult
+    Function ShowMsgBox(msg As String, Optional buttonTexts As String = "好", Optional timeoutms As Integer = 0, Optional defaultbutton As Integer = 0) As DialogResult
         Dim ar = Split(buttonTexts, ",")
         With DialogMsg
+            .timeoutms = timeoutms
+            .defaultbutton = defaultbutton
             .msg.Text = msg
             .ButtonPannel.Controls.Clear()
             If ar.Length = 1 Then
@@ -83,6 +101,7 @@
                 Dim BTN As New Button
                 BTN.Text = ar(i - 1) ' vb.net array 預設是 0 base
                 BTN.Tag = i
+                BTN.Name = "B" & i
                 .ButtonPannel.Controls.Add(BTN)
                 AddHandler BTN.Click, Sub(sender As Object, args As EventArgs)
                                           DialogMsg.DialogResult = sender.tag

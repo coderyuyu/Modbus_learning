@@ -1,5 +1,6 @@
 ﻿Imports System.IO.Ports
 Imports OfficeOpenXml.ExcelErrorValue
+Imports 軌道衝擊.FormMain
 ' COM3----------------------------------
 'DO指令傳送與接收
 '全關指令(DO) ： "#0F00" & "00" & Chr$(13)
@@ -29,17 +30,17 @@ Public Class cSYS
     Property CH1 As cCOM
     Property CH2 As cCOM
     Property ev As Decimal ' 變頻器增減值 (模擬用)
-
+    Property 開始衝擊 As Boolean = False
     Property 開始記錄 As Boolean = False
     Property 異常持續上限 As Integer = 10 * 1000 ' 10 秒
 
-
+    Property 最後更新變頻器頻率 As Decimal = 0
 
     'Dim emulateTimer As System.Threading.Timer
     '''
     Sub New()
-        CH1 = New cCOM("COM3")
-        CH2 = New cCOM("COM4")
+        CH1 = New cCOM("COM6") ', 9600,, StopBits:=StopBits.Two)
+        CH2 = New cCOM("COM5") ', 9600,, StopBits:=StopBits.Two)
     End Sub
 
     Sub SetEmulate(onoff As Boolean)
@@ -68,23 +69,42 @@ Public Class cSYS
     Function 全關指令(Optional CMD As String = "#0F0000", Optional ByRef responseString As String = Nothing)
         If isEmulate() Then Return True
         responseString = CH1.WriteString(CMD)
-        Return responseString.Contains(vbCr)
+        If responseString.Contains("?") AndAlso responseString.Contains(vbCr) Then
+            Return False
+        ElseIf responseString.Contains(vbCr) Then
+            Return True
+        Else
+            Return False ' should not happen
+        End If
     End Function
 
     Function A點衝擊(Optional CMD As String = "#0F0002", Optional ByRef responseString As String = Nothing)
         If isEmulate() Then Return True
         responseString = CH1.WriteString(CMD)
-        Return responseString.Contains(vbCr)
+        If responseString.Contains("?") AndAlso responseString.Contains(vbCr) Then
+            Return False
+        ElseIf responseString.Contains(vbCr) Then
+            Return True
+        Else
+            Return False ' should not happen
+        End If
     End Function
 
     Function C點衝擊(Optional CMD As String = "#0F0004", Optional ByRef responseString As String = Nothing)
         If isEmulate() Then Return True
         responseString = CH1.WriteString(CMD)
-        Return responseString.Contains(vbCr)
+        If responseString.Contains("?") AndAlso responseString.Contains(vbCr) Then
+            Return False
+        ElseIf responseString.Contains(vbCr) Then
+            Return True
+        Else
+            Return False ' should not happen
+        End If
     End Function
     Function 緊急按鈕狀態(Optional CMD As String = "$0F6", Optional ByRef responseString As String = Nothing)
         If isEmulate() Then Return False ' 模擬狀態下一律回 false
-        responseString = CH1.WriteString(CMD)
+        responseString = CH2.WriteString(CMD)
+        ' TODO
         Dim v As String = ""
         Dim ar() As Char = responseString.ToCharArray()
         Dim result As Boolean
@@ -100,41 +120,60 @@ Public Class cSYS
 
     Sub 開啟變頻器()
         Dim values As Integer() = {2}
+        'CH2.ReConnectBus(StopBit:=2)
+        'CH2.StopBits = StopBits.Two
+        CH2.SetStopBits(StopBits.Two)
         CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
+        CH2.SetStopBits(StopBits.One)
+        'CH2.StopBits = StopBits.One
     End Sub
 
     Sub 關閉變頻器()
         Dim values As Integer() = {1}
+        'CH2.ReConnectBus(StopBit:=2)
+        'CH2.StopBits = StopBits.Two
         CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
+        'CH2.StopBits = StopBits.One
     End Sub
 
-    Function 變頻器狀態()
-        Dim v = CH2.ReadTag(slaveid:=4, registerAddress:=&H2000, 1)
-        Select Case v(0)
-            Case 2
-                Return "ON"
-            Case 1
-                Return "OFF"
-            Case Else
-                Return "?"
-        End Select
+    'Function 變頻器狀態()
+    '    Dim v
 
-    End Function
+    '    CH2.ReConnectBus(StopBit:=2)
+    '    Select Case v(0)
+    '        Case 2
+    '            Return "ON"
+    '        Case 1
+    '            Return "OFF"
+    '        Case Else
+    '            Return "?"
+    '    End Select
+
+    'End Function
 
     Sub 設定變頻器頻率(value As Decimal)
-        Dim values As Integer() = {value * 100}
+        Dim values As Integer() = {value * 100} ' 四捨五入取整數
+        'CH2.ReConnectBus(StopBit:=2)
+        'CH2.StopBits = StopBits.Two
         CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
+        最後更新變頻器頻率 = value
+        'CH2.StopBits = StopBits.One
     End Sub
 
     Function 變頻器頻率()
+        'CH2.ReConnectBus(StopBit:=2)
+        'CH2.StopBits = StopBits.Two
+        CH2.SetStopBits(StopBits.Two)
         Dim v As Integer = CH2.ReadTag(slaveid:=4, registerAddress:=&H2001, 1)(0)
+        CH2.SetStopBits(StopBits.One)
+        'CH2.StopBits = StopBits.One
         Return v / 100
 
     End Function
 
     Function 手動電磁閥測試(CMD As String, Optional ByRef responseString As String = Nothing)
         If isEmulate() Then Return True
-        responseString = CH2.WriteString(CMD)
+        responseString = CH1.WriteString(CMD)
         Return responseString.Contains(vbCr)
     End Function
 
@@ -142,6 +181,7 @@ Public Class cSYS
         Dim RoBit(7) As Byte
         Dim I As Integer, SSS As String
         Dim OutputVal As Integer
+
         If a1 Then 'A點
             RoBit(3) = 1
         Else
@@ -216,7 +256,7 @@ Public Class cSYS
         '=Convert.ToString(254, 16)  
         '轉成 16進位
         Dim hx As String = CInt(value).ToString("X4")
-        Debug.Print(hx)
+        'Debug.Print(hx)
 
 
         Dim v1 As Integer
@@ -224,7 +264,7 @@ Public Class cSYS
         v1 = Convert.ToInt32(hx.Substring(0, 2), 16)
         v2 = Convert.ToInt32(hx.Substring(2, 2), 16)
 
-        Debug.Print($"write {v1} {v2}")
+        'Debug.Print($"write {v1} {v2}")
         CH2.WriteTag(1, &H26, {v1, v2})
         'Dim result As Decimal = CDec((values(0) * 255 + values(1)) / 10 ^ values2)
         '現在使用EasyModbus直接回傳十進位的值。
@@ -234,6 +274,7 @@ Public Class cSYS
 
     ''' <summary>集中停機所需步驟</summary>
     Sub 停機()
+
         Try
             SYS.設定變頻器頻率(0)
         Catch ex As Exception
@@ -250,15 +291,24 @@ Public Class cSYS
         Catch ex As Exception
             ConsoleLog(ex.ToString)
         End Try
+        FMAIN.ButtonStart.Text = "啟動油壓"
+        FMAIN.SetButtons(buttonState.初值化) 'stopButton_Click
     End Sub
 
     Sub 設定小數位(d As Integer)
         Dim values = {d} ' 整數
+        CH2.SetStopBits(StopBits.Two)
         CH2.WriteTag(1, &H3, values)
+        CH2.SetStopBits(StopBits.One)
     End Sub
 
     Function 讀取小數位() As Integer
-        Return CH2.ReadTag(1, &H3, 1)(0)
+        'CH2.ReConnectBus(2)
+        'CH2.StopBits = StopBits.Two
+        CH2.SetStopBits(StopBits.Two)
+        Dim digs As Integer = CH2.ReadTag(1, &H3, 1)(0)
+        CH2.SetStopBits(StopBits.One)
+        Return digs
     End Function
     Function isEmulate() As Boolean
         Return emuState = 2

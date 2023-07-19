@@ -30,19 +30,19 @@ Partial Class DialogMsg
         '
         'msg
         '
-        Me.msg.AutoSize = True
         Me.msg.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.msg.Location = New System.Drawing.Point(35, 57)
+        Me.msg.Location = New System.Drawing.Point(13, 55)
         Me.msg.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.msg.Name = "msg"
-        Me.msg.Size = New System.Drawing.Size(70, 24)
+        Me.msg.Size = New System.Drawing.Size(458, 81)
         Me.msg.TabIndex = 1
         Me.msg.Text = "Label1"
+        Me.msg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'icon
         '
         Me.icon.Image = Global.軌道衝擊.My.Resources.Resources.info
-        Me.icon.Location = New System.Drawing.Point(12, 12)
+        Me.icon.Location = New System.Drawing.Point(216, 10)
         Me.icon.Name = "icon"
         Me.icon.Size = New System.Drawing.Size(47, 42)
         Me.icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -52,7 +52,7 @@ Partial Class DialogMsg
         'ButtonPannel
         '
         Me.ButtonPannel.Font = New System.Drawing.Font("Microsoft JhengHei", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.ButtonPannel.Location = New System.Drawing.Point(141, 110)
+        Me.ButtonPannel.Location = New System.Drawing.Point(190, 139)
         Me.ButtonPannel.Name = "ButtonPannel"
         Me.ButtonPannel.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.ButtonPannel.Size = New System.Drawing.Size(239, 36)
@@ -63,7 +63,7 @@ Partial Class DialogMsg
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(392, 158)
+        Me.ClientSize = New System.Drawing.Size(484, 187)
         Me.Controls.Add(Me.ButtonPannel)
         Me.Controls.Add(Me.icon)
         Me.Controls.Add(Me.msg)
@@ -78,7 +78,6 @@ Partial Class DialogMsg
         Me.Text = "軌道衝搫"
         CType(Me.icon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents msg As Label

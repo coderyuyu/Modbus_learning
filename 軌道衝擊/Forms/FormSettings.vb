@@ -14,15 +14,40 @@ Public Class FormSettings
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub FormSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        AddHandler Me.paraACFQ.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraCycles.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraDis100.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraEn100.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraInitFQ.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraMinTons.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraRecordFQ.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraTargetTons.KeyPress, AddressOf TextboxKeypressCheck
-        AddHandler Me.paraAccumulate.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraACFQ.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraCycles.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraDis100.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraEn100.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraInitFQ.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraMinTons.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraRecordFQ.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraTargetTons.KeyPress, AddressOf TextboxKeypressCheck
+        'AddHandler Me.paraAccumulate.KeyPress, AddressOf TextboxKeypressCheck
+        For Each ctrl As Control In Me.PanelParameter.Controls
+            'If ctrl.Name.StartsWith("para") Then
+            'Debug.Print(ctrl.Name)
+
+
+
+            Select Case TypeName(ctrl)
+                Case "TextBox"
+                    AddHandler ctrl.KeyPress, AddressOf TextboxKeypressCheck
+
+                Case "CheckBox"
+                            ' TODO:
+                Case "RadioBox"
+                            ' TODO:
+                Case "ListBox"
+                    ' TODO:
+                Case Else
+            End Select
+
+
+            'End If
+        Next
+
+
+
         LoadSettings()
     End Sub
 
@@ -38,11 +63,11 @@ Public Class FormSettings
 
         LoadSettingsXML()
 
-        For Each ctrl As Control In Me.Controls
-            If ctrl.Name.StartsWith("para") Then
-                'Debug.Print(ctrl.Name)
+        For Each ctrl As Control In Me.PanelParameter.Controls
+            'If ctrl.Name.StartsWith("para") Then
+            'Debug.Print(ctrl.Name)
 
-                If settings.GetElementsByTagName(ctrl.Name).Count <> 0 Then
+            If settings.GetElementsByTagName(ctrl.Name).Count <> 0 Then
 
                     Select Case TypeName(ctrl)
                         Case "TextBox"
@@ -57,16 +82,16 @@ Public Class FormSettings
                         Case Else
                     End Select
                 End If
-            End If
+            'End If
         Next
         settings.Save(SettingsPath)
     End Sub
 
     Private Sub SaveConfig()
         LoadSettingsXML()
-        For Each ctrl As Control In Me.Controls
-            If ctrl.Name.StartsWith("para") Then
-                Select Case TypeName(ctrl)
+        For Each ctrl As Control In Me.PanelParameter.Controls
+            'If ctrl.Name.StartsWith("para") Then
+            Select Case TypeName(ctrl)
                     Case "TextBox"
                         'Debug.Print(ctrl.Name)
                         SetParaValue(ctrl.Name, ctrl.Text)
@@ -80,7 +105,7 @@ Public Class FormSettings
                     Case Else
                 End Select
 
-            End If
+            'End If
         Next
         settings.Save(SettingsPath)
     End Sub
@@ -197,6 +222,10 @@ Public Class FormSettings
     Function 容許最低承載力值() '
         Return GetPara("paraMinTons") ' GetParaValue("paraMinTons")
     End Function
+    Function 容許最高承載力值() '
+        ' 新版不用 para 起頭, 但需放在 PanelParameter 裡
+        Return GetPara("maxTons") ' GetParaValue("paraMinTons")
+    End Function
     Function 開始紀錄前重置頻率() '
         Return GetPara("paraRecordFQ") ' GetParaValue("paraRecordFQ")
     End Function
@@ -206,14 +235,20 @@ Public Class FormSettings
     Function 力值設定() '
         Return GetPara("paraTargetTons") ' GetParaValue("paraTargetTons")
     End Function
+
+    Function 力值誤差()
+        Return GetPara("allowance")
+    End Function
     Function 累計次數() '
         Return GetPara("paraAccumulate") ' GetParaValue("paraAccumulate")
     End Function
 
     Sub 更新累計次數(value)
-        paraAccumulate.Text = value
-        parms("paraAccumulate") = value
-        Me.SaveConfig()
+        Task.Run(Sub()
+                     paraAccumulate.Text = value
+                     parms("paraAccumulate") = value
+                     Me.SaveConfig()
+                 End Sub)
     End Sub
 
     Private Function GetParaValue(name)

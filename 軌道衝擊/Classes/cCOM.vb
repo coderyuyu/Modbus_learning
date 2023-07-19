@@ -8,12 +8,13 @@ Imports EasyModbus
 ''' </summary>
 Public Class cCOM
     Property SerialPort As String
-    Property Baudrate As Integer
-    Property Parity As Parity = IO.Ports.Parity.None
-    Property StopBits As StopBits = IO.Ports.StopBits.One
+    Private Property Baudrate As Integer
+    Private Property Parity As Parity = IO.Ports.Parity.None
+    Private Property StopBits As StopBits = IO.Ports.StopBits.One
     Property Name As String = ""
     Property mbc As New ModbusClient ' modbus 物件 (EasyModbus套件)
     Property comport As New SerialPort ' .Net System.IO.Ports 支援的通道
+    Dim CurrentStopBit As Integer
     ''' <summary>
     ''' Initializes a new instance of the <see cref="cCOM"/> class.
     ''' </summary>
@@ -49,6 +50,8 @@ Public Class cCOM
                 .Parity = Me.Parity
                 .StopBits = Me.StopBits
                 .Connect()
+                CurrentStopBit = Me.StopBits
+                '.StopBits = StopBits.Two
             End With
         Else
             ' mbc 已開
@@ -159,7 +162,7 @@ Public Class cCOM
         If Not cmd.EndsWith(vbCr) Then
             cmd &= vbCr
         End If
-        Task.Delay(100).Wait()
+        'Task.Delay(100).Wait()
         SyncLock comport ' 防止多工環境下 com port 同時被存取
             With comport
 
@@ -193,6 +196,32 @@ Public Class cCOM
     End Sub
 
 
+    Sub ReConnectBus(StopBit As Integer)
+        If mbc.Connected Then
+            mbc.Disconnect()
+        End If
+        With mbc
+            With mbc
+                .SerialPort = Me.SerialPort
+                .Baudrate = Me.Baudrate
+                .Parity = Me.Parity
+                .StopBits = StopBit
+                .Connect()
+            End With
+        End With
+    End Sub
 
+    Sub SetStopBits(sbits As System.IO.Ports.StopBits)
+        If mbc.Connected Then
+            SyncLock mbc
+                mbc.StopBits = sbits
+            End SyncLock
+        End If
+        If comport.IsOpen Then
+            SyncLock comport
+                comport.StopBits = sbits
+            End SyncLock
+        End If
+    End Sub
 
 End Class

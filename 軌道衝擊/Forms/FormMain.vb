@@ -1,4 +1,5 @@
-﻿Imports OfficeOpenXml.ExcelErrorValue
+﻿Imports System.Windows.Forms.DataVisualization.Charting
+Imports OfficeOpenXml.ExcelErrorValue
 
 Public Class FormMain
     Public Enum buttonState
@@ -18,7 +19,7 @@ Public Class FormMain
 
 
     Private Sub ButtonLogs_Click(sender As Object, e As EventArgs) Handles ButtonLogs.Click
-        With FormFileBrowser
+        With FFBROWSER
             .StartPosition = FormStartPosition.Manual
             .Location = New Point(Me.Left + 10, Me.Top + 10)
             .ShowDialog()
@@ -31,7 +32,7 @@ Public Class FormMain
         isEMU.Checked = SYS.isEmulate
         SetButtons(buttonState.初值化)
         UpdateCounter(FSET.累計次數)
-
+        InitChart()
     End Sub
 
     Private Sub ButtonTest_Click(sender As Object, e As EventArgs) Handles ButtonTest.Click
@@ -66,26 +67,30 @@ Public Class FormMain
         Select Case ButtonStart.Text
             Case "啟動油壓"
                 Try
-                    ConsoleLog("全關指令")
-                    SYS.全關指令()
-                    ConsoleLog("設定變頻器頻率=0")
-                    SYS.設定變頻器頻率(0)
-                    ConsoleLog("開啟變頻器")
+
+
+
                     SYS.開啟變頻器()
                     SYS.設定變頻器頻率(FSET.變頻器初始頻率)
                     ConsoleLog($"設定變頻器頻率={FSET.變頻器初始頻率}")
                     If SYS.isEmulate Then
-                        SYS.寫入主缸力值(15) '若模擬, 則主缸力值預設為15
+                        ConsoleLog($"模擬初始缸值={FSET.力值設定 - 5}")
+                        SYS.寫入主缸力值(FSET.力值設定 - 5) '若模擬
+                        SYS.ev = 1 ' 升壓
+
                     End If
+
                     ButtonStart.Text = "關閉油壓"
                     StartTasks()
                     SetButtons(buttonState.啟動油壓)
                 Catch ex As Exception
-
+                    ConsoleLog(ex.ToString)
                 End Try
             Case "關閉油壓"
-                ButtonStart.Text = "啟動油壓"
+                ButtonStart.Text = "關閉中..."
+                ButtonStart.Enabled = False
                 StopTasks() ' Stop by "關閉油壓"
+                ButtonStart.Text = "啟動油壓"
                 SetButtons(buttonState.初值化)
         End Select
 
@@ -100,22 +105,35 @@ Public Class FormMain
     End Sub
 
     Private Sub ButtonStart2_Click(sender As Object, e As EventArgs) Handles ButtonStart2.Click
-        Try
-            StartACTask(1000 / FSET.測試點應變頻率 / 2)
-            SetButtons(buttonState.雙點衝擊)
-        Catch ex As Exception
 
-        End Try
+        If SYS.主缸力值 < FSET.容許最低承載力值 Then
+            ShowMsgBox($"力值未達 {FSET.容許最低承載力值}", "好", 2000, 1)
+        Else
+
+            Try
+                count = FSET.累計次數
+                minTons = FSET.容許最低承載力值
+                isAorC = True ' 由 A 開始
+
+                RunBgTask(1000 / FSET.測試點應變頻率, AddressOf doACImpact, NameOf(doACImpact))
+                'SYS.開始衝擊 = False
+                'StartACTask(1000 / FSET.測試點應變頻率)
+                SetButtons(buttonState.雙點衝擊)
+            Catch ex As Exception
+
+            End Try
+        End If
 
     End Sub
 
 
 
-    Private Sub SetButtons(status As Integer)
+    Sub SetButtons(status As Integer)
         Select Case status
             Case buttonState.初值化
                 ButtonSettings.Enabled = True '參數設定
                 ButtonStart.Enabled = True ' 油壓啟動/關閉
+                'ButtonStart.Text = "油壓啟動"
                 ButtonStart2.Enabled = False ' 雙點衝擊
                 ButtonStartRecord.Enabled = False ' 開始記錄
                 ButtonConsole.Enabled = True ' 系統訊息
@@ -177,17 +195,13 @@ Public Class FormMain
 
     Private Sub FormMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
-            If RunningTasksCount() <> 0 Then
-                ShowMsgBox("系統運作中, 請先關閉油壓", "好")
-                e.Cancel = True
+
+            If ShowMsgBox("結束系統?", "是,否") = 1 Then
+                StopTasks() ' Stop by 結束系統
+                FSET.更新累計次數(counter.Text)
+                SYS.停機()
             Else
-                If ShowMsgBox("結束系統?", "是,否") = 1 Then
-                    StopTasks() ' Stop by 結束系統
-                    FSET.更新累計次數(counter.Text)
-                    SYS.停機()
-                Else
-                    e.Cancel = True
-                End If
+                e.Cancel = True
             End If
         Catch ex As Exception
             ConsoleLog(ex.ToString)
@@ -195,11 +209,7 @@ Public Class FormMain
     End Sub
 
     Private Sub ButtonEnd_Click(sender As Object, e As EventArgs) Handles ButtonEnd.Click
-        If RunningTasksCount() <> 0 Then
-            ShowMsgBox("系統運作中, 請先關閉油壓", "好")
-        Else
-            Me.Close()
-        End If
+        Me.Close()
     End Sub
 
 
@@ -207,5 +217,72 @@ Public Class FormMain
 
     Private Sub Panel_Main_Paint(sender As Object, e As PaintEventArgs) Handles Panel_Main.Paint
 
+    End Sub
+
+    Private Sub stopButton_Click(sender As Object, e As EventArgs) Handles stopButton.Click
+        Try
+            StopTasks()
+            SYS.停機()
+            ButtonStart.Text = "啟動油壓"
+            SetButtons(buttonState.初值化) 'stopButton_Click
+        Catch ex As Exception
+            ShowMsgBox("停機失敗", "好")
+        End Try
+    End Sub
+
+    Private Sub Panel_Messages_Paint(sender As Object, e As PaintEventArgs) Handles Panel_Messages.Paint
+
+    End Sub
+
+    Private Sub Panel_buttons_Paint(sender As Object, e As PaintEventArgs) Handles Panel_buttons.Paint
+
+    End Sub
+
+    Private Sub InitChart()
+        Chart1.ChartAreas.Clear()
+        Chart1.ChartAreas.Add("Default")
+        With Chart1.ChartAreas("Default")
+            .AxisX.Title = "時間"
+            .AxisX.Interval = 5
+            .AxisX.IsMarginVisible = True
+            .AxisX.MajorGrid.LineColor = Color.SkyBlue
+            .AxisY.MajorGrid.LineColor = Color.SkyBlue
+            .AxisY.Title = "頻率/力值"
+            .AxisY.Interval = 10
+        End With
+
+        Chart1.Legends.Clear()
+        Chart1.Legends.Add("Default")
+        Chart1.Legends("Default").Docking = Docking.Top
+
+        Chart1.Series.Clear()
+        Chart1.Series.Add("頻率")
+        Chart1.Series.Add("力值")
+
+        With Chart1.Series(0)
+            .BorderWidth = 1
+            .Color = Color.Red
+            .ChartType = DataVisualization.Charting.SeriesChartType.Line
+        End With
+
+        With Chart1.Series(1)
+            .BorderWidth = 1
+            .Color = Color.Blue
+            .ChartType = DataVisualization.Charting.SeriesChartType.Line
+        End With
+
+
+    End Sub
+
+
+    Sub UpdateChart(data As List(Of Array))
+
+        Chart1.Series(0).Points.Clear()
+        Chart1.Series(1).Points.Clear()
+
+        For i = 1 To data.Count
+            Chart1.Series(0).Points.AddXY(i, data(i - 1)(0))
+            Chart1.Series(1).Points.AddXY(i, data(i - 1)(1))
+        Next
     End Sub
 End Class

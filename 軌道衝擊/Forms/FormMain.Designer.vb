@@ -23,6 +23,9 @@ Partial Class FormMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMain))
         Me.Layout = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel_Messages = New System.Windows.Forms.Panel()
@@ -38,19 +41,24 @@ Partial Class FormMain
         Me.ButtonSettings = New System.Windows.Forms.Button()
         Me.Panel_Extras = New System.Windows.Forms.Panel()
         Me.Panel_Main = New System.Windows.Forms.Panel()
-        Me.counter = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.CylinderTons = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.EthernetIPforCLXCom1 = New AdvancedHMIDrivers.EthernetIPforCLXCom(Me.components)
-        Me.C = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
-        Me.A = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.counter = New System.Windows.Forms.TextBox()
+        Me.mainLabel = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.C = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
+        Me.CylinderTons = New System.Windows.Forms.TextBox()
+        Me.A = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
+        Me.EthernetIPforCLXCom1 = New AdvancedHMIDrivers.EthernetIPforCLXCom(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.feq = New System.Windows.Forms.TextBox()
+        Me.stopButton = New AdvancedHMIControls.MushroomButton()
+        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Layout.SuspendLayout()
         Me.Panel_buttons.SuspendLayout()
         Me.Panel_Main.SuspendLayout()
-        CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Layout
@@ -217,6 +225,8 @@ Partial Class FormMain
         '
         'Panel_Main
         '
+        Me.Panel_Main.Controls.Add(Me.Chart1)
+        Me.Panel_Main.Controls.Add(Me.stopButton)
         Me.Panel_Main.Controls.Add(Me.Panel1)
         Me.Panel_Main.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel_Main.Location = New System.Drawing.Point(4, 4)
@@ -225,15 +235,43 @@ Partial Class FormMain
         Me.Panel_Main.Size = New System.Drawing.Size(958, 667)
         Me.Panel_Main.TabIndex = 3
         '
+        'Panel1
+        '
+        Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Panel1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel1.Controls.Add(Me.CylinderTons)
+        Me.Panel1.Controls.Add(Me.feq)
+        Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Controls.Add(Me.counter)
+        Me.Panel1.Controls.Add(Me.mainLabel)
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Controls.Add(Me.C)
+        Me.Panel1.Controls.Add(Me.A)
+        Me.Panel1.Location = New System.Drawing.Point(298, 42)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(391, 405)
+        Me.Panel1.TabIndex = 0
+        '
         'counter
         '
         Me.counter.Font = New System.Drawing.Font("Microsoft JhengHei", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.counter.Location = New System.Drawing.Point(104, 333)
+        Me.counter.Location = New System.Drawing.Point(77, 333)
         Me.counter.Margin = New System.Windows.Forms.Padding(4)
         Me.counter.Name = "counter"
-        Me.counter.Size = New System.Drawing.Size(189, 46)
+        Me.counter.Size = New System.Drawing.Size(235, 46)
         Me.counter.TabIndex = 7
         Me.counter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'mainLabel
+        '
+        Me.mainLabel.AutoSize = True
+        Me.mainLabel.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.mainLabel.Location = New System.Drawing.Point(225, 14)
+        Me.mainLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.mainLabel.Name = "mainLabel"
+        Me.mainLabel.Size = New System.Drawing.Size(123, 61)
+        Me.mainLabel.TabIndex = 0
+        Me.mainLabel.Text = "力值"
         '
         'Label3
         '
@@ -246,42 +284,6 @@ Partial Class FormMain
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "累計次數"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'CylinderTons
-        '
-        Me.CylinderTons.Enabled = False
-        Me.CylinderTons.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.CylinderTons.Location = New System.Drawing.Point(104, 79)
-        Me.CylinderTons.Margin = New System.Windows.Forms.Padding(4)
-        Me.CylinderTons.Name = "CylinderTons"
-        Me.CylinderTons.Size = New System.Drawing.Size(189, 71)
-        Me.CylinderTons.TabIndex = 1
-        Me.CylinderTons.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
-        Me.Label1.Location = New System.Drawing.Point(93, 10)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(219, 61)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "主缸力值"
-        '
-        'EthernetIPforCLXCom1
-        '
-        Me.EthernetIPforCLXCom1.CIPConnectionSize = 508
-        Me.EthernetIPforCLXCom1.DisableMultiServiceRequest = False
-        Me.EthernetIPforCLXCom1.DisableSubscriptions = False
-        Me.EthernetIPforCLXCom1.IniFileName = ""
-        Me.EthernetIPforCLXCom1.IniFileSection = Nothing
-        Me.EthernetIPforCLXCom1.IPAddress = "192.168.0.10"
-        Me.EthernetIPforCLXCom1.PollRateOverride = 500
-        Me.EthernetIPforCLXCom1.Port = 44818
-        Me.EthernetIPforCLXCom1.ProcessorSlot = 0
-        Me.EthernetIPforCLXCom1.RoutePath = Nothing
-        Me.EthernetIPforCLXCom1.Timeout = 4000
         '
         'C
         '
@@ -305,6 +307,17 @@ Partial Class FormMain
         Me.C.ValueSelect1 = False
         Me.C.ValueSelect2 = False
         '
+        'CylinderTons
+        '
+        Me.CylinderTons.Enabled = False
+        Me.CylinderTons.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.CylinderTons.Location = New System.Drawing.Point(206, 79)
+        Me.CylinderTons.Margin = New System.Windows.Forms.Padding(4)
+        Me.CylinderTons.Name = "CylinderTons"
+        Me.CylinderTons.Size = New System.Drawing.Size(169, 71)
+        Me.CylinderTons.TabIndex = 1
+        Me.CylinderTons.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'A
         '
         Me.A.Flash1 = False
@@ -327,20 +340,73 @@ Partial Class FormMain
         Me.A.ValueSelect1 = False
         Me.A.ValueSelect2 = False
         '
-        'Panel1
+        'EthernetIPforCLXCom1
         '
-        Me.Panel1.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.Panel1.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel1.Controls.Add(Me.counter)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.C)
-        Me.Panel1.Controls.Add(Me.CylinderTons)
-        Me.Panel1.Controls.Add(Me.A)
-        Me.Panel1.Location = New System.Drawing.Point(298, 130)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(391, 423)
-        Me.Panel1.TabIndex = 0
+        Me.EthernetIPforCLXCom1.CIPConnectionSize = 508
+        Me.EthernetIPforCLXCom1.DisableMultiServiceRequest = False
+        Me.EthernetIPforCLXCom1.DisableSubscriptions = False
+        Me.EthernetIPforCLXCom1.IniFileName = ""
+        Me.EthernetIPforCLXCom1.IniFileSection = Nothing
+        Me.EthernetIPforCLXCom1.IPAddress = "192.168.0.10"
+        Me.EthernetIPforCLXCom1.PollRateOverride = 500
+        Me.EthernetIPforCLXCom1.Port = 44818
+        Me.EthernetIPforCLXCom1.ProcessorSlot = 0
+        Me.EthernetIPforCLXCom1.RoutePath = Nothing
+        Me.EthernetIPforCLXCom1.Timeout = 4000
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label1.Location = New System.Drawing.Point(52, 14)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(123, 61)
+        Me.Label1.TabIndex = 8
+        Me.Label1.Text = "頻率"
+        '
+        'feq
+        '
+        Me.feq.Enabled = False
+        Me.feq.Font = New System.Drawing.Font("Microsoft JhengHei", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.feq.Location = New System.Drawing.Point(22, 79)
+        Me.feq.Margin = New System.Windows.Forms.Padding(4)
+        Me.feq.Name = "feq"
+        Me.feq.Size = New System.Drawing.Size(169, 71)
+        Me.feq.TabIndex = 9
+        Me.feq.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'stopButton
+        '
+        Me.stopButton.ComComponent = Me.EthernetIPforCLXCom1
+        Me.stopButton.Font = New System.Drawing.Font("Microsoft JhengHei", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.stopButton.LegendPlate = MfgControl.AdvancedHMI.Controls.MushroomButton.LegendPlates.Large
+        Me.stopButton.Location = New System.Drawing.Point(692, 334)
+        Me.stopButton.MaximumHoldTime = 3000
+        Me.stopButton.MinimumHoldTime = 500
+        Me.stopButton.Name = "stopButton"
+        Me.stopButton.OutputType = MfgControl.AdvancedHMI.Controls.MushroomButton.OutputTypes.MomentarySet
+        Me.stopButton.PLCAddressClick = ""
+        Me.stopButton.PLCAddressVisible = ""
+        Me.stopButton.Size = New System.Drawing.Size(77, 113)
+        Me.stopButton.TabIndex = 1
+        Me.stopButton.Text = "緊急關機"
+        '
+        'Chart1
+        '
+        ChartArea1.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
+        Me.Chart1.Location = New System.Drawing.Point(37, 453)
+        Me.Chart1.Name = "Chart1"
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.Chart1.Series.Add(Series1)
+        Me.Chart1.Size = New System.Drawing.Size(892, 190)
+        Me.Chart1.TabIndex = 2
+        Me.Chart1.Text = "Chart1"
         '
         'FormMain
         '
@@ -357,9 +423,10 @@ Partial Class FormMain
         Me.Panel_buttons.ResumeLayout(False)
         Me.Panel_buttons.PerformLayout()
         Me.Panel_Main.ResumeLayout(False)
-        CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.EthernetIPforCLXCom1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -379,11 +446,15 @@ Partial Class FormMain
     Friend WithEvents ButtonStart As Button
     Friend WithEvents EthernetIPforCLXCom1 As AdvancedHMIDrivers.EthernetIPforCLXCom
     Friend WithEvents CylinderTons As TextBox
-    Friend WithEvents Label1 As Label
+    Friend WithEvents mainLabel As Label
     Friend WithEvents A As MfgControl.AdvancedHMI.Controls.GraphicIndicator
     Friend WithEvents C As MfgControl.AdvancedHMI.Controls.GraphicIndicator
     Friend WithEvents ButtonEnd As Button
     Friend WithEvents counter As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents feq As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents stopButton As AdvancedHMIControls.MushroomButton
+    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
 End Class

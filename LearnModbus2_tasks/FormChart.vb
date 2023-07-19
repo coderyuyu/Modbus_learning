@@ -108,5 +108,7 @@ Public Class FormChart
 
     End Sub
 
+    Private Sub HScrollBar1_Scroll(sender As Object, e As ScrollEventArgs) Handles HScrollBar1.Scroll
 
+    End Sub
 End Class

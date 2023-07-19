@@ -10,6 +10,7 @@ Public Class FormTest
         AddHandler Me.cbC1.CheckedChanged, AddressOf cbACCheck
         AddHandler Me.cbC2.CheckedChanged, AddressOf cbACCheck
         decpos.Text = SYS.讀取小數位
+        'decpos.Text = 2
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -89,6 +90,7 @@ Public Class FormTest
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         Try
+
             SYS.開啟變頻器()
             TestLog("開啟變頻器 OK")
         Catch ex As Exception

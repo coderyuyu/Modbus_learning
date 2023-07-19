@@ -15,19 +15,22 @@ Public Class cDATA1
                 If Math.Abs(FSET.力值設定 - var主缸力值) < 容許誤差範圍 Then
                     ' do nothing
                 Else
-                    Dim var變頻器頻率 As Decimal = SYS.變頻器頻率()
-                    Dim ev As Decimal
-                    If var主缸力值 > FSET.力值設定 Then
-                        ev = -var變頻器頻率 * 0.01
-                    ElseIf var主缸力值 < FSET.力值設定 Then
-                        ev = var變頻器頻率 * 0.01
-                    End If
-                    'ConsoleLog($"設定變頻器頻率={v + v2}")
+                    If SYS.開始衝擊 Then
+                        Dim var變頻器頻率 As Decimal = SYS.變頻器頻率()
+                        Dim ev As Decimal
+                        If var主缸力值 > FSET.力值設定 Then
+                            ev = -1
+                        ElseIf var主缸力值 < FSET.力值設定 Then
+                            ev = +1
+                        End If
+                        ConsoleLog($"設定變頻器頻率={var變頻器頻率} ,{ev}")
 
-                    RaiseEvent 變頻器頻率變更(var變頻器頻率, ev)
+                        RaiseEvent 變頻器頻率變更(var變頻器頻率, ev)
+                    End If
+
                 End If
 
-            End If
+                End If
         End Set
         Get
             Return var主缸力值
