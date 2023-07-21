@@ -1,5 +1,11 @@
-﻿Module mLog
-    Sub StartLog(interval As Integer)
+﻿Imports OfficeOpenXml.FormulaParsing.LexicalAnalysis
+
+Module mEmulate
+    ''' <summary>
+    ''' 理想是這段程式可以照抄, 只需修改 DoWork, PreProcess, PostProcess
+    ''' </summary>
+    ''' <param name="interval">The interval.</param>
+    Sub StartEmulate(interval As Integer)
         Dim methodName As String = System.Reflection.MethodInfo.GetCurrentMethod().Name
         Dim loopWait As Integer
         Dim exitMsg As String = ""
@@ -44,23 +50,27 @@
 
     End Sub
 
+
+
+
+
     Private Sub DoWorker()
-        Dim logobj As cLogObject
-        Dim logdic As New Dictionary(Of String, List(Of String))
-        SyncLock LogQ
-            Do While LogQ.Count <> 0
-                logobj = LogQ.Dequeue
-                With logobj
-                    If Not logdic.ContainsKey(.logtype) Then
-                        logdic.Add(.logtype, New List(Of String))
-                    End If
-                    logdic(.logtype).Add(.ToStringWithShortTime())
-                End With
-            Loop
+        Dim v As Decimal
+        SyncLock DATA0
+            v = DATA0.主缸力值
         End SyncLock
-        For Each logtype In logdic.Keys
-            LOGGER.WriteLog(logtype, logdic(logtype))
-        Next
+        ' 因為離線, 主缸力值不會有變化
+        ' 因此在此依 sys.ev 調整主缸力值, 寫出主缸力值
+        If v = 0 Then Exit Sub ' 多工, 有時候 DATA0 會晚到
+        Select Case SYS.ev
+            Case > 0
+                SYS.寫入主缸力值(v + 0.2)
+            Case < 0
+                SYS.寫入主缸力值(v - 0.2)
+            Case Else
+
+        End Select
+
     End Sub
 
 

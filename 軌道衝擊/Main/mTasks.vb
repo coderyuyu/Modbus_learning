@@ -5,8 +5,8 @@ Imports System.Threading
 Imports System.Windows.Forms.DataVisualization.Charting
 
 Module mTasks
-    Dim cs As CancellationTokenSource
-    Dim ctoken As CancellationToken
+    Public cs As CancellationTokenSource
+    Public ctoken As CancellationToken
     Dim taskCount As Integer = 0
     Public DATA0 As cDATA0 ' for read
     Public DATA1 As cDATA1 ' for process
@@ -15,10 +15,12 @@ Module mTasks
     Public CrossTaskLocker As New Object
     Public count As Integer
     Public minTons As Decimal
-    Public isAorC As Boolean = False
+
     Delegate Sub UpdateUI_Invoker(ctrl As Control, value As Object)
     Delegate Sub UpdateAC_Invoker(AC As String)
     Public Delegate Function TaskRun_Invoker()
+    Public Delegate Function RunSub_Invoker()
+
 
     Sub RunBgTask(interval As Integer, runner As TaskRun_Invoker, Optional methodName As String = "")
         'Dim methodName As String = NameOf(runner) ' 取得這個 sub 或 function name
@@ -34,7 +36,11 @@ Module mTasks
                      Do
                          Try
                              stw.Restart()
-                             Await runner()
+                             If methodName = "doACImpact" Then
+                                 runner()
+                             Else
+                                 Await runner()
+                             End If
                              stw.Stop()
                              loopWait = interval - stw.Elapsed.Milliseconds
                              If loopWait > 0 Then
@@ -82,19 +88,24 @@ Module mTasks
         cs = New CancellationTokenSource
         ctoken = cs.Token
         taskCount = 0
-
-        RunBgTask(1000, AddressOf doSystemCheck, NameOf(doSystemCheck))
+        StartSystemCheck(1000)
+        'RunBgTask(1000, AddressOf doSystemCheck, NameOf(doSystemCheck))
         'StartSystemCheckTask(1000)
-        RunBgTask(500, AddressOf ReadDATA0, NameOf(ReadDATA0))
+        'RunBgTask(500, AddressOf ReadDATA0, NameOf(ReadDATA0))
+        StartReadDATA0(500)
         'StartReadTask(500)
-        RunBgTask(1000, AddressOf ProcessDATA1, NameOf(ProcessDATA1))
+        StartProcessDATA1(1000)
+        'RunBgTask(1000, AddressOf ProcessDATA1, NameOf(ProcessDATA1))
         'StartProcessTask(10000)
-        RunBgTask(1000, AddressOf UpdateUIDATA2, NameOf(UpdateUIDATA2))
+        StartUpdateUI(1000)
+        'RunBgTask(1000, AddressOf UpdateUIDATA2, NameOf(UpdateUIDATA2))
         'StartUIUdateTask(1000)
-        RunBgTask(1000, AddressOf DoLogWriter, NameOf(DoLogWriter))
+        StartLog(1000)
         If SYS.isEmulate Then
             'StartEmuTask(1000)
-            RunBgTask(1000, AddressOf DoEmu, NameOf(DoEmu))
+            'RunBgTask(1000, AddressOf DoEmu, NameOf(DoEmu))
+            StartEmulate(1000)
+            'MsgBox("TODO")
         End If
     End Sub
 
@@ -479,7 +490,7 @@ Module mTasks
     ''' <param name="value"></param>
     Sub UpdateUI(ctrl As Control, value As Object)
         If ctrl.InvokeRequired Then
-            ctrl.BeginInvoke(New UpdateUI_Invoker(AddressOf UpdateUI), ctrl, value)
+            ctrl.Invoke(New UpdateUI_Invoker(AddressOf UpdateUI), ctrl, value)
         Else
             Select Case TypeName(ctrl)
                 Case "TextBox"
@@ -497,7 +508,7 @@ Module mTasks
     Sub UpdateAC(AC As String)
         'Static lastupdate As Date = Now
         If FMAIN.A.InvokeRequired Then
-            FMAIN.A.BeginInvoke(New UpdateAC_Invoker(AddressOf UpdateAC), AC)
+            FMAIN.A.Invoke(New UpdateAC_Invoker(AddressOf UpdateAC), AC)
         Else
             'Debug.Print(Now.Subtract(lastupdate).TotalMilliseconds)
             'lastupdate = Now

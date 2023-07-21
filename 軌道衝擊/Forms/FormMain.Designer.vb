@@ -45,14 +45,15 @@ Partial Class FormMain
         Me.counter = New System.Windows.Forms.TextBox()
         Me.mainLabel = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.C = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
         Me.CylinderTons = New System.Windows.Forms.TextBox()
-        Me.A = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
         Me.EthernetIPforCLXCom1 = New AdvancedHMIDrivers.EthernetIPforCLXCom(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.feq = New System.Windows.Forms.TextBox()
         Me.stopButton = New AdvancedHMIControls.MushroomButton()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.C = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
+        Me.A = New MfgControl.AdvancedHMI.Controls.GraphicIndicator()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Layout.SuspendLayout()
         Me.Panel_buttons.SuspendLayout()
         Me.Panel_Main.SuspendLayout()
@@ -96,6 +97,7 @@ Partial Class FormMain
         '
         Me.Panel_buttons.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Layout.SetColumnSpan(Me.Panel_buttons, 2)
+        Me.Panel_buttons.Controls.Add(Me.Button1)
         Me.Panel_buttons.Controls.Add(Me.ButtonEnd)
         Me.Panel_buttons.Controls.Add(Me.ButtonStartRecord)
         Me.Panel_buttons.Controls.Add(Me.ButtonStart2)
@@ -285,28 +287,6 @@ Partial Class FormMain
         Me.Label3.Text = "累計次數"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'C
-        '
-        Me.C.Flash1 = False
-        Me.C.Font2 = New System.Drawing.Font("Arial", 10.0!)
-        Me.C.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.C.GraphicAllOff = Global.軌道衝擊.My.Resources.Resources.C0
-        Me.C.GraphicSelect1 = Global.軌道衝擊.My.Resources.Resources.C1
-        Me.C.GraphicSelect2 = Global.軌道衝擊.My.Resources.Resources.C2
-        Me.C.Location = New System.Drawing.Point(206, 164)
-        Me.C.Margin = New System.Windows.Forms.Padding(0)
-        Me.C.Name = "C"
-        Me.C.NumericFormat = Nothing
-        Me.C.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
-        Me.C.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
-        Me.C.Size = New System.Drawing.Size(87, 89)
-        Me.C.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.C.TabIndex = 5
-        Me.C.Text2 = ""
-        Me.C.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.C.ValueSelect1 = False
-        Me.C.ValueSelect2 = False
-        '
         'CylinderTons
         '
         Me.CylinderTons.Enabled = False
@@ -317,28 +297,6 @@ Partial Class FormMain
         Me.CylinderTons.Size = New System.Drawing.Size(169, 71)
         Me.CylinderTons.TabIndex = 1
         Me.CylinderTons.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'A
-        '
-        Me.A.Flash1 = False
-        Me.A.Font2 = New System.Drawing.Font("Arial", 10.0!)
-        Me.A.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.A.GraphicAllOff = Global.軌道衝擊.My.Resources.Resources.A0
-        Me.A.GraphicSelect1 = Global.軌道衝擊.My.Resources.Resources.A1
-        Me.A.GraphicSelect2 = Global.軌道衝擊.My.Resources.Resources.A2
-        Me.A.Location = New System.Drawing.Point(104, 164)
-        Me.A.Margin = New System.Windows.Forms.Padding(0)
-        Me.A.Name = "A"
-        Me.A.NumericFormat = Nothing
-        Me.A.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
-        Me.A.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
-        Me.A.Size = New System.Drawing.Size(87, 89)
-        Me.A.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.A.TabIndex = 4
-        Me.A.Text2 = ""
-        Me.A.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.A.ValueSelect1 = False
-        Me.A.ValueSelect2 = False
         '
         'EthernetIPforCLXCom1
         '
@@ -408,6 +366,61 @@ Partial Class FormMain
         Me.Chart1.TabIndex = 2
         Me.Chart1.Text = "Chart1"
         '
+        'C
+        '
+        Me.C.Flash1 = False
+        Me.C.Font2 = New System.Drawing.Font("Arial", 10.0!)
+        Me.C.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.C.GraphicAllOff = Global.軌道衝擊.My.Resources.Resources.C0
+        Me.C.GraphicSelect1 = Global.軌道衝擊.My.Resources.Resources.C1
+        Me.C.GraphicSelect2 = Global.軌道衝擊.My.Resources.Resources.C2
+        Me.C.Location = New System.Drawing.Point(206, 164)
+        Me.C.Margin = New System.Windows.Forms.Padding(0)
+        Me.C.Name = "C"
+        Me.C.NumericFormat = Nothing
+        Me.C.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
+        Me.C.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
+        Me.C.Size = New System.Drawing.Size(87, 89)
+        Me.C.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.C.TabIndex = 5
+        Me.C.Text2 = ""
+        Me.C.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.C.ValueSelect1 = False
+        Me.C.ValueSelect2 = False
+        '
+        'A
+        '
+        Me.A.Flash1 = False
+        Me.A.Font2 = New System.Drawing.Font("Arial", 10.0!)
+        Me.A.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.A.GraphicAllOff = Global.軌道衝擊.My.Resources.Resources.A0
+        Me.A.GraphicSelect1 = Global.軌道衝擊.My.Resources.Resources.A1
+        Me.A.GraphicSelect2 = Global.軌道衝擊.My.Resources.Resources.A2
+        Me.A.Location = New System.Drawing.Point(104, 164)
+        Me.A.Margin = New System.Windows.Forms.Padding(0)
+        Me.A.Name = "A"
+        Me.A.NumericFormat = Nothing
+        Me.A.OutputType = MfgControl.AdvancedHMI.Controls.GraphicIndicator.OutputTypes.MomentarySet
+        Me.A.RotationAngle = MfgControl.AdvancedHMI.Controls.GraphicIndicator.RotationAngleEnum.NoRotation
+        Me.A.Size = New System.Drawing.Size(87, 89)
+        Me.A.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.A.TabIndex = 4
+        Me.A.Text2 = ""
+        Me.A.ValueScaleFactor = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.A.ValueSelect1 = False
+        Me.A.ValueSelect2 = False
+        '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft JhengHei", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Button1.Location = New System.Drawing.Point(1130, 17)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(100, 50)
+        Me.Button1.TabIndex = 9
+        Me.Button1.Text = "PID"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
@@ -457,4 +470,5 @@ Partial Class FormMain
     Friend WithEvents Label1 As Label
     Friend WithEvents stopButton As AdvancedHMIControls.MushroomButton
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
+    Friend WithEvents Button1 As Button
 End Class

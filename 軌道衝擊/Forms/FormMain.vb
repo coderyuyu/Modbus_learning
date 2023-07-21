@@ -113,9 +113,9 @@ Public Class FormMain
             Try
                 count = FSET.累計次數
                 minTons = FSET.容許最低承載力值
-                isAorC = True ' 由 A 開始
+                StartACImpact(1000 / FSET.測試點應變頻率)
 
-                RunBgTask(1000 / FSET.測試點應變頻率, AddressOf doACImpact, NameOf(doACImpact))
+                'RunBgTask(1000 / FSET.測試點應變頻率, AddressOf doACImpact, NameOf(doACImpact))
                 'SYS.開始衝擊 = False
                 'StartACTask(1000 / FSET.測試點應變頻率)
                 SetButtons(buttonState.雙點衝擊)
@@ -284,5 +284,9 @@ Public Class FormMain
             Chart1.Series(0).Points.AddXY(i, data(i - 1)(0))
             Chart1.Series(1).Points.AddXY(i, data(i - 1)(1))
         Next
+    End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        FormPID.Show()
     End Sub
 End Class

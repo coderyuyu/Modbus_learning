@@ -57,6 +57,9 @@
     <Reference Include="EasyModbus, Version=5.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EasyModbusTCP.5.6.0\lib\net40\EasyModbus.dll</HintPath>
     </Reference>
+    <Reference Include="EasyPID, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EasyPID.1.0.1\lib\netstandard2.0\EasyPID.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=7.0.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.7.0.0-preview1\lib\net462\EPPlus.dll</HintPath>
     </Reference>
@@ -148,6 +151,12 @@
     <Compile Include="Forms\FormFileBrowser.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormPID.Designer.vb">
+      <DependentUpon>FormPID.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPID.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FormSettings.Designer.vb">
       <DependentUpon>FormSettings.vb</DependentUpon>
     </Compile>
@@ -160,13 +169,14 @@
     <Compile Include="Forms\FormTest.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Main\mThisApp.vb" />
     <Compile Include="Tasks\mACImpact.vb" />
-    <Compile Include="Tasks\mEmu.vb" />
+    <Compile Include="Tasks\mEmulate.vb" />
     <Compile Include="Tasks\mLog.vb" />
     <Compile Include="Tasks\mProcessDATA1.vb" />
     <Compile Include="Tasks\mReadDATA0.vb" />
+    <Compile Include="Tasks\_SampleCode.vb" />
     <Compile Include="Tasks\mSystemCheck.vb" />
-    <Compile Include="Main\mThisApp.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -199,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFileBrowser.resx">
       <DependentUpon>FormFileBrowser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPID.resx">
+      <DependentUpon>FormPID.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormSettings.resx">
       <DependentUpon>FormSettings.vb</DependentUpon>

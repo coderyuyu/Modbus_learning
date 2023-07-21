@@ -15,6 +15,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ClassModbus", "ClassModbus\
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "軌道衝擊", "軌道衝擊\軌道衝擊.vbproj", "{A983D8D5-F72B-4656-BF3D-6BED60C07016}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PID", "PID\PID.vbproj", "{21181F08-4141-4DB2-96B8-3E28A89B051D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A983D8D5-F72B-4656-BF3D-6BED60C07016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A983D8D5-F72B-4656-BF3D-6BED60C07016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A983D8D5-F72B-4656-BF3D-6BED60C07016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21181F08-4141-4DB2-96B8-3E28A89B051D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21181F08-4141-4DB2-96B8-3E28A89B051D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21181F08-4141-4DB2-96B8-3E28A89B051D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21181F08-4141-4DB2-96B8-3E28A89B051D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

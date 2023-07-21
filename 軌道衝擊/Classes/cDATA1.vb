@@ -23,7 +23,7 @@ Public Class cDATA1
                         ElseIf var主缸力值 < FSET.力值設定 Then
                             ev = +1
                         End If
-                        ConsoleLog($"設定變頻器頻率={var變頻器頻率} ,{ev}")
+                        'ConsoleLog($"設定變頻器頻率={var變頻器頻率} ,{ev}")
 
                         RaiseEvent 變頻器頻率變更(var變頻器頻率, ev)
                     End If
