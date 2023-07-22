@@ -22,9 +22,9 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -42,15 +42,12 @@ Partial Class Form1
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.Kp = New System.Windows.Forms.NumericUpDown()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.Ki = New System.Windows.Forms.NumericUpDown()
         Me.oInit = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Kd = New System.Windows.Forms.NumericUpDown()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ButtonStart = New System.Windows.Forms.Button()
         Me.oMax = New System.Windows.Forms.TextBox()
@@ -81,14 +78,16 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Kp = New System.Windows.Forms.TextBox()
+        Me.Ki = New System.Windows.Forms.TextBox()
+        Me.Kd = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.PanelParameter.SuspendLayout()
-        CType(Me.Kp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Ki, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Kd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.interval, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -111,17 +110,17 @@ Partial Class Form1
         '
         'Chart1
         '
-        ChartArea2.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea2)
+        ChartArea1.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea1)
         Me.Chart1.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend2.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend2)
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
         Me.Chart1.Location = New System.Drawing.Point(3, 3)
         Me.Chart1.Name = "Chart1"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.Chart1.Series.Add(Series2)
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.Chart1.Series.Add(Series1)
         Me.Chart1.Size = New System.Drawing.Size(1123, 499)
         Me.Chart1.TabIndex = 0
         Me.Chart1.Text = "Chart1"
@@ -154,6 +153,11 @@ Partial Class Form1
         '
         'PanelParameter
         '
+        Me.PanelParameter.Controls.Add(Me.Kd)
+        Me.PanelParameter.Controls.Add(Me.Ki)
+        Me.PanelParameter.Controls.Add(Me.Kp)
+        Me.PanelParameter.Controls.Add(Me.Button4)
+        Me.PanelParameter.Controls.Add(Me.Button3)
         Me.PanelParameter.Controls.Add(Me.isEmulate)
         Me.PanelParameter.Controls.Add(Me.oDec)
         Me.PanelParameter.Controls.Add(Me.Label22)
@@ -165,15 +169,12 @@ Partial Class Form1
         Me.PanelParameter.Controls.Add(Me.Label16)
         Me.PanelParameter.Controls.Add(Me.Label2)
         Me.PanelParameter.Controls.Add(Me.Label17)
-        Me.PanelParameter.Controls.Add(Me.Kp)
         Me.PanelParameter.Controls.Add(Me.Label18)
         Me.PanelParameter.Controls.Add(Me.Label3)
         Me.PanelParameter.Controls.Add(Me.Label19)
-        Me.PanelParameter.Controls.Add(Me.Ki)
         Me.PanelParameter.Controls.Add(Me.oInit)
         Me.PanelParameter.Controls.Add(Me.Label4)
         Me.PanelParameter.Controls.Add(Me.Label15)
-        Me.PanelParameter.Controls.Add(Me.Kd)
         Me.PanelParameter.Controls.Add(Me.Label5)
         Me.PanelParameter.Controls.Add(Me.ButtonStart)
         Me.PanelParameter.Controls.Add(Me.oMax)
@@ -294,7 +295,7 @@ Partial Class Form1
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(19, 166)
+        Me.Label2.Location = New System.Drawing.Point(19, 155)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 29)
         Me.Label2.TabIndex = 3
@@ -310,18 +311,6 @@ Partial Class Form1
         Me.Label17.TabIndex = 49
         Me.Label17.Text = "Length"
         '
-        'Kp
-        '
-        Me.Kp.DecimalPlaces = 1
-        Me.Kp.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Kp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.Kp.Location = New System.Drawing.Point(72, 165)
-        Me.Kp.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.Kp.Name = "Kp"
-        Me.Kp.Size = New System.Drawing.Size(88, 31)
-        Me.Kp.TabIndex = 4
-        Me.Kp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'Label18
         '
         Me.Label18.AutoSize = True
@@ -336,7 +325,7 @@ Partial Class Form1
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(178, 166)
+        Me.Label3.Location = New System.Drawing.Point(188, 155)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(32, 29)
         Me.Label3.TabIndex = 5
@@ -352,18 +341,6 @@ Partial Class Form1
         Me.Label19.TabIndex = 47
         Me.Label19.Text = "Slave"
         '
-        'Ki
-        '
-        Me.Ki.DecimalPlaces = 1
-        Me.Ki.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Ki.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.Ki.Location = New System.Drawing.Point(222, 165)
-        Me.Ki.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.Ki.Name = "Ki"
-        Me.Ki.Size = New System.Drawing.Size(88, 31)
-        Me.Ki.TabIndex = 6
-        Me.Ki.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'oInit
         '
         Me.oInit.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -377,7 +354,7 @@ Partial Class Form1
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(326, 165)
+        Me.Label4.Location = New System.Drawing.Point(347, 155)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(39, 29)
         Me.Label4.TabIndex = 7
@@ -392,18 +369,6 @@ Partial Class Form1
         Me.Label15.Size = New System.Drawing.Size(54, 23)
         Me.Label15.TabIndex = 45
         Me.Label15.Text = "Initial"
-        '
-        'Kd
-        '
-        Me.Kd.DecimalPlaces = 1
-        Me.Kd.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Kd.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.Kd.Location = New System.Drawing.Point(375, 164)
-        Me.Kd.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.Kd.Name = "Kd"
-        Me.Kd.Size = New System.Drawing.Size(88, 31)
-        Me.Kd.TabIndex = 8
-        Me.Kd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label5
         '
@@ -565,7 +530,7 @@ Partial Class Form1
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(549, 157)
+        Me.Button2.Location = New System.Drawing.Point(549, 149)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(87, 40)
         Me.Button2.TabIndex = 33
@@ -699,6 +664,52 @@ Partial Class Form1
         Me.Button1.Text = "設定"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(673, 13)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(42, 25)
+        Me.Button3.TabIndex = 58
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.Location = New System.Drawing.Point(70, 189)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(116, 25)
+        Me.Button4.TabIndex = 59
+        Me.Button4.Text = "Guess Kp"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Kp
+        '
+        Me.Kp.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Kp.Location = New System.Drawing.Point(70, 154)
+        Me.Kp.Name = "Kp"
+        Me.Kp.Size = New System.Drawing.Size(94, 31)
+        Me.Kp.TabIndex = 60
+        Me.Kp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Ki
+        '
+        Me.Ki.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Ki.Location = New System.Drawing.Point(231, 154)
+        Me.Ki.Name = "Ki"
+        Me.Ki.Size = New System.Drawing.Size(94, 31)
+        Me.Ki.TabIndex = 61
+        Me.Ki.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Kd
+        '
+        Me.Kd.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Kd.Location = New System.Drawing.Point(400, 154)
+        Me.Kd.Name = "Kd"
+        Me.Kd.Size = New System.Drawing.Size(94, 31)
+        Me.Kd.TabIndex = 62
+        Me.Kd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -716,9 +727,6 @@ Partial Class Form1
         Me.Panel2.PerformLayout()
         Me.PanelParameter.ResumeLayout(False)
         Me.PanelParameter.PerformLayout()
-        CType(Me.Kp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Ki, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Kd, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.interval, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -730,11 +738,8 @@ Partial Class Form1
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents Kd As NumericUpDown
     Friend WithEvents Label4 As Label
-    Friend WithEvents Ki As NumericUpDown
     Friend WithEvents Label3 As Label
-    Friend WithEvents Kp As NumericUpDown
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents NumericUpDown2 As NumericUpDown
@@ -781,4 +786,9 @@ Partial Class Form1
     Friend WithEvents iDec As TextBox
     Friend WithEvents Label21 As Label
     Friend WithEvents isEmulate As CheckBox
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Kd As TextBox
+    Friend WithEvents Ki As TextBox
+    Friend WithEvents Kp As TextBox
 End Class

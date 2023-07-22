@@ -62,6 +62,7 @@ Public Class Form1
     Private Sub ButtonStart_Click(sender As Object, e As EventArgs) Handles ButtonStart.Click
         Select Case ButtonStart.Text
             Case "Start"
+
                 mSetting.SaveSettings()
                 PreCheck()
                 WriteInput(0)
@@ -145,5 +146,14 @@ Public Class Form1
                     AddHandler ctrl.KeyPress, AddressOf TextboxKeypressCheck
             End Select
         Next
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        doTest()
+
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Me.Kp.Text = Math.Round(CDbl(GuessKp()), 4)
     End Sub
 End Class

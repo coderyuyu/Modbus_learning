@@ -8,17 +8,20 @@ Module mPID
     Dim iFact As Decimal
     Public ChartData As New List(Of Array)
     Sub PreCheck()
-
+        NewOutput = MySettings.oInit
+        oFact = 10 ^ MySettings.oDec
+        iFact = 10 ^ MySettings.iDec
         Dim com As cCOM
         Dim kp = MySettings.Kp
         Dim ki = MySettings.Ki
         Dim kd = MySettings.Kd
-        Dim setpoint = MySettings.iSetpoint * iFact
+
+        Dim setpoint = MySettings.iSetpoint
         Dim minoutput = MySettings.oMin
         Dim maxoutput = MySettings.oMax
         Dim interval = MySettings.interval * 1000
 
-        PID = New EasyPID(Kp:=kp, Ki:=ki, Kd:=kd,
+        PID = New EasyPID(Kp:=kp / 10, Ki:=ki, Kd:=kd,
                           Setpoint:=setpoint, OutputSpeed:=interval,
         MinOutput:=minoutput, MaxOutput:=maxoutput)
 
@@ -31,9 +34,7 @@ Module mPID
 
         End If
         COMS.Add("ocom", com)
-        NewOutput = MySettings.oInit
-        oFact = 10 ^ MySettings.oDec
-        iFact = 10 ^ MySettings.iDec
+
         WriteInput(0)
     End Sub
 
@@ -46,12 +47,13 @@ Module mPID
 
     Sub DoOnce()
 
-        Dim iv
-        Dim ov
+        Dim iv As Long
+        Dim ov As Decimal
 
         iv = ReadInput()
-        ov = PID.GetControlSignal(iv * iFact, DateTime.Now.Ticks)
+        ov = PID.GetControlSignal(iv, DateTime.Now.Ticks)
         NewOutput += ov
+        Debug.Print($"set={PID.Setpoint} current={iv} pid={ov} adj={NewOutput}")
         WriteOutput(NewOutput * oFact)
         'Debug.Print($"{MySettings.iSetpoint} {iv / 10 ^ MySettings.iDec} {NewOutput}")
         ChartData.Add({MySettings.iSetpoint, iv, NewOutput})
@@ -97,7 +99,7 @@ Module mPID
         Else
             Throw New Exception("input length > 2 not supported")
         End If
-        ConsoleLog($"Emu read input {iv}")
+        'ConsoleLog($"Emu read input {iv}")
         Return iv / iFact
     End Function
 
@@ -120,7 +122,7 @@ Module mPID
             v1 = Convert.ToInt32(hx.Substring(0, 2), 16)
             v2 = Convert.ToInt32(hx.Substring(2, 2), 16)
             ar = {v1, v2}
-            ConsoleLog($"Emu write input {iv}")
+            'ConsoleLog($"Emu write input {iv}")
             COMS("icom").WriteTag(slaveid, address, ar)
         Else
             Throw New Exception("output length > 2 not supported")
@@ -156,5 +158,41 @@ Module mPID
             Throw New Exception("output length > 2 not supported")
         End If
         Return ov
+    End Function
+
+    Sub doTest()
+        Dim rnd As New Random(Now.Second)
+        Dim count = 0
+        Dim ar(200) As Double
+        For i = 0 To 200
+            ar(i) = (i + 3) + rnd.NextDouble()
+        Next
+        Dim PID As EasyPID = New EasyPID(0.009, 0.05, 0.3, 120, 100)
+        For i = 0 To 200
+            Dim currentTime = Now.Ticks
+            Dim pv = ar(i)
+            Dim cv = PID.GetControlSignal(pv, currentTime)
+            Console.WriteLine($"Process variable is: {pv}, Control Variable is: {cv}")
+        Next
+    End Sub
+
+    Function GuessKp()
+        Dim setpoint = MySettings.iSetpoint
+
+        Dim PID As EasyPID
+        Dim kp As Double = 1
+        Dim ov As Double
+        Do
+            PID = New EasyPID(kp, 0, 0, setpoint, 100, -1, 1)
+            ov = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
+            If ov = 1 Then
+                kp = kp / 10
+            ElseIf ov = -1 Then
+                kp = kp * 10
+            Else
+                Return kp
+                Exit Do
+            End If
+        Loop
     End Function
 End Module
