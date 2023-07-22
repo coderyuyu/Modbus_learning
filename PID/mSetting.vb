@@ -15,6 +15,7 @@ Module mSetting
         LoadSettingsXML()
         For Each ctrl As Control In PanelParameter.Controls
             'If ctrl.Name.StartsWith("para") Then
+            Debug.Print($"{ctrl.Name} { ctrl.Text}")
             Select Case TypeName(ctrl)
                 Case "TextBox"
                     'Debug.Print(ctrl.Name)
@@ -145,18 +146,19 @@ Module mSetting
                 Else
                     Beep()
                 End If
-                e.Handled = True
+                'e.Handled = True
             ElseIf e.KeyChar = "-" Then
                 If textbox.Text.StartsWith("-") Then
                     textbox.Text = textbox.Text.Substring(1, textbox.TextLength - 1)
                 Else
                     textbox.Text = "-" & textbox.Text
                 End If
-                e.Handled = True
+                'e.Handled = True
             ElseIf e.KeyChar = "." Then
                 If DirectCast(sender, TextBox).Text.Contains(".") Then
-                    e.Handled = True
                     Beep()
+                    e.Handled = True
+
                 End If
             Else
                 Beep()

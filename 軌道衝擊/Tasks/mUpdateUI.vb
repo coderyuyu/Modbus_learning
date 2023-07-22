@@ -6,7 +6,7 @@
         Dim exitMsg As String = ""
         Dim T = Task.Run(Async Function()
                              Dim stw As New Stopwatch
-                             AddTaskCount()
+                             AddTaskCount(methodName) 'StartUpdateUI
                              PreProcess()
                              Do
                                  Try
@@ -35,9 +35,9 @@
                                  End Try
                              Loop While Not ctoken.IsCancellationRequested
                          End Function).ContinueWith(Sub()
-                                                        SubstractTaskCount()
+                                                        SubstractTaskCount(methodName)
                                                         PostProcess()
-                                                        ConsoleLog($"{methodName} end")
+
                                                         If exitMsg <> "" Then
                                                             StopTasks(exitMsg)
                                                         End If

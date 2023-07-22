@@ -57,9 +57,6 @@
     <Reference Include="EasyModbus, Version=5.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EasyModbusTCP.5.6.0\lib\net40\EasyModbus.dll</HintPath>
     </Reference>
-    <Reference Include="EasyPID, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EasyPID.1.0.1\lib\netstandard2.0\EasyPID.dll</HintPath>
-    </Reference>
     <Reference Include="EPPlus, Version=7.0.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.7.0.0-preview1\lib\net462\EPPlus.dll</HintPath>
     </Reference>
@@ -171,6 +168,7 @@
     </Compile>
     <Compile Include="Main\mThisApp.vb" />
     <Compile Include="Tasks\mACImpact.vb" />
+    <Compile Include="Tasks\mACImpact2.vb" />
     <Compile Include="Tasks\mEmulate.vb" />
     <Compile Include="Tasks\mLog.vb" />
     <Compile Include="Tasks\mProcessDATA1.vb" />

@@ -32,6 +32,7 @@ Public Class cSYS
     Property ev As Decimal ' 變頻器增減值 (模擬用)
     Property 開始衝擊 As Boolean = False
     Property 開始記錄 As Boolean = False
+    Property 開始記錄時間 As Date
     Property 異常持續上限 As Integer = 10 * 1000 ' 10 秒
 
     Property 最後更新變頻器頻率 As Decimal = 0

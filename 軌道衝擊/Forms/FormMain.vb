@@ -101,6 +101,7 @@ Public Class FormMain
     Private Sub ButtonStartRecord_Click(sender As Object, e As EventArgs) Handles ButtonStartRecord.Click
         SYS.設定變頻器頻率(FSET.開始紀錄前重置頻率)
         SYS.開始記錄 = True
+        SYS.開始記錄時間 = Now
         SetButtons(buttonState.開始記錄)
     End Sub
 
@@ -113,7 +114,7 @@ Public Class FormMain
             Try
                 count = FSET.累計次數
                 minTons = FSET.容許最低承載力值
-                StartACImpact(1000 / FSET.測試點應變頻率)
+                StartACImpact2(1000 / FSET.測試點應變頻率)
 
                 'RunBgTask(1000 / FSET.測試點應變頻率, AddressOf doACImpact, NameOf(doACImpact))
                 'SYS.開始衝擊 = False
@@ -286,7 +287,7 @@ Public Class FormMain
         Next
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
         FormPID.Show()
     End Sub
 End Class

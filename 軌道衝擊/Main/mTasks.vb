@@ -22,59 +22,59 @@ Module mTasks
     Public Delegate Function RunSub_Invoker()
 
 
-    Sub RunBgTask(interval As Integer, runner As TaskRun_Invoker, Optional methodName As String = "")
-        'Dim methodName As String = NameOf(runner) ' 取得這個 sub 或 function name
-        Dim loopWait As Integer
-        Dim exitMsg As String = ""
-        Task.Run(Async Function()
-                     Dim stw As New Stopwatch
-                     AddTaskCount()
-                     ConsoleLog($"{methodName} start")
-                     If methodName = "doACImpact" Then
-                         SYS.開始衝擊 = True
-                     End If
-                     Do
-                         Try
-                             stw.Restart()
-                             If methodName = "doACImpact" Then
-                                 runner()
-                             Else
-                                 Await runner()
-                             End If
-                             stw.Stop()
-                             loopWait = interval - stw.Elapsed.Milliseconds
-                             If loopWait > 0 Then
-                                 Await Task.Delay(loopWait)
-                             Else
-                                 ConsoleLog($"{methodName} 執行時間超過 {loopWait} ms, count={count}")
-                             End If
-                         Catch ex As Exception
-                             If ex.Message.ToLower.StartsWith("stoptasks") Then
-                                 If ex.Message.Contains(":") Then
-                                     exitMsg = ex.Message.Substring(ex.Message.IndexOf(":") + 1)
-                                 Else
-                                     exitMsg = ""
-                                 End If
-                                 Exit Do
-                             Else
-                                 ConsoleLog(methodName & ex.Message)
-                                 ConsoleLog(ex.ToString)
-                             End If
+    'Sub RunBgTask(interval As Integer, runner As TaskRun_Invoker, Optional methodName As String = "")
+    '    'Dim methodName As String = NameOf(runner) ' 取得這個 sub 或 function name
+    '    Dim loopWait As Integer
+    '    Dim exitMsg As String = ""
+    '    Task.Run(Async Function()
+    '                 Dim stw As New Stopwatch
+    '                 AddTaskCount()
+    '                 ConsoleLog($"{methodName} start")
+    '                 If methodName = "doACImpact" Then
+    '                     SYS.開始衝擊 = True
+    '                 End If
+    '                 Do
+    '                     Try
+    '                         stw.Restart()
+    '                         If methodName = "doACImpact" Then
+    '                             runner()
+    '                         Else
+    '                             Await runner()
+    '                         End If
+    '                         stw.Stop()
+    '                         loopWait = interval - stw.Elapsed.Milliseconds
+    '                         If loopWait > 0 Then
+    '                             Await Task.Delay(loopWait)
+    '                         Else
+    '                             ConsoleLog($"{methodName} 執行時間超過 {loopWait} ms, count={count}")
+    '                         End If
+    '                     Catch ex As Exception
+    '                         If ex.Message.ToLower.StartsWith("stoptasks") Then
+    '                             If ex.Message.Contains(":") Then
+    '                                 exitMsg = ex.Message.Substring(ex.Message.IndexOf(":") + 1)
+    '                             Else
+    '                                 exitMsg = ""
+    '                             End If
+    '                             Exit Do
+    '                         Else
+    '                             ConsoleLog(methodName & ex.Message)
+    '                             ConsoleLog(ex.ToString)
+    '                         End If
 
 
-                         End Try
-                     Loop While Not ctoken.IsCancellationRequested
-                 End Function).ContinueWith(Sub()
-                                                SubstractTaskCount()
-                                                If methodName = "doACImpact" Then
-                                                    SYS.開始衝擊 = False
-                                                End If
-                                                ConsoleLog($"{methodName} end")
-                                                If exitMsg <> "" Then
-                                                    StopTasks(exitMsg)
-                                                End If
-                                            End Sub)
-    End Sub
+    '                     End Try
+    '                 Loop While Not ctoken.IsCancellationRequested
+    '             End Function).ContinueWith(Sub()
+    '                                            SubstractTaskCount()
+    '                                            If methodName = "doACImpact" Then
+    '                                                SYS.開始衝擊 = False
+    '                                            End If
+    '                                            ConsoleLog($"{methodName} end")
+    '                                            If exitMsg <> "" Then
+    '                                                StopTasks(exitMsg)
+    '                                            End If
+    '                                        End Sub)
+    'End Sub
 
     Sub StartTasks()
         ConsoleLog("Tasks start")
@@ -535,13 +535,19 @@ Module mTasks
         End If
     End Sub
 
-    Sub AddTaskCount()
+    Sub AddTaskCount(Optional callerName As String = "")
+        If callerName <> "" Then
+            ConsoleLog($"Start {callerName} Thread id {Thread.CurrentThread.ManagedThreadId}")
+        End If
         SyncLock CrossTaskLocker
-            taskCount += 1
-        End SyncLock
+                taskCount += 1
+            End SyncLock
     End Sub
 
-    Sub SubstractTaskCount()
+    Sub SubstractTaskCount(Optional callerName As String = "")
+        If callerName <> "" Then
+            ConsoleLog($"End {callerName} Thread id {Thread.CurrentThread.ManagedThreadId}")
+        End If
         SyncLock CrossTaskLocker
             taskCount -= 1
         End SyncLock

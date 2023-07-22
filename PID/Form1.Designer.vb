@@ -22,15 +22,16 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.PanelParameter = New System.Windows.Forms.Panel()
+        Me.isEmulate = New System.Windows.Forms.CheckBox()
         Me.oDec = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.iDec = New System.Windows.Forms.TextBox()
@@ -76,11 +77,10 @@ Partial Class Form1
         Me.PidError = New System.Windows.Forms.TextBox()
         Me.PidInput = New System.Windows.Forms.TextBox()
         Me.pidSetpoint = New System.Windows.Forms.TextBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.isEmulate = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -90,8 +90,8 @@ Partial Class Form1
         CType(Me.Ki, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Kd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.interval, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -111,17 +111,17 @@ Partial Class Form1
         '
         'Chart1
         '
-        ChartArea4.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea4)
+        ChartArea2.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea2)
         Me.Chart1.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend4.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend4)
+        Legend2.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend2)
         Me.Chart1.Location = New System.Drawing.Point(3, 3)
         Me.Chart1.Name = "Chart1"
-        Series4.ChartArea = "ChartArea1"
-        Series4.Legend = "Legend1"
-        Series4.Name = "Series1"
-        Me.Chart1.Series.Add(Series4)
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.Chart1.Series.Add(Series2)
         Me.Chart1.Size = New System.Drawing.Size(1123, 499)
         Me.Chart1.TabIndex = 0
         Me.Chart1.Text = "Chart1"
@@ -201,6 +201,18 @@ Partial Class Form1
         Me.PanelParameter.Size = New System.Drawing.Size(734, 217)
         Me.PanelParameter.TabIndex = 51
         '
+        'isEmulate
+        '
+        Me.isEmulate.AutoSize = True
+        Me.isEmulate.Checked = True
+        Me.isEmulate.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.isEmulate.Location = New System.Drawing.Point(654, 88)
+        Me.isEmulate.Name = "isEmulate"
+        Me.isEmulate.Size = New System.Drawing.Size(62, 16)
+        Me.isEmulate.TabIndex = 57
+        Me.isEmulate.Text = "Emulate"
+        Me.isEmulate.UseVisualStyleBackColor = True
+        '
         'oDec
         '
         Me.oDec.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -223,7 +235,7 @@ Partial Class Form1
         'iDec
         '
         Me.iDec.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iDec.Location = New System.Drawing.Point(467, 51)
+        Me.iDec.Location = New System.Drawing.Point(467, 46)
         Me.iDec.Name = "iDec"
         Me.iDec.Size = New System.Drawing.Size(44, 31)
         Me.iDec.TabIndex = 54
@@ -242,7 +254,7 @@ Partial Class Form1
         'iSetpoint
         '
         Me.iSetpoint.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iSetpoint.Location = New System.Drawing.Point(390, 45)
+        Me.iSetpoint.Location = New System.Drawing.Point(390, 46)
         Me.iSetpoint.Name = "iSetpoint"
         Me.iSetpoint.Size = New System.Drawing.Size(60, 31)
         Me.iSetpoint.TabIndex = 52
@@ -416,7 +428,7 @@ Partial Class Form1
         'oMax
         '
         Me.oMax.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oMax.Location = New System.Drawing.Point(589, 109)
+        Me.oMax.Location = New System.Drawing.Point(589, 113)
         Me.oMax.Name = "oMax"
         Me.oMax.Size = New System.Drawing.Size(60, 31)
         Me.oMax.TabIndex = 43
@@ -427,7 +439,7 @@ Partial Class Form1
         Me.interval.DecimalPlaces = 1
         Me.interval.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.interval.Increment = New Decimal(New Integer() {5, 0, 0, 65536})
-        Me.interval.Location = New System.Drawing.Point(570, 45)
+        Me.interval.Location = New System.Drawing.Point(570, 46)
         Me.interval.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.interval.Name = "interval"
         Me.interval.Size = New System.Drawing.Size(88, 31)
@@ -448,7 +460,7 @@ Partial Class Form1
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(664, 54)
+        Me.Label6.Location = New System.Drawing.Point(664, 50)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(35, 23)
         Me.Label6.TabIndex = 12
@@ -457,7 +469,7 @@ Partial Class Form1
         'oMin
         '
         Me.oMin.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oMin.Location = New System.Drawing.Point(523, 109)
+        Me.oMin.Location = New System.Drawing.Point(523, 113)
         Me.oMin.Name = "oMin"
         Me.oMin.Size = New System.Drawing.Size(60, 31)
         Me.oMin.TabIndex = 41
@@ -467,7 +479,7 @@ Partial Class Form1
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(12, 49)
+        Me.Label7.Location = New System.Drawing.Point(12, 50)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(52, 23)
         Me.Label7.TabIndex = 13
@@ -487,7 +499,7 @@ Partial Class Form1
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(3, 117)
+        Me.Label8.Location = New System.Drawing.Point(3, 113)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(65, 23)
         Me.Label8.TabIndex = 14
@@ -497,7 +509,7 @@ Partial Class Form1
         '
         Me.inputCom.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.inputCom.FormattingEnabled = True
-        Me.inputCom.Location = New System.Drawing.Point(70, 45)
+        Me.inputCom.Location = New System.Drawing.Point(70, 46)
         Me.inputCom.Name = "inputCom"
         Me.inputCom.Size = New System.Drawing.Size(94, 31)
         Me.inputCom.TabIndex = 15
@@ -544,7 +556,7 @@ Partial Class Form1
         'iSlave
         '
         Me.iSlave.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iSlave.Location = New System.Drawing.Point(170, 45)
+        Me.iSlave.Location = New System.Drawing.Point(170, 46)
         Me.iSlave.Name = "iSlave"
         Me.iSlave.Size = New System.Drawing.Size(60, 31)
         Me.iSlave.TabIndex = 25
@@ -563,7 +575,7 @@ Partial Class Form1
         'iAddress
         '
         Me.iAddress.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iAddress.Location = New System.Drawing.Point(241, 45)
+        Me.iAddress.Location = New System.Drawing.Point(241, 46)
         Me.iAddress.Name = "iAddress"
         Me.iAddress.Size = New System.Drawing.Size(84, 31)
         Me.iAddress.TabIndex = 26
@@ -581,7 +593,7 @@ Partial Class Form1
         'iLength
         '
         Me.iLength.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iLength.Location = New System.Drawing.Point(331, 45)
+        Me.iLength.Location = New System.Drawing.Point(331, 46)
         Me.iLength.Name = "iLength"
         Me.iLength.Size = New System.Drawing.Size(44, 31)
         Me.iLength.TabIndex = 27
@@ -649,6 +661,16 @@ Partial Class Form1
         Me.pidSetpoint.Text = "20.2"
         Me.pidSetpoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(749, 13)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(359, 220)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox1.TabIndex = 35
+        Me.PictureBox1.TabStop = False
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -677,28 +699,6 @@ Partial Class Form1
         Me.Button1.Text = "設定"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(749, 13)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(359, 220)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBox1.TabIndex = 35
-        Me.PictureBox1.TabStop = False
-        '
-        'isEmulate
-        '
-        Me.isEmulate.AutoSize = True
-        Me.isEmulate.Checked = True
-        Me.isEmulate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.isEmulate.Location = New System.Drawing.Point(654, 88)
-        Me.isEmulate.Name = "isEmulate"
-        Me.isEmulate.Size = New System.Drawing.Size(62, 16)
-        Me.isEmulate.TabIndex = 57
-        Me.isEmulate.Text = "Emulate"
-        Me.isEmulate.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -720,8 +720,8 @@ Partial Class Form1
         CType(Me.Ki, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Kd, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.interval, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

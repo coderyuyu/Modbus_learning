@@ -46,11 +46,11 @@ Public Class cDATA1
     ''' </summary>
     ''' <returns></returns>
     Shared Function LogHeaders()
-        Return "時間,變頻器頻率,主缸力值"
+        Return "日期,時間,循環次數,A點力(Ton),C點力(Ton)"
     End Function
 
-    Function LogString()
-        Return {Format(Now, "HH:mm:ss"), var變頻器頻率, var主缸力值}.Aggregate(Function(a, b) $"{a},{b}")
+    Function LogString(CY, AP, CP)
+        Return {Format(Now, "yyyy-MM-dd"), Now.Subtract(SYS.開始記錄時間).TotalMilliseconds, CY, AP, CP}.Aggregate(Function(a, b) $"{a},{b}")
     End Function
 
 

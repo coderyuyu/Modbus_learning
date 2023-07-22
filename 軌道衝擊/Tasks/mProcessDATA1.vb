@@ -7,7 +7,7 @@
         Dim exitMsg As String = ""
         Dim T = Task.Run(Async Function()
                              Dim stw As New Stopwatch
-                             AddTaskCount()
+                             AddTaskCount(methodName) 'StartProcessDATA1
                              PreProcess()
                              Do
                                  Try
@@ -36,9 +36,9 @@
                                  End Try
                              Loop While Not ctoken.IsCancellationRequested
                          End Function).ContinueWith(Sub()
-                                                        SubstractTaskCount()
+                                                        SubstractTaskCount(methodName)
                                                         PostProcess()
-                                                        ConsoleLog($"{methodName} end")
+
                                                         If exitMsg <> "" Then
                                                             StopTasks(exitMsg)
                                                         End If
@@ -52,7 +52,7 @@
                 DATA1.主缸力值 = DATA0.主缸力值
             End SyncLock
         End SyncLock
-        DataLog(DATA1.LogString)
+        'DataLog(DATA1.LogString)
     End Sub
 
 

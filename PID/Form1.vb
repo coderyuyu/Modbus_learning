@@ -2,22 +2,7 @@
 
 Public Class Form1
     Private Sub TableLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel1.Paint
-        initChart()
-        inputCom.Items.Clear()
-        outputCom.Items.Clear()
 
-        For i = 1 To 9
-            inputCom.Items.Add("COM" & i)
-            outputCom.Items.Add("COM" & i)
-        Next
-        mSetting.SetParameterPanel(Me.PanelParameter)
-        mSetting.LoadSettings()
-        For Each ctrl As Control In PanelParameter.Controls
-            Select Case TypeName(ctrl)
-                Case "TextBox"
-                    AddHandler ctrl.KeyPress, AddressOf TextboxKeypressCheck
-            End Select
-        Next
     End Sub
 
     Sub initChart()
@@ -105,6 +90,60 @@ Public Class Form1
             Chart1.Series(0).Points.AddXY(i, data(i - 1)(0))
             Chart1.Series(1).Points.AddXY(i, data(i - 1)(1))
             Chart1.Series(2).Points.AddXY(i, data(i - 1)(2))
+        Next
+    End Sub
+
+    Sub TextboxKeypressCheck(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs)
+        Dim textbox As TextBox = DirectCast(sender, TextBox)
+        If e.KeyChar <> ChrW(Keys.Back) Then
+            If Char.IsNumber(e.KeyChar) Then
+            ElseIf e.KeyChar = "&" Or e.KeyChar = "H" Or e.KeyChar = "h" Then
+                If textbox.Text.StartsWith("-") Then
+                    Beep()
+                ElseIf Not textbox.Text.StartsWith("&H") Then
+                    textbox.Text = "&H" & textbox.Text
+                ElseIf textbox.Text.StartsWith("&H") Then
+                    textbox.Text = textbox.Text.Substring(2)
+                Else
+                    Beep()
+                End If
+                'e.Handled = True
+            ElseIf e.KeyChar = "-" Then
+                If textbox.Text.StartsWith("-") Then
+                    textbox.Text = textbox.Text.Substring(1, textbox.TextLength - 1)
+                Else
+                    textbox.Text = "-" & textbox.Text
+                End If
+                'e.Handled = True
+            ElseIf e.KeyChar = "." Then
+                If DirectCast(sender, TextBox).Text.Contains(".") Then
+                    Beep()
+                    e.Handled = True
+
+                End If
+            Else
+                Beep()
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        initChart()
+        inputCom.Items.Clear()
+        outputCom.Items.Clear()
+
+        For i = 1 To 9
+            inputCom.Items.Add("COM" & i)
+            outputCom.Items.Add("COM" & i)
+        Next
+        mSetting.SetParameterPanel(Me.PanelParameter)
+        mSetting.LoadSettings()
+        For Each ctrl As Control In PanelParameter.Controls
+            Select Case TypeName(ctrl)
+                Case "TextBox"
+                    AddHandler ctrl.KeyPress, AddressOf TextboxKeypressCheck
+            End Select
         Next
     End Sub
 End Class

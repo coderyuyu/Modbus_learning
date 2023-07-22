@@ -150,9 +150,12 @@ Public Class FormFileBrowser
                 Dim files As New List(Of FileInfo)
                 Dim fi As FileInfo
                 Dim exportFilename As String
+                If file_list.SelectedItems.Count = 0 Then Exit Sub
                 For Each item In file_list.SelectedItems
                     'file_selected = Path.Combine(Me.top_path.Text, file_tree_view.SelectedNode.Text, item)
-                    If file_tree_view.SelectedNode.Index = 0 Then
+                    If file_tree_view.SelectedNode Is Nothing Then
+                        Application.DoEvents()
+                    ElseIf file_tree_view.SelectedNode.Index = 0 Then
                         file_selected = Path.Combine(Me.top_path.Text, item)
                     Else
                         file_selected = Path.Combine(Me.top_path.Text, file_tree_view.SelectedNode.Text, item)
@@ -180,7 +183,8 @@ Public Class FormFileBrowser
                                 sheetdata.Add(ar)
                             Next
                             ws.Cells(1, 1).LoadFromArrays(sheetdata)
-
+                            Dim ie = ws.IgnoredErrors.Add(ws.Cells($"A1:F" & sheetdata.Count + 1))
+                            ie.NumberStoredAsText = True
                         End With
 
                     Next
@@ -200,7 +204,9 @@ Public Class FormFileBrowser
         Dim filename As String
         Dim fi As FileInfo
         item = sender.Items(sender.SelectedIndex)
-        If file_tree_view.SelectedNode.Tag = ItemType.Root Then
+        If file_tree_view.SelectedNode Is Nothing Then
+            Application.DoEvents()
+        ElseIf file_tree_view.SelectedNode.Tag = ItemType.Root Then
             filename = Path.Combine(Me.top_path.Text, item)
         Else
             filename = Path.Combine(Me.top_path.Text, file_tree_view.SelectedNode.Text, item)
