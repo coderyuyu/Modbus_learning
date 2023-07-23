@@ -22,15 +22,20 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.PanelParameter = New System.Windows.Forms.Panel()
+        Me.Kd = New System.Windows.Forms.TextBox()
+        Me.Ki = New System.Windows.Forms.TextBox()
+        Me.Kp = New System.Windows.Forms.TextBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.isEmulate = New System.Windows.Forms.CheckBox()
         Me.oDec = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
@@ -78,11 +83,7 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Kp = New System.Windows.Forms.TextBox()
-        Me.Ki = New System.Windows.Forms.TextBox()
-        Me.Kd = New System.Windows.Forms.TextBox()
+        Me.adj = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -110,17 +111,17 @@ Partial Class Form1
         '
         'Chart1
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea1)
+        ChartArea2.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea2)
         Me.Chart1.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend1.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend1)
+        Legend2.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend2)
         Me.Chart1.Location = New System.Drawing.Point(3, 3)
         Me.Chart1.Name = "Chart1"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.Chart1.Series.Add(Series1)
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.Chart1.Series.Add(Series2)
         Me.Chart1.Size = New System.Drawing.Size(1123, 499)
         Me.Chart1.TabIndex = 0
         Me.Chart1.Text = "Chart1"
@@ -139,6 +140,7 @@ Partial Class Form1
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.adj)
         Me.Panel2.Controls.Add(Me.PanelParameter)
         Me.Panel2.Controls.Add(Me.PidOutput)
         Me.Panel2.Controls.Add(Me.PidError)
@@ -201,6 +203,53 @@ Partial Class Form1
         Me.PanelParameter.Name = "PanelParameter"
         Me.PanelParameter.Size = New System.Drawing.Size(734, 217)
         Me.PanelParameter.TabIndex = 51
+        '
+        'Kd
+        '
+        Me.Kd.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Kd.Location = New System.Drawing.Point(400, 154)
+        Me.Kd.Name = "Kd"
+        Me.Kd.Size = New System.Drawing.Size(94, 31)
+        Me.Kd.TabIndex = 62
+        Me.Kd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Ki
+        '
+        Me.Ki.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Ki.Location = New System.Drawing.Point(231, 154)
+        Me.Ki.Name = "Ki"
+        Me.Ki.Size = New System.Drawing.Size(94, 31)
+        Me.Ki.TabIndex = 61
+        Me.Ki.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Kp
+        '
+        Me.Kp.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Kp.Location = New System.Drawing.Point(70, 154)
+        Me.Kp.Name = "Kp"
+        Me.Kp.Size = New System.Drawing.Size(94, 31)
+        Me.Kp.TabIndex = 60
+        Me.Kp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Button4
+        '
+        Me.Button4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.Location = New System.Drawing.Point(70, 189)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(116, 25)
+        Me.Button4.TabIndex = 59
+        Me.Button4.Text = "Guess Kp"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(673, 13)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(42, 25)
+        Me.Button3.TabIndex = 58
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.Visible = False
         '
         'isEmulate
         '
@@ -584,8 +633,9 @@ Partial Class Form1
         '
         'PidOutput
         '
-        Me.PidOutput.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.PidOutput.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PidOutput.BackColor = System.Drawing.Color.Green
+        Me.PidOutput.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PidOutput.ForeColor = System.Drawing.SystemColors.Info
         Me.PidOutput.Location = New System.Drawing.Point(1020, 173)
         Me.PidOutput.Name = "PidOutput"
         Me.PidOutput.Size = New System.Drawing.Size(75, 23)
@@ -606,8 +656,9 @@ Partial Class Form1
         '
         'PidInput
         '
-        Me.PidInput.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.PidInput.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PidInput.BackColor = System.Drawing.Color.Blue
+        Me.PidInput.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PidInput.ForeColor = System.Drawing.SystemColors.Info
         Me.PidInput.Location = New System.Drawing.Point(993, 54)
         Me.PidInput.Name = "PidInput"
         Me.PidInput.Size = New System.Drawing.Size(76, 23)
@@ -617,8 +668,9 @@ Partial Class Form1
         '
         'pidSetpoint
         '
-        Me.pidSetpoint.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.pidSetpoint.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pidSetpoint.BackColor = System.Drawing.Color.Red
+        Me.pidSetpoint.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pidSetpoint.ForeColor = System.Drawing.SystemColors.Info
         Me.pidSetpoint.Location = New System.Drawing.Point(988, 27)
         Me.pidSetpoint.Name = "pidSetpoint"
         Me.pidSetpoint.Size = New System.Drawing.Size(64, 23)
@@ -664,51 +716,16 @@ Partial Class Form1
         Me.Button1.Text = "設定"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'Button3
+        'adj
         '
-        Me.Button3.Location = New System.Drawing.Point(673, 13)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(42, 25)
-        Me.Button3.TabIndex = 58
-        Me.Button3.Text = "Button3"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(70, 189)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(116, 25)
-        Me.Button4.TabIndex = 59
-        Me.Button4.Text = "Guess Kp"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Kp
-        '
-        Me.Kp.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Kp.Location = New System.Drawing.Point(70, 154)
-        Me.Kp.Name = "Kp"
-        Me.Kp.Size = New System.Drawing.Size(94, 31)
-        Me.Kp.TabIndex = 60
-        Me.Kp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Ki
-        '
-        Me.Ki.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Ki.Location = New System.Drawing.Point(231, 154)
-        Me.Ki.Name = "Ki"
-        Me.Ki.Size = New System.Drawing.Size(94, 31)
-        Me.Ki.TabIndex = 61
-        Me.Ki.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Kd
-        '
-        Me.Kd.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Kd.Location = New System.Drawing.Point(400, 154)
-        Me.Kd.Name = "Kd"
-        Me.Kd.Size = New System.Drawing.Size(94, 31)
-        Me.Kd.TabIndex = 62
-        Me.Kd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.adj.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.adj.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.adj.Location = New System.Drawing.Point(1020, 198)
+        Me.adj.Name = "adj"
+        Me.adj.Size = New System.Drawing.Size(75, 23)
+        Me.adj.TabIndex = 52
+        Me.adj.Text = "2.2"
+        Me.adj.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Form1
         '
@@ -791,4 +808,5 @@ Partial Class Form1
     Friend WithEvents Kd As TextBox
     Friend WithEvents Ki As TextBox
     Friend WithEvents Kp As TextBox
+    Friend WithEvents adj As TextBox
 End Class

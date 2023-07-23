@@ -7,6 +7,7 @@ Module mPID
     Dim oFact As Decimal
     Dim iFact As Decimal
     Public ChartData As New List(Of Array)
+    Public ev As Double = 0
     Sub PreCheck()
         NewOutput = MySettings.oInit
         oFact = 10 ^ MySettings.oDec
@@ -46,14 +47,16 @@ Module mPID
     End Sub
 
     Sub DoOnce()
-
+        Static lastOv As Double
         Dim iv As Long
-        Dim ov As Decimal
+        Dim ov As Double
 
         iv = ReadInput()
         ov = PID.GetControlSignal(iv, DateTime.Now.Ticks)
+        ev = ov
         NewOutput += ov
-        Debug.Print($"set={PID.Setpoint} current={iv} pid={ov} adj={NewOutput}")
+        lastOv = ov
+        Debug.Print($"set={PID.Setpoint} current={iv} pidov={ov} adj={NewOutput}")
         WriteOutput(NewOutput * oFact)
         'Debug.Print($"{MySettings.iSetpoint} {iv / 10 ^ MySettings.iDec} {NewOutput}")
         ChartData.Add({MySettings.iSetpoint, iv, NewOutput})
@@ -62,7 +65,9 @@ Module mPID
         UpdateUI(FMAIN.PidOutput, NewOutput) ' ov / 10 ^ MySettings.oDec)
         UpdateUI(FMAIN.PidError, MySettings.iSetpoint - iv)
         UpdateUI(FMAIN.pidSetpoint, MySettings.iSetpoint)
+        UpdateUI(FMAIN.adj, ev)
         UpdateUI(FMAIN.Chart1, ChartData)
+
         'WriteOutput(MySettings.oInit * 10 ^ MySettings.oDec)
     End Sub
 
@@ -70,13 +75,15 @@ Module mPID
 
         Dim iv As Decimal
 
+
         ' 以寫入的方法模擬 output 
         iv = ReadInput()
-        If MySettings.iSetpoint + 0.3 - iv > 0 Then
+        'If MySettings.iSetpoint - iv > 0 Then
+        If ev >= 0 Then
             iv = iv * 1.03
             If iv = 0 Then iv = 4
         Else
-            iv = iv * 0.91
+            iv = iv / 1.03
         End If
         WriteInput(iv)
 
@@ -181,18 +188,72 @@ Module mPID
 
         Dim PID As EasyPID
         Dim kp As Double = 1
-        Dim ov As Double
+        Dim ev As Double
+        Dim ev2 As Double
+        Dim top As Double = 1
+        Dim low As Double = 0
+        ' step 1: ev找到非1的初值
         Do
             PID = New EasyPID(kp, 0, 0, setpoint, 100, -1, 1)
-            ov = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
-            If ov = 1 Then
+            ev = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
+            If ev = 1 Then
                 kp = kp / 10
-            ElseIf ov = -1 Then
+            ElseIf ev = -1 Then
                 kp = kp * 10
             Else
-                Return kp
+                top = kp
                 Exit Do
             End If
         Loop
+        ' loop 找到 ev 最近1
+
+        Debug.Print($"init kp={top} ev={ev}")
+        Dim direction As Integer = 1
+
+        kp = (low + top) / 2
+        PID = New EasyPID(kp, 0, 0, setpoint, 100, -1, 1)
+        ev2 = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
+        Debug.Print($"kp={kp}, {ev} --> {ev2}")
+        If 1 - ev2 < 1 - ev Then
+            direction = -1
+        Else
+            direction = 1
+        End If
+        ev = ev2
+        Dim diff As Double = 0.01
+        Dim maxloop As Integer = 500
+        Dim loops = 0
+        Do
+            If direction = 1 Then
+                kp = kp + diff
+            Else
+                kp = kp - diff
+            End If
+            PID = New EasyPID(kp, 0, 0, setpoint, 100, -1, 1)
+            ev2 = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
+            If ev2 = PID.MaxOutput Then
+                kp = kp - diff
+                diff = diff / 10
+            End If
+            ev = ev2
+            Debug.Print($"kp={kp}, {ev} --> {ev2}")
+            If Math.Abs(1 - ev2) < 0.0001 Then
+                Exit Do
+            End If
+            loops += 1
+        Loop While loops < maxloop
+
+        ' or
+
+        ev = ev2
+
+
+
+
+
+
+
+        Return kp
+
     End Function
 End Module

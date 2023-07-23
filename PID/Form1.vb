@@ -28,19 +28,19 @@ Public Class Form1
         Chart1.Series.Add("Output")
 
         With Chart1.Series(0)
-            .BorderWidth = 1
+            .BorderWidth = 3
             .Color = Color.Red
             .ChartType = DataVisualization.Charting.SeriesChartType.Line
         End With
 
         With Chart1.Series(1)
-            .BorderWidth = 1
+            .BorderWidth = 3
             .Color = Color.Blue
             .ChartType = DataVisualization.Charting.SeriesChartType.Line
         End With
 
         With Chart1.Series(2)
-            .BorderWidth = 1
+            .BorderWidth = 3
             .Color = Color.Green
             .ChartType = DataVisualization.Charting.SeriesChartType.Line
         End With
