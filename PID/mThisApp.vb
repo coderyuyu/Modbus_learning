@@ -2,6 +2,7 @@
     Public FMAIN As Form1
     Sub Main()
         FMAIN = New Form1
+        mSetting.SetParameterPanel(FMAIN.PanelParameter)
         Application.Run(FMAIN)
     End Sub
     Function ShowMsgBox(msg As String, Optional buttonTexts As String = "好", Optional timeoutms As Integer = 0, Optional defaultbutton As Integer = 0) As DialogResult

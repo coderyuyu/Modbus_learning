@@ -14,8 +14,35 @@ Module mSetting
     Sub SaveSettings()
         LoadSettingsXML()
         For Each ctrl As Control In PanelParameter.Controls
+            SaveControls(ctrl)
             'If ctrl.Name.StartsWith("para") Then
-            Debug.Print($"{ctrl.Name} { ctrl.Text}")
+            'Debug.Print($"{ctrl.Name} { ctrl.Text}")
+            'Select Case TypeName(ctrl)
+            '    Case "TextBox"
+            '        'Debug.Print(ctrl.Name)
+            '        SetParaValue(ctrl.Name, ctrl.Text)
+            '        parms(ctrl.Name) = ctrl.Text
+            '    Case "CheckBox"
+            '            ' TODO:
+            '    Case "RadioBox"
+            '            ' TODO:
+            '    Case "ComboBox"
+            '        SetParaValue(ctrl.Name, ctrl.Text)
+            '        parms(ctrl.Name) = ctrl.Text
+            '    Case "NumericUpDown"
+            '        SetParaValue(ctrl.Name, ctrl.Text)
+            '        parms(ctrl.Name) = ctrl.Text
+            '    Case Else
+            'End Select
+
+            'End If
+        Next
+        settings.Save(SettingsPath)
+    End Sub
+
+    Sub SaveControls(ctrl As Control)
+        If ctrl.Controls.Count = 0 Then
+            'Debug.Print($"{ctrl.Name} { ctrl.Text}")
             Select Case TypeName(ctrl)
                 Case "TextBox"
                     'Debug.Print(ctrl.Name)
@@ -33,10 +60,11 @@ Module mSetting
                     parms(ctrl.Name) = ctrl.Text
                 Case Else
             End Select
-
-            'End If
-        Next
-        settings.Save(SettingsPath)
+        Else
+            For Each childctrl In ctrl.Controls
+                SaveControls(childctrl)
+            Next
+        End If
     End Sub
 
 
@@ -65,31 +93,38 @@ Module mSetting
         For Each ctrl As Control In PanelParameter.Controls
             'If ctrl.Name.StartsWith("para") Then
             'Debug.Print(ctrl.Name)
+            LoadControls(ctrl)
 
-            If settings.GetElementsByTagName(ctrl.Name).Count <> 0 Then
-
-                Select Case TypeName(ctrl)
-                    Case "TextBox"
-                        ctrl.Text = GetParaValue(ctrl.Name)
-                        parms(ctrl.Name) = ctrl.Text
-                    Case "CheckBox"
-                            ' TODO:
-                    Case "RadioBox"
-                            ' TODO:
-                    Case "ComboBox"
-                        DirectCast(ctrl, ComboBox).Text = GetParaValue(ctrl.Name)
-                        parms(ctrl.Name) = ctrl.Text
-                    Case "NumericUpDown"
-                        DirectCast(ctrl, NumericUpDown).Text = GetParaValue(ctrl.Name)
-                        parms(ctrl.Name) = ctrl.Text
-                    Case Else
-                End Select
-            End If
-            'End If
         Next
 
         settings.Save(SettingsPath)
     End Sub
+
+    Sub LoadControls(ctrl As Control)
+        If ctrl.Controls.Count = 0 Then
+            Select Case TypeName(ctrl)
+                Case "TextBox"
+                    ctrl.Text = GetParaValue(ctrl.Name)
+                    parms(ctrl.Name) = ctrl.Text
+                Case "CheckBox"
+                            ' TODO:
+                Case "RadioBox"
+                            ' TODO:
+                Case "ComboBox"
+                    DirectCast(ctrl, ComboBox).Text = GetParaValue(ctrl.Name)
+                    parms(ctrl.Name) = ctrl.Text
+                Case "NumericUpDown"
+                    DirectCast(ctrl, NumericUpDown).Text = GetParaValue(ctrl.Name)
+                    parms(ctrl.Name) = ctrl.Text
+                Case Else
+            End Select
+        Else
+            For Each childctrl In ctrl.Controls
+                LoadControls(childctrl)
+            Next
+        End If
+    End Sub
+
     ''' <summary>
     ''' 取得xml element值
     ''' </summary>

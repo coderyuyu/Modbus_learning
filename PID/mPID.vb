@@ -22,7 +22,7 @@ Module mPID
         Dim maxoutput = MySettings.oMax
         Dim interval = MySettings.interval * 1000
 
-        PID = New EasyPID(Kp:=kp / 10, Ki:=ki, Kd:=kd,
+        PID = New EasyPID(Kp:=kp, Ki:=ki, Kd:=kd,
                           Setpoint:=setpoint, OutputSpeed:=interval,
         MinOutput:=minoutput, MaxOutput:=maxoutput)
 
@@ -80,10 +80,10 @@ Module mPID
         iv = ReadInput()
         'If MySettings.iSetpoint - iv > 0 Then
         If ev >= 0 Then
-            iv = iv * 1.03
+            iv = iv + MySettings.iSetpoint / 10
             If iv = 0 Then iv = 4
         Else
-            iv = iv / 1.03
+            iv = iv - MySettings.iSetpoint / 10
         End If
         WriteInput(iv)
 
@@ -192,13 +192,18 @@ Module mPID
         Dim ev2 As Double
         Dim top As Double = 1
         Dim low As Double = 0
+        Dim max = MySettings.oMax
+        Dim min = MySettings.oMin
+        Debug.Print($"======================")
         ' step 1: ev找到非1的初值
         Do
-            PID = New EasyPID(kp, 0, 0, setpoint, 100, -1, 1)
+            PID = New EasyPID(kp, 0, 0, setpoint, 100, min, max)
             ev = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
-            If ev = 1 Then
+            If ev = max Then
                 kp = kp / 10
-            ElseIf ev = -1 Then
+            ElseIf ev = 0 Then
+
+            ElseIf ev = min Then
                 kp = kp * 10
             Else
                 top = kp
@@ -211,16 +216,16 @@ Module mPID
         Dim direction As Integer = 1
 
         kp = (low + top) / 2
-        PID = New EasyPID(kp, 0, 0, setpoint, 100, -1, 1)
+        PID = New EasyPID(kp, 0, 0, setpoint, 100, min, max)
         ev2 = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
         Debug.Print($"kp={kp}, {ev} --> {ev2}")
-        If 1 - ev2 < 1 - ev Then
+        If max - ev2 < max - ev Then
             direction = -1
         Else
             direction = 1
         End If
         ev = ev2
-        Dim diff As Double = 0.01
+        Dim diff As Double = kp / 10
         Dim maxloop As Integer = 500
         Dim loops = 0
         Do
@@ -229,15 +234,15 @@ Module mPID
             Else
                 kp = kp - diff
             End If
-            PID = New EasyPID(kp, 0, 0, setpoint, 100, -1, 1)
+            PID = New EasyPID(kp, 0, 0, setpoint, 100, min, max)
             ev2 = PID.GetControlSignal(MySettings.oInit, Now.Ticks)
-            If ev2 = PID.MaxOutput Then
+            If ev2 = max Then
                 kp = kp - diff
-                diff = diff / 10
+                Exit Do
             End If
             ev = ev2
             Debug.Print($"kp={kp}, {ev} --> {ev2}")
-            If Math.Abs(1 - ev2) < 0.0001 Then
+            If Math.Abs(max - ev2) < 0.0001 Then
                 Exit Do
             End If
             loops += 1

@@ -22,59 +22,58 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.adj = New System.Windows.Forms.TextBox()
         Me.PanelParameter = New System.Windows.Forms.Panel()
-        Me.Kd = New System.Windows.Forms.TextBox()
-        Me.Ki = New System.Windows.Forms.TextBox()
-        Me.Kp = New System.Windows.Forms.TextBox()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.isEmulate = New System.Windows.Forms.CheckBox()
-        Me.oDec = New System.Windows.Forms.TextBox()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.iDec = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.ButtonStart = New System.Windows.Forms.Button()
+        Me.interval = New System.Windows.Forms.TextBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.iSetpoint = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
         Me.oInit = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.ButtonStart = New System.Windows.Forms.Button()
-        Me.oMax = New System.Windows.Forms.TextBox()
-        Me.interval = New System.Windows.Forms.NumericUpDown()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.oMin = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.inputCom = New System.Windows.Forms.ComboBox()
+        Me.oDec = New System.Windows.Forms.TextBox()
         Me.outputCom = New System.Windows.Forms.ComboBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.iDec = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.iSlave = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.iAddress = New System.Windows.Forms.TextBox()
         Me.oLength = New System.Windows.Forms.TextBox()
         Me.iLength = New System.Windows.Forms.TextBox()
         Me.oAddress = New System.Windows.Forms.TextBox()
         Me.oSlave = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Kd = New System.Windows.Forms.TextBox()
+        Me.Ki = New System.Windows.Forms.TextBox()
+        Me.Kp = New System.Windows.Forms.TextBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.oMax = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.oMin = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.isEmulate = New System.Windows.Forms.CheckBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.PidOutput = New System.Windows.Forms.TextBox()
         Me.PidError = New System.Windows.Forms.TextBox()
         Me.PidInput = New System.Windows.Forms.TextBox()
@@ -83,13 +82,15 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.adj = New System.Windows.Forms.TextBox()
+        Me.thinking = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.PanelParameter.SuspendLayout()
-        CType(Me.interval, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -111,17 +112,17 @@ Partial Class Form1
         '
         'Chart1
         '
-        ChartArea2.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea2)
+        ChartArea5.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea5)
         Me.Chart1.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend2.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend2)
+        Legend5.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend5)
         Me.Chart1.Location = New System.Drawing.Point(3, 3)
         Me.Chart1.Name = "Chart1"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.Chart1.Series.Add(Series2)
+        Series5.ChartArea = "ChartArea1"
+        Series5.Legend = "Legend1"
+        Series5.Name = "Series1"
+        Me.Chart1.Series.Add(Series5)
         Me.Chart1.Size = New System.Drawing.Size(1123, 499)
         Me.Chart1.TabIndex = 0
         Me.Chart1.Text = "Chart1"
@@ -153,160 +154,73 @@ Partial Class Form1
         Me.Panel2.Size = New System.Drawing.Size(1123, 244)
         Me.Panel2.TabIndex = 4
         '
+        'adj
+        '
+        Me.adj.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.adj.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.adj.Location = New System.Drawing.Point(1020, 198)
+        Me.adj.Name = "adj"
+        Me.adj.Size = New System.Drawing.Size(75, 23)
+        Me.adj.TabIndex = 52
+        Me.adj.Text = "2.2"
+        Me.adj.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'PanelParameter
         '
-        Me.PanelParameter.Controls.Add(Me.Kd)
-        Me.PanelParameter.Controls.Add(Me.Ki)
-        Me.PanelParameter.Controls.Add(Me.Kp)
-        Me.PanelParameter.Controls.Add(Me.Button4)
-        Me.PanelParameter.Controls.Add(Me.Button3)
-        Me.PanelParameter.Controls.Add(Me.isEmulate)
-        Me.PanelParameter.Controls.Add(Me.oDec)
-        Me.PanelParameter.Controls.Add(Me.Label22)
-        Me.PanelParameter.Controls.Add(Me.iDec)
-        Me.PanelParameter.Controls.Add(Me.Label21)
-        Me.PanelParameter.Controls.Add(Me.iSetpoint)
-        Me.PanelParameter.Controls.Add(Me.Label20)
-        Me.PanelParameter.Controls.Add(Me.Label9)
-        Me.PanelParameter.Controls.Add(Me.Label16)
-        Me.PanelParameter.Controls.Add(Me.Label2)
-        Me.PanelParameter.Controls.Add(Me.Label17)
-        Me.PanelParameter.Controls.Add(Me.Label18)
-        Me.PanelParameter.Controls.Add(Me.Label3)
-        Me.PanelParameter.Controls.Add(Me.Label19)
-        Me.PanelParameter.Controls.Add(Me.oInit)
-        Me.PanelParameter.Controls.Add(Me.Label4)
-        Me.PanelParameter.Controls.Add(Me.Label15)
-        Me.PanelParameter.Controls.Add(Me.Label5)
         Me.PanelParameter.Controls.Add(Me.ButtonStart)
-        Me.PanelParameter.Controls.Add(Me.oMax)
         Me.PanelParameter.Controls.Add(Me.interval)
-        Me.PanelParameter.Controls.Add(Me.Label14)
-        Me.PanelParameter.Controls.Add(Me.Label6)
-        Me.PanelParameter.Controls.Add(Me.oMin)
-        Me.PanelParameter.Controls.Add(Me.Label7)
-        Me.PanelParameter.Controls.Add(Me.Label13)
-        Me.PanelParameter.Controls.Add(Me.Label8)
-        Me.PanelParameter.Controls.Add(Me.inputCom)
-        Me.PanelParameter.Controls.Add(Me.outputCom)
-        Me.PanelParameter.Controls.Add(Me.Label10)
-        Me.PanelParameter.Controls.Add(Me.Label11)
-        Me.PanelParameter.Controls.Add(Me.Label12)
-        Me.PanelParameter.Controls.Add(Me.iSlave)
+        Me.PanelParameter.Controls.Add(Me.GroupBox3)
+        Me.PanelParameter.Controls.Add(Me.GroupBox1)
+        Me.PanelParameter.Controls.Add(Me.GroupBox2)
+        Me.PanelParameter.Controls.Add(Me.isEmulate)
         Me.PanelParameter.Controls.Add(Me.Button2)
-        Me.PanelParameter.Controls.Add(Me.iAddress)
-        Me.PanelParameter.Controls.Add(Me.oLength)
-        Me.PanelParameter.Controls.Add(Me.iLength)
-        Me.PanelParameter.Controls.Add(Me.oAddress)
-        Me.PanelParameter.Controls.Add(Me.oSlave)
-        Me.PanelParameter.Location = New System.Drawing.Point(9, 16)
+        Me.PanelParameter.Controls.Add(Me.Label6)
+        Me.PanelParameter.Controls.Add(Me.Label5)
+        Me.PanelParameter.Location = New System.Drawing.Point(9, 13)
         Me.PanelParameter.Name = "PanelParameter"
-        Me.PanelParameter.Size = New System.Drawing.Size(734, 217)
+        Me.PanelParameter.Size = New System.Drawing.Size(734, 225)
         Me.PanelParameter.TabIndex = 51
         '
-        'Kd
+        'ButtonStart
         '
-        Me.Kd.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Kd.Location = New System.Drawing.Point(400, 154)
-        Me.Kd.Name = "Kd"
-        Me.Kd.Size = New System.Drawing.Size(94, 31)
-        Me.Kd.TabIndex = 62
-        Me.Kd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ButtonStart.BackColor = System.Drawing.Color.GreenYellow
+        Me.ButtonStart.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonStart.Location = New System.Drawing.Point(645, 151)
+        Me.ButtonStart.Name = "ButtonStart"
+        Me.ButtonStart.Size = New System.Drawing.Size(74, 61)
+        Me.ButtonStart.TabIndex = 9
+        Me.ButtonStart.Text = "Start"
+        Me.ButtonStart.UseVisualStyleBackColor = False
         '
-        'Ki
+        'interval
         '
-        Me.Ki.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Ki.Location = New System.Drawing.Point(231, 154)
-        Me.Ki.Name = "Ki"
-        Me.Ki.Size = New System.Drawing.Size(94, 31)
-        Me.Ki.TabIndex = 61
-        Me.Ki.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.interval.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.interval.Location = New System.Drawing.Point(649, 78)
+        Me.interval.Name = "interval"
+        Me.interval.Size = New System.Drawing.Size(70, 27)
+        Me.interval.TabIndex = 64
+        Me.interval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Kp
+        'GroupBox3
         '
-        Me.Kp.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Kp.Location = New System.Drawing.Point(70, 154)
-        Me.Kp.Name = "Kp"
-        Me.Kp.Size = New System.Drawing.Size(94, 31)
-        Me.Kp.TabIndex = 60
-        Me.Kp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Button4
-        '
-        Me.Button4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(70, 189)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(116, 25)
-        Me.Button4.TabIndex = 59
-        Me.Button4.Text = "Guess Kp"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(673, 13)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(42, 25)
-        Me.Button3.TabIndex = 58
-        Me.Button3.Text = "Button3"
-        Me.Button3.UseVisualStyleBackColor = True
-        Me.Button3.Visible = False
-        '
-        'isEmulate
-        '
-        Me.isEmulate.AutoSize = True
-        Me.isEmulate.Checked = True
-        Me.isEmulate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.isEmulate.Location = New System.Drawing.Point(654, 88)
-        Me.isEmulate.Name = "isEmulate"
-        Me.isEmulate.Size = New System.Drawing.Size(62, 16)
-        Me.isEmulate.TabIndex = 57
-        Me.isEmulate.Text = "Emulate"
-        Me.isEmulate.UseVisualStyleBackColor = True
-        '
-        'oDec
-        '
-        Me.oDec.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oDec.Location = New System.Drawing.Point(467, 113)
-        Me.oDec.Name = "oDec"
-        Me.oDec.Size = New System.Drawing.Size(44, 31)
-        Me.oDec.TabIndex = 56
-        Me.oDec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(463, 85)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(71, 23)
-        Me.Label22.TabIndex = 55
-        Me.Label22.Text = "Decimal"
-        '
-        'iDec
-        '
-        Me.iDec.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iDec.Location = New System.Drawing.Point(467, 46)
-        Me.iDec.Name = "iDec"
-        Me.iDec.Size = New System.Drawing.Size(44, 31)
-        Me.iDec.TabIndex = 54
-        Me.iDec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(463, 14)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(71, 23)
-        Me.Label21.TabIndex = 53
-        Me.Label21.Text = "Decimal"
+        Me.GroupBox3.Controls.Add(Me.iSetpoint)
+        Me.GroupBox3.Controls.Add(Me.Label20)
+        Me.GroupBox3.Controls.Add(Me.oInit)
+        Me.GroupBox3.Controls.Add(Me.Label15)
+        Me.GroupBox3.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox3.Location = New System.Drawing.Point(270, 11)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(107, 203)
+        Me.GroupBox3.TabIndex = 64
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Initials"
         '
         'iSetpoint
         '
         Me.iSetpoint.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iSetpoint.Location = New System.Drawing.Point(390, 46)
+        Me.iSetpoint.Location = New System.Drawing.Point(20, 65)
         Me.iSetpoint.Name = "iSetpoint"
-        Me.iSetpoint.Size = New System.Drawing.Size(60, 31)
+        Me.iSetpoint.Size = New System.Drawing.Size(74, 31)
         Me.iSetpoint.TabIndex = 52
         Me.iSetpoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -314,322 +228,400 @@ Partial Class Form1
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(386, 14)
+        Me.Label20.Location = New System.Drawing.Point(16, 21)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(78, 23)
+        Me.Label20.Size = New System.Drawing.Size(77, 46)
         Me.Label20.TabIndex = 51
-        Me.Label20.Text = "Set point"
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(66, 14)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(43, 23)
-        Me.Label9.TabIndex = 34
-        Me.Label9.Text = "Port"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(70, 85)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(43, 23)
-        Me.Label16.TabIndex = 50
-        Me.Label16.Text = "Port"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(19, 155)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 29)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Kp"
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(331, 85)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(62, 23)
-        Me.Label17.TabIndex = 49
-        Me.Label17.Text = "Length"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(241, 85)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(73, 23)
-        Me.Label18.TabIndex = 48
-        Me.Label18.Text = "Address"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(188, 155)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(32, 29)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Ki"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(170, 85)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(50, 23)
-        Me.Label19.TabIndex = 47
-        Me.Label19.Text = "Slave"
+        Me.Label20.Text = "Input" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "set point"
         '
         'oInit
         '
         Me.oInit.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oInit.Location = New System.Drawing.Point(390, 113)
+        Me.oInit.Location = New System.Drawing.Point(19, 156)
         Me.oInit.Name = "oInit"
-        Me.oInit.Size = New System.Drawing.Size(60, 31)
+        Me.oInit.Size = New System.Drawing.Size(74, 31)
         Me.oInit.TabIndex = 46
         Me.oInit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(347, 155)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(39, 29)
-        Me.Label4.TabIndex = 7
-        Me.Label4.Text = "Kd"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(396, 85)
+        Me.Label15.Location = New System.Drawing.Point(16, 107)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(54, 23)
+        Me.Label15.Size = New System.Drawing.Size(65, 46)
         Me.Label15.TabIndex = 45
-        Me.Label15.Text = "Initial"
+        Me.Label15.Text = "Output" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Initial"
         '
-        'Label5
+        'GroupBox1
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(566, 14)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(70, 23)
-        Me.Label5.TabIndex = 44
-        Me.Label5.Text = "Interval"
+        Me.GroupBox1.Controls.Add(Me.Label9)
+        Me.GroupBox1.Controls.Add(Me.inputCom)
+        Me.GroupBox1.Controls.Add(Me.oDec)
+        Me.GroupBox1.Controls.Add(Me.outputCom)
+        Me.GroupBox1.Controls.Add(Me.Label10)
+        Me.GroupBox1.Controls.Add(Me.iDec)
+        Me.GroupBox1.Controls.Add(Me.Label11)
+        Me.GroupBox1.Controls.Add(Me.Label21)
+        Me.GroupBox1.Controls.Add(Me.iSlave)
+        Me.GroupBox1.Controls.Add(Me.iAddress)
+        Me.GroupBox1.Controls.Add(Me.oLength)
+        Me.GroupBox1.Controls.Add(Me.iLength)
+        Me.GroupBox1.Controls.Add(Me.oAddress)
+        Me.GroupBox1.Controls.Add(Me.oSlave)
+        Me.GroupBox1.Controls.Add(Me.Label12)
+        Me.GroupBox1.Controls.Add(Me.Label8)
+        Me.GroupBox1.Controls.Add(Me.Label7)
+        Me.GroupBox1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 11)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(261, 203)
+        Me.GroupBox1.TabIndex = 63
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "System tags"
         '
-        'ButtonStart
+        'Label9
         '
-        Me.ButtonStart.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonStart.Location = New System.Drawing.Point(651, 117)
-        Me.ButtonStart.Name = "ButtonStart"
-        Me.ButtonStart.Size = New System.Drawing.Size(80, 88)
-        Me.ButtonStart.TabIndex = 9
-        Me.ButtonStart.Text = "Start"
-        Me.ButtonStart.UseVisualStyleBackColor = True
-        '
-        'oMax
-        '
-        Me.oMax.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oMax.Location = New System.Drawing.Point(589, 113)
-        Me.oMax.Name = "oMax"
-        Me.oMax.Size = New System.Drawing.Size(60, 31)
-        Me.oMax.TabIndex = 43
-        Me.oMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'interval
-        '
-        Me.interval.DecimalPlaces = 1
-        Me.interval.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.interval.Increment = New Decimal(New Integer() {5, 0, 0, 65536})
-        Me.interval.Location = New System.Drawing.Point(570, 46)
-        Me.interval.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.interval.Name = "interval"
-        Me.interval.Size = New System.Drawing.Size(88, 31)
-        Me.interval.TabIndex = 10
-        Me.interval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(589, 85)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(43, 23)
-        Me.Label14.TabIndex = 42
-        Me.Label14.Text = "Max"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(664, 50)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(35, 23)
-        Me.Label6.TabIndex = 12
-        Me.Label6.Text = "sec"
-        '
-        'oMin
-        '
-        Me.oMin.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oMin.Location = New System.Drawing.Point(523, 113)
-        Me.oMin.Name = "oMin"
-        Me.oMin.Size = New System.Drawing.Size(60, 31)
-        Me.oMin.TabIndex = 41
-        Me.oMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(12, 50)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(52, 23)
-        Me.Label7.TabIndex = 13
-        Me.Label7.Text = "Input"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(531, 85)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(40, 23)
-        Me.Label13.TabIndex = 40
-        Me.Label13.Text = "Min"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(3, 113)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(65, 23)
-        Me.Label8.TabIndex = 14
-        Me.Label8.Text = "Output"
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(36, 53)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(43, 23)
+        Me.Label9.TabIndex = 34
+        Me.Label9.Text = "Port"
         '
         'inputCom
         '
-        Me.inputCom.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.inputCom.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.inputCom.FormattingEnabled = True
-        Me.inputCom.Location = New System.Drawing.Point(70, 46)
+        Me.inputCom.Location = New System.Drawing.Point(81, 49)
         Me.inputCom.Name = "inputCom"
-        Me.inputCom.Size = New System.Drawing.Size(94, 31)
+        Me.inputCom.Size = New System.Drawing.Size(72, 27)
         Me.inputCom.TabIndex = 15
+        '
+        'oDec
+        '
+        Me.oDec.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oDec.Location = New System.Drawing.Point(166, 169)
+        Me.oDec.Name = "oDec"
+        Me.oDec.Size = New System.Drawing.Size(72, 27)
+        Me.oDec.TabIndex = 56
+        Me.oDec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'outputCom
         '
-        Me.outputCom.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.outputCom.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.outputCom.FormattingEnabled = True
-        Me.outputCom.Location = New System.Drawing.Point(70, 113)
+        Me.outputCom.Location = New System.Drawing.Point(166, 49)
         Me.outputCom.Name = "outputCom"
-        Me.outputCom.Size = New System.Drawing.Size(94, 31)
+        Me.outputCom.Size = New System.Drawing.Size(72, 27)
         Me.outputCom.TabIndex = 16
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(166, 14)
+        Me.Label10.Location = New System.Drawing.Point(29, 83)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(50, 23)
         Me.Label10.TabIndex = 21
         Me.Label10.Text = "Slave"
         '
+        'iDec
+        '
+        Me.iDec.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.iDec.Location = New System.Drawing.Point(81, 169)
+        Me.iDec.Name = "iDec"
+        Me.iDec.Size = New System.Drawing.Size(72, 27)
+        Me.iDec.TabIndex = 54
+        Me.iDec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(237, 14)
+        Me.Label11.Location = New System.Drawing.Point(6, 113)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(73, 23)
         Me.Label11.TabIndex = 22
         Me.Label11.Text = "Address"
         '
-        'Label12
+        'Label21
         '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(327, 14)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(62, 23)
-        Me.Label12.TabIndex = 23
-        Me.Label12.Text = "Length"
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(8, 172)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(71, 23)
+        Me.Label21.TabIndex = 53
+        Me.Label21.Text = "Decimal"
         '
         'iSlave
         '
-        Me.iSlave.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iSlave.Location = New System.Drawing.Point(170, 46)
+        Me.iSlave.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.iSlave.Location = New System.Drawing.Point(81, 79)
         Me.iSlave.Name = "iSlave"
-        Me.iSlave.Size = New System.Drawing.Size(60, 31)
+        Me.iSlave.Size = New System.Drawing.Size(72, 27)
         Me.iSlave.TabIndex = 25
         Me.iSlave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Button2
-        '
-        Me.Button2.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(549, 149)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(87, 40)
-        Me.Button2.TabIndex = 33
-        Me.Button2.Text = "Save"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'iAddress
         '
-        Me.iAddress.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iAddress.Location = New System.Drawing.Point(241, 46)
+        Me.iAddress.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.iAddress.Location = New System.Drawing.Point(81, 109)
         Me.iAddress.Name = "iAddress"
-        Me.iAddress.Size = New System.Drawing.Size(84, 31)
+        Me.iAddress.Size = New System.Drawing.Size(72, 27)
         Me.iAddress.TabIndex = 26
         Me.iAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'oLength
         '
-        Me.oLength.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oLength.Location = New System.Drawing.Point(331, 113)
+        Me.oLength.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oLength.Location = New System.Drawing.Point(166, 139)
         Me.oLength.Name = "oLength"
-        Me.oLength.Size = New System.Drawing.Size(44, 31)
+        Me.oLength.Size = New System.Drawing.Size(72, 27)
         Me.oLength.TabIndex = 31
         Me.oLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'iLength
         '
-        Me.iLength.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.iLength.Location = New System.Drawing.Point(331, 46)
+        Me.iLength.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.iLength.Location = New System.Drawing.Point(81, 139)
         Me.iLength.Name = "iLength"
-        Me.iLength.Size = New System.Drawing.Size(44, 31)
+        Me.iLength.Size = New System.Drawing.Size(72, 27)
         Me.iLength.TabIndex = 27
         Me.iLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'oAddress
         '
-        Me.oAddress.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oAddress.Location = New System.Drawing.Point(241, 113)
+        Me.oAddress.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oAddress.Location = New System.Drawing.Point(166, 109)
         Me.oAddress.Name = "oAddress"
-        Me.oAddress.Size = New System.Drawing.Size(84, 31)
+        Me.oAddress.Size = New System.Drawing.Size(72, 27)
         Me.oAddress.TabIndex = 30
         Me.oAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'oSlave
         '
-        Me.oSlave.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oSlave.Location = New System.Drawing.Point(170, 113)
+        Me.oSlave.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oSlave.Location = New System.Drawing.Point(166, 79)
         Me.oSlave.Name = "oSlave"
-        Me.oSlave.Size = New System.Drawing.Size(60, 31)
+        Me.oSlave.Size = New System.Drawing.Size(72, 27)
         Me.oSlave.TabIndex = 29
         Me.oSlave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(17, 143)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(62, 23)
+        Me.Label12.TabIndex = 23
+        Me.Label12.Text = "Length"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(166, 21)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(65, 23)
+        Me.Label8.TabIndex = 14
+        Me.Label8.Text = "Output"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(81, 21)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(52, 23)
+        Me.Label7.TabIndex = 13
+        Me.Label7.Text = "Input"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.thinking)
+        Me.GroupBox2.Controls.Add(Me.Label16)
+        Me.GroupBox2.Controls.Add(Me.Kd)
+        Me.GroupBox2.Controls.Add(Me.Ki)
+        Me.GroupBox2.Controls.Add(Me.Kp)
+        Me.GroupBox2.Controls.Add(Me.Button4)
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.oMax)
+        Me.GroupBox2.Controls.Add(Me.Label13)
+        Me.GroupBox2.Controls.Add(Me.oMin)
+        Me.GroupBox2.Controls.Add(Me.Label14)
+        Me.GroupBox2.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(383, 11)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(241, 203)
+        Me.GroupBox2.TabIndex = 63
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Controller"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Calibri", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(6, 116)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(116, 23)
+        Me.Label16.TabIndex = 63
+        Me.Label16.Text = "Control value"
+        '
+        'Kd
+        '
+        Me.Kd.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Kd.Location = New System.Drawing.Point(162, 58)
+        Me.Kd.Name = "Kd"
+        Me.Kd.Size = New System.Drawing.Size(70, 27)
+        Me.Kd.TabIndex = 62
+        Me.Kd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Ki
+        '
+        Me.Ki.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Ki.Location = New System.Drawing.Point(86, 58)
+        Me.Ki.Name = "Ki"
+        Me.Ki.Size = New System.Drawing.Size(70, 27)
+        Me.Ki.TabIndex = 61
+        Me.Ki.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Kp
+        '
+        Me.Kp.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Kp.Location = New System.Drawing.Point(10, 58)
+        Me.Kp.Name = "Kp"
+        Me.Kp.Size = New System.Drawing.Size(70, 27)
+        Me.Kp.TabIndex = 60
+        Me.Kp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Button4
+        '
+        Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.Location = New System.Drawing.Point(31, 32)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(45, 25)
+        Me.Button4.TabIndex = 59
+        Me.Button4.Text = "Guess"
+        Me.Button4.UseVisualStyleBackColor = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(6, 33)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(30, 23)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Kp"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(82, 33)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(25, 23)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "Ki"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(158, 33)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(30, 23)
+        Me.Label4.TabIndex = 7
+        Me.Label4.Text = "Kd"
+        '
+        'oMax
+        '
+        Me.oMax.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oMax.Location = New System.Drawing.Point(152, 148)
+        Me.oMax.Name = "oMax"
+        Me.oMax.Size = New System.Drawing.Size(66, 27)
+        Me.oMax.TabIndex = 43
+        Me.oMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(6, 150)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(40, 23)
+        Me.Label13.TabIndex = 40
+        Me.Label13.Text = "Min"
+        '
+        'oMin
+        '
+        Me.oMin.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oMin.Location = New System.Drawing.Point(51, 148)
+        Me.oMin.Name = "oMin"
+        Me.oMin.Size = New System.Drawing.Size(56, 27)
+        Me.oMin.TabIndex = 41
+        Me.oMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(113, 150)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(43, 23)
+        Me.Label14.TabIndex = 42
+        Me.Label14.Text = "Max"
+        '
+        'isEmulate
+        '
+        Me.isEmulate.AutoSize = True
+        Me.isEmulate.Checked = True
+        Me.isEmulate.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.isEmulate.Location = New System.Drawing.Point(645, 133)
+        Me.isEmulate.Name = "isEmulate"
+        Me.isEmulate.Size = New System.Drawing.Size(62, 16)
+        Me.isEmulate.TabIndex = 57
+        Me.isEmulate.Text = "Emulate"
+        Me.isEmulate.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.AntiqueWhite
+        Me.Button2.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Location = New System.Drawing.Point(645, 17)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(74, 32)
+        Me.Button2.TabIndex = 33
+        Me.Button2.Text = "Save"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(684, 104)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(35, 23)
+        Me.Label6.TabIndex = 12
+        Me.Label6.Text = "sec"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(649, 52)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(70, 23)
+        Me.Label5.TabIndex = 44
+        Me.Label5.Text = "Interval"
         '
         'PidOutput
         '
@@ -716,16 +708,16 @@ Partial Class Form1
         Me.Button1.Text = "設定"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'adj
+        'thinking
         '
-        Me.adj.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.adj.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.adj.Location = New System.Drawing.Point(1020, 198)
-        Me.adj.Name = "adj"
-        Me.adj.Size = New System.Drawing.Size(75, 23)
-        Me.adj.TabIndex = 52
-        Me.adj.Text = "2.2"
-        Me.adj.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.thinking.AutoSize = True
+        Me.thinking.Font = New System.Drawing.Font("Lucida Console", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.thinking.ForeColor = System.Drawing.Color.IndianRed
+        Me.thinking.Location = New System.Drawing.Point(5, 89)
+        Me.thinking.Name = "thinking"
+        Me.thinking.Size = New System.Drawing.Size(188, 27)
+        Me.thinking.TabIndex = 64
+        Me.thinking.Text = "Thinking..."
         '
         'Form1
         '
@@ -744,7 +736,12 @@ Partial Class Form1
         Me.Panel2.PerformLayout()
         Me.PanelParameter.ResumeLayout(False)
         Me.PanelParameter.PerformLayout()
-        CType(Me.interval, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -766,7 +763,6 @@ Partial Class Form1
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents interval As NumericUpDown
     Friend WithEvents ButtonStart As Button
     Friend WithEvents oLength As TextBox
     Friend WithEvents oAddress As TextBox
@@ -778,10 +774,6 @@ Partial Class Form1
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Button2 As Button
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Label17 As Label
-    Friend WithEvents Label18 As Label
-    Friend WithEvents Label19 As Label
     Friend WithEvents oInit As TextBox
     Friend WithEvents Label15 As Label
     Friend WithEvents Label5 As Label
@@ -799,14 +791,18 @@ Partial Class Form1
     Friend WithEvents iSetpoint As TextBox
     Friend WithEvents Label20 As Label
     Friend WithEvents oDec As TextBox
-    Friend WithEvents Label22 As Label
     Friend WithEvents iDec As TextBox
     Friend WithEvents Label21 As Label
     Friend WithEvents isEmulate As CheckBox
-    Friend WithEvents Button3 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Kd As TextBox
     Friend WithEvents Ki As TextBox
     Friend WithEvents Kp As TextBox
     Friend WithEvents adj As TextBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents interval As TextBox
+    Friend WithEvents thinking As Label
 End Class

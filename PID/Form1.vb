@@ -10,13 +10,17 @@ Public Class Form1
         Chart1.ChartAreas.Add("Default")
         With Chart1.ChartAreas("Default")
             .AxisX.Title = "t"
-            .AxisX.Interval = 5
+            '.AxisX.Interval = CInt(MySettings.iSetpoint / 10)
             .AxisX.IsMarginVisible = True
             .AxisX.MajorGrid.LineColor = Color.SkyBlue
             .AxisY.MajorGrid.LineColor = Color.SkyBlue
-            .AxisY.Title = "PID"
+            .AxisY.Title = "Input"
             .AxisY.Interval = 10
+            .AxisY2.Title = "Output"
+            .AxisY2.Interval = 10
         End With
+
+
 
         Chart1.Legends.Clear()
         Chart1.Legends.Add("Default")
@@ -31,6 +35,7 @@ Public Class Form1
             .BorderWidth = 3
             .Color = Color.Red
             .ChartType = DataVisualization.Charting.SeriesChartType.Line
+
         End With
 
         With Chart1.Series(1)
@@ -43,6 +48,7 @@ Public Class Form1
             .BorderWidth = 3
             .Color = Color.Green
             .ChartType = DataVisualization.Charting.SeriesChartType.Line
+            .YAxisType = AxisType.Secondary
         End With
     End Sub
 
@@ -133,7 +139,7 @@ Public Class Form1
         initChart()
         inputCom.Items.Clear()
         outputCom.Items.Clear()
-
+        thinking.Visible = False
         For i = 1 To 9
             inputCom.Items.Add("COM" & i)
             outputCom.Items.Add("COM" & i)
@@ -148,12 +154,27 @@ Public Class Form1
         Next
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As EventArgs)
         doTest()
 
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        Me.Kp.Text = Math.Round(CDbl(GuessKp()), 4)
+        mSetting.SaveSettings()
+        thinking.Visible = True
+        Application.DoEvents()
+        Dim v = Math.Round(CDbl(GuessKp()), 4)
+        thinking.Visible = False
+        If ShowMsgBox($"Guess {v}", "Ok,Cancel") = 1 Then
+            Me.Kp.Text = v
+        End If
+    End Sub
+
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+
+    End Sub
+
+    Private Sub Chart1_Click(sender As Object, e As EventArgs) Handles Chart1.Click
+
     End Sub
 End Class
