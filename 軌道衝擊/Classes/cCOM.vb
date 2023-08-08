@@ -102,6 +102,7 @@ Public Class cCOM
             Me.ConnectBus()
         End If
         SyncLock mbc
+            mbc.StopBits = Me.StopBits
             mbc.UnitIdentifier = slaveid
             mbc.WriteMultipleRegisters(registerAddress, values)
         End SyncLock
@@ -115,16 +116,18 @@ Public Class cCOM
     ''' <returns></returns>
     Function ReadTag(slaveid As Integer, registerAddress As Integer, dataLength As Integer) As Integer()
         Dim values = Nothing
-
-        If Not mbc.Connected Then
-            ' 如果 Modbus 未connect
-            Me.ConnectBus()
-        End If
         SyncLock mbc
+            If Not mbc.Connected Then
+                ' 如果 Modbus 未connect
+                Me.ConnectBus()
+            End If
+
+            mbc.StopBits = Me.StopBits
             mbc.UnitIdentifier = slaveid
             values = mbc.ReadHoldingRegisters(registerAddress, dataLength)
 
         End SyncLock
+
         Return values
 
     End Function
@@ -137,12 +140,14 @@ Public Class cCOM
     Function WriteString(cmd As String, Optional timeoutms As Integer = 1000) As String
 
         Dim returnStr As String = ""
+        SyncLock comport
+            If Not comport.IsOpen Then
+                ' 如果 com port 未open
 
-        If Not comport.IsOpen Then
-            ' 如果 com port 未open
-            Me.ConnectPort()
-        End If
-        returnStr = DoWriteString(cmd, timeoutms)
+                Me.ConnectPort()
+            End If
+            returnStr = DoWriteString(cmd, timeoutms)
+        End SyncLock
         Return returnStr
 
     End Function
@@ -165,7 +170,7 @@ Public Class cCOM
         'Task.Delay(100).Wait()
         SyncLock comport ' 防止多工環境下 com port 同時被存取
             With comport
-
+                .StopBits = Me.StopBits
                 ClearBuffer() '先清空BUFFER
                 stw.Restart()
                 .Write(cmd) ' 因為 cmd 有 vbCr, 覺得用Write即可, 不用WriteLine
@@ -212,16 +217,17 @@ Public Class cCOM
     End Sub
 
     Sub SetStopBits(sbits As System.IO.Ports.StopBits)
-        If mbc.Connected Then
-            SyncLock mbc
-                mbc.StopBits = sbits
-            End SyncLock
-        End If
-        If comport.IsOpen Then
-            SyncLock comport
-                comport.StopBits = sbits
-            End SyncLock
-        End If
+        Me.StopBits = sbits
+        'If mbc.Connected Then
+        '    SyncLock mbc
+        '        mbc.StopBits = sbits
+        '    End SyncLock
+        'End If
+        'If comport.IsOpen Then
+        '    SyncLock comport
+        '        comport.StopBits = sbits
+        '    End SyncLock
+        'End If
     End Sub
 
 End Class

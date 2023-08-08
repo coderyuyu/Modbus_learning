@@ -34,14 +34,14 @@ Public Class cSYS
     Property 開始記錄 As Boolean = False
     Property 開始記錄時間 As Date
     Property 異常持續上限 As Integer = 10 * 1000 ' 10 秒
-
     Property 最後更新變頻器頻率 As Decimal = 0
+    Property 最後主缸力值 As Decimal = 0
 
     'Dim emulateTimer As System.Threading.Timer
     '''
     Sub New()
-        CH1 = New cCOM("COM6") ', 9600,, StopBits:=StopBits.Two)
-        CH2 = New cCOM("COM5") ', 9600,, StopBits:=StopBits.Two)
+        CH1 = New cCOM("COM3") ', 9600,, StopBits:=StopBits.Two)
+        CH2 = New cCOM("COM4") ', 9600,, StopBits:=StopBits.Two)
     End Sub
 
     Sub SetEmulate(onoff As Boolean)
@@ -133,7 +133,9 @@ Public Class cSYS
         Dim values As Integer() = {1}
         'CH2.ReConnectBus(StopBit:=2)
         'CH2.StopBits = StopBits.Two
+        CH2.SetStopBits(StopBits.Two)
         CH2.WriteTag(slaveid:=4, registerAddress:=&H2000, values:=values)
+        CH2.SetStopBits(StopBits.One)
         'CH2.StopBits = StopBits.One
     End Sub
 
@@ -156,8 +158,10 @@ Public Class cSYS
         Dim values As Integer() = {value * 100} ' 四捨五入取整數
         'CH2.ReConnectBus(StopBit:=2)
         'CH2.StopBits = StopBits.Two
+        CH2.SetStopBits(StopBits.Two)
         CH2.WriteTag(slaveid:=4, registerAddress:=&H2001, values:=values)
         最後更新變頻器頻率 = value
+        CH2.SetStopBits(StopBits.One)
         'CH2.StopBits = StopBits.One
     End Sub
 
@@ -214,7 +218,9 @@ Public Class cSYS
 
     Function 主缸力值() As Decimal
         Static values2 As Integer = Nothing
+        CH2.SetStopBits(StopBits.Two)
         Dim values = CH2.ReadTag(1, &H26, 2) ' 整數
+        CH2.SetStopBits(StopBits.One)
         If values(0) < 0 Then
             values(0) = 0 - values(0)
         End If

@@ -51,6 +51,7 @@
         SyncLock DATA0
             With DATA2
                 .主缸力值 = DATA0.主缸力值
+
             End With
         End SyncLock
         newTons = DATA2.主缸力值

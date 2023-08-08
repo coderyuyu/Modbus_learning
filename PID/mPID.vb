@@ -1,7 +1,7 @@
 ﻿Imports System.Net
 Imports Controller.EasyPID
 Module mPID
-    Dim PID As EasyPID
+    Dim PID As MyEasyPID
     Dim COMS As New Dictionary(Of String, cCOM)
     Dim NewOutput As Decimal
     Dim oFact As Decimal
@@ -22,7 +22,7 @@ Module mPID
         Dim maxoutput = MySettings.oMax
         Dim interval = MySettings.interval * 1000
 
-        PID = New EasyPID(Kp:=kp, Ki:=ki, Kd:=kd,
+        PID = New MyEasyPID(Kp:=kp, Ki:=ki, Kd:=kd,
                           Setpoint:=setpoint, OutputSpeed:=interval,
         MinOutput:=minoutput, MaxOutput:=maxoutput)
 
@@ -130,6 +130,7 @@ Module mPID
             v2 = Convert.ToInt32(hx.Substring(2, 2), 16)
             ar = {v1, v2}
             'ConsoleLog($"Emu write input {iv}")
+            address = Convert.ToInt32(addressStr.ToString.Substring(2))
             COMS("icom").WriteTag(slaveid, address, ar)
         Else
             Throw New Exception("output length > 2 not supported")
@@ -254,7 +255,7 @@ Module mPID
 
 
 
-
+        'MsgBox((max - 0.00001) / MySettings.iSetpoint)
 
 
 

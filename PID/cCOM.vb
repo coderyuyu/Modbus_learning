@@ -103,6 +103,7 @@ Public Class cCOM
         End If
         SyncLock mbc
             mbc.UnitIdentifier = slaveid
+            mbc.StopBits = StopBits.Two
             mbc.WriteMultipleRegisters(registerAddress, values)
         End SyncLock
     End Sub

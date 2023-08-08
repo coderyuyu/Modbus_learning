@@ -10,8 +10,24 @@
                              PreProcess()
                              Do
                                  Try
+
+
                                      stw.Restart()
-                                     DoWorker()
+                                     If DATA0.主缸力值 > FSET.容許最高承載力值 Then
+                                         Throw New Exception("StopTasks:主缸力值 > 容許最高承載力值")
+                                     ElseIf SYS.開始衝擊 AndAlso DATA0.主缸力值 < FSET.容許最低承載力值 Then
+                                         Throw New Exception("StopTasks:開始衝擊 但 > 主缸力值 < 容許最低承載力值")
+                                     End If
+
+
+                                     'If SYS.緊急按鈕狀態 Then
+                                     '    '
+                                     '    Throw New Exception("StopTasks:緊急按鈕已按下")
+                                     'ElseIf DATA0.主缸力值 > FSET.容許最高承載力值 Then
+                                     '    Throw New Exception("StopTasks:主缸力值 > 容許最高承載力值")
+                                     'ElseIf SYS.開始衝擊 AndAlso DATA0.主缸力值 < FSET.容許最低承載力值 Then
+                                     '    Throw New Exception("StopTasks:開始衝擊 但 > 主缸力值 < 容許最低承載力值")
+                                     'End If
                                      stw.Stop()
                                      loopWait = interval - stw.Elapsed.Milliseconds
                                      If loopWait > 0 Then
@@ -45,14 +61,15 @@
     End Sub
 
     Private Sub DoWorker()
-        If SYS.緊急按鈕狀態 Then
-            '
-            Throw New Exception("StopTasks:緊急按鈕已按下")
-        ElseIf SYS.主缸力值 > FSET.容許最高承載力值 Then
-            Throw New Exception("StopTasks:主缸力值 > 容許最高承載力值")
-        ElseIf SYS.開始衝擊 AndAlso SYS.主缸力值 < FSET.容許最低承載力值 Then
-            Throw New Exception("StopTasks:開始衝擊 但 > 主缸力值 < 容許最低承載力值")
-        End If
+
+        'If SYS.緊急按鈕狀態 Then
+        '    '
+        '    Throw New Exception("StopTasks:緊急按鈕已按下")
+        '    'ElseIf data0.主缸力值 > FSET.容許最高承載力值 Then
+        '    '    Throw New Exception("StopTasks:主缸力值 > 容許最高承載力值")
+        '    'ElseIf SYS.開始衝擊 AndAlso data0.主缸力值 < FSET.容許最低承載力值 Then
+        '    '    Throw New Exception("StopTasks:開始衝擊 但 > 主缸力值 < 容許最低承載力值")
+        'End If
     End Sub
 
 

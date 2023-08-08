@@ -496,8 +496,12 @@ Module mTasks
                 Case "TextBox"
                     ctrl.Text = value
                 Case "Chart"
+                    Try
+                        FMAIN.UpdateChart(value)
+                    Catch ex As Exception
 
-                    FMAIN.UpdateChart(value)
+                    End Try
+
 
 
             End Select

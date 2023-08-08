@@ -277,14 +277,19 @@ Public Class FormMain
 
 
     Sub UpdateChart(data As List(Of Array))
+        Try
 
-        Chart1.Series(0).Points.Clear()
-        Chart1.Series(1).Points.Clear()
 
-        For i = 1 To data.Count
-            Chart1.Series(0).Points.AddXY(i, data(i - 1)(0))
-            Chart1.Series(1).Points.AddXY(i, data(i - 1)(1))
-        Next
+            Chart1.Series(0).Points.Clear()
+            Chart1.Series(1).Points.Clear()
+
+            For i = 1 To data.Count
+                Chart1.Series(0).Points.AddXY(i, data(i - 1)(0))
+                Chart1.Series(1).Points.AddXY(i, data(i - 1)(1))
+            Next
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs)
